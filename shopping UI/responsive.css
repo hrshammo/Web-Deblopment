@@ -1,0 +1,477 @@
+/*		Default Layout: 992px. 
+		Gutters: 24px.
+		Outer margins: 48px.
+		Leftover space for scrollbars @1024px: 32px.
+-------------------------------------------------------------------------------
+cols    1     2      3      4      5      6      7      8      9      10
+px      68    160    252    344    436    528    620    712    804    896    */
+
+body {
+	width: 100%;
+	/* padding: 72px 48px 84px; */
+
+	color: rgb(60,60,60);
+	-webkit-text-size-adjust: 100%; /* Stops Mobile Safari from auto-adjusting font-sizes */
+}
+
+@media only screen and (min-width: 985px) and (max-width: 1165px) {
+	
+	.logo img{
+		width: 90px;
+		top: -10px;
+		height: 90px;
+		left: 3%;
+	}
+
+	.dropbtn{
+		padding: 6px;px;
+		height: 49px;
+	}
+	.dropdown{
+		top: -20px;
+        right: 48%;
+	}
+	.search{
+		width: 20%;
+		right: 26%;
+	}
+	header{
+		position: fixed;
+	}
+	.path{
+		right: 0px;
+		top: 60px;
+		font-size: 14px;
+	}
+	.image{
+		left: 1%;
+		width: 60%;
+		top: 53px;
+	}
+	
+	.details{
+		width: 40%;
+		top: 67px;
+	}
+	.addbagb {
+		width: 60%;
+	}
+	.wishlistb{
+		width: 35%;
+	}	
+	.productsdetails{
+		width: 92%;
+        top: 64px;
+		left: 52%;
+	}
+	.delivery button {
+		left: -17%;
+}
+
+
+}
+
+/*		Tablet Layout: 768px.
+		Gutters: 24px.
+		Outer margins: 28px.
+		Inherits styles from: Default Layout.
+-----------------------------------------------------------------
+cols    1     2      3      4      5      6      7      8
+px      68    160    252    344    436    528    620    712    */
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+	
+	body {
+		width: 712px;
+		width: 100%;
+		
+	}
+	header{
+		position: fixed;
+	}
+	.logo img{
+		width: 70px;
+		top: 0px;
+		height: 70px;
+		left: 1%;
+	}
+
+	.dropbtn{
+		padding: 1px;
+		height: 49px;
+	}
+	.dropdown{
+		top: -20px;
+        right: 48%;
+	}
+	.search{
+		width: 20%;
+		right: 26%;
+	}
+	.path{
+		right: 0px;
+		top: 59px;
+	}
+	.image{
+		left: -2%;
+    width: 60%;
+    top: 50px;
+	}
+	.image img{
+		width: 47%;
+	}
+
+	
+	.details{
+		width: 40%;
+    	top: 60px;
+	}
+	.rateing {
+		width: 55%;
+	}
+	.detailsy {
+		font-family: serif;
+	}
+	.addbagb {
+		width: 60%;
+	}
+	.wishlistb{
+		width: 35%;
+	}
+	.productsdetails{
+		width: 55%;
+		top: 39px;
+		right: 26px;
+	}
+	.delivery button {
+		left: -19%;
+}
+}
+
+
+/*		Mobile Layout: 320px.
+		Gutters: 24px.
+		Outer margins: 34px.
+		Inherits styles from: Default Layout.
+---------------------------------------------
+cols    1     2      3
+px      68    160    252    */
+
+@media only screen and (max-width: 767px) {
+	
+	body {
+		width: 100%;
+		/*padding: 48px 34px 60px;*/
+		padding: 0;
+		margin: 0;
+	}
+	header{
+		height: 100px;
+		position: fixed;
+	}
+	.logo img{
+		width: 70px;
+		top: 0px;
+		height: 70px;
+		left: 9%;
+	}
+	.dropbtn {
+		padding: 7px;
+		height: 49px;
+		top: 41px;
+		left: 42px;
+		
+	}
+	.dropdown{
+		
+	}
+	.dropdown-content {
+		top: 89px;
+	}
+	.search{
+		width: 30%;
+		right: 40%;
+	}
+	.headerimg{
+		right: 52%;
+		top: -10px;
+	}
+	.side .headerimg a img{
+		width: 15px;
+	}
+	.path{
+		right: 0px;
+    top: 92px;
+    font-size: 12px;
+	}
+	.image{
+		left: -2%;
+		width: 100%;
+        top: 79px;
+	}
+	.image img{
+		width: 100%;
+	}
+	.none{
+		display: none;
+	}
+	
+	.details{
+		width: 92%;
+		top: 100px;
+	}
+	.productsdetails{
+		width: 92%;
+        top: 64px;
+	}
+	.delivery button {
+		left: -17%;
+}
+}
+
+
+
+/*		Wide Mobile Layout: 480px.
+		Gutters: 24px.
+		Outer margins: 22px.
+		Inherits styles from: Default Layout, Mobile Layout.
+------------------------------------------------------------
+cols    1     2      3      4      5
+px      68    160    252    344    436    */
+
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+	
+	body {
+		width: 100%;
+		/*padding: 48px 34px 60px;*/
+		padding: 0;
+		margin: 0;
+	}
+	header{
+		height: 100px;
+		position: fixed;
+		
+	}
+	.logo img{
+		width: 70px;
+		top: 0px;
+		height: 70px;
+		left: 9%;
+	}
+	.dropbtn {
+		padding: 7px;
+		height: 49px;
+		top: 41px;
+		left: 42px;
+		
+	}
+	.dropdown{
+		
+	}
+	.dropdown-content {
+		top: 89px;
+	}
+	.search{
+		width: 30%;
+		right: 40%;
+	}
+	.headerimg{
+		right: 52%;
+		top: -10px;
+	}
+	.side .headerimg a img{
+		width: 15px;
+	}
+	.path{
+		right: 0px;
+    top: 92px;
+    font-size: 12px;
+	}
+	.image{
+		left: -2%;
+		width: 100%;
+        top: 79px;
+	}
+	.image img{
+		width: 100%;
+	}
+	.none{
+		display: none;
+	}
+	
+	.details{
+		width: 92%;
+		top: 100px;
+	}
+	.productsdetails{
+		width: 92%;
+        top: 64px;
+	}
+	.delivery button {
+		left: -17%;
+}
+}
+
+
+/*	Retina media query.
+	Overrides styles for devices with a 
+	device-pixel-ratio of 2+, such as iPhone 4.
+-----------------------------------------------    */
+
+@media 
+	only screen and (-webkit-min-device-pixel-ratio: 2),
+	only screen and (min-device-pixel-ratio: 2) {
+		
+		body {
+			width: 100%;
+			/*padding: 48px 34px 60px;*/
+			padding: 0;
+			margin: 0;
+		}
+		header{
+			height: 100px;
+			position: fixed;
+		}
+		.logo img{
+			width: 70px;
+			top: 0px;
+			height: 70px;
+			left: 9%;
+		}
+		.dropbtn {
+			padding: 7px;
+			height: 49px;
+			top: 41px;
+			left: 42px;
+			
+		}
+		.dropdown{
+			
+		}
+		.dropdown-content {
+			top: 89px;
+		}
+		.search{
+			width: 30%;
+			right: 40%;
+		}
+		.headerimg{
+			right: 52%;
+			top: -10px;
+		}
+		.side .headerimg a img{
+			width: 15px;
+		}
+		.path{
+			right: 0px;
+		top: 92px;
+		font-size: 12px;
+		}
+		.image{
+			left: -2%;
+			width: 100%;
+			top: 79px;
+		}
+		.image img{
+			width: 100%;
+		}
+		.none{
+			display: none;
+		}
+		
+		.details{
+			width: 92%;
+			top: 100px;
+		}
+		.productsdetails{
+			width: 92%;
+			top: 64px;
+		}
+		.delivery button {
+			left: -17%;
+	}
+	
+}
+@media only screen and (min-width: 300px) and (max-width: 550px) {
+		
+
+	body {
+		width: 100%;
+		/*padding: 48px 34px 60px;*/
+		padding: 0;
+		margin: 0;
+	}
+	header{
+	
+		height: 100px;
+		position: fixed;
+	}
+	.logo img{
+		width: 50px;
+		top: 8px;
+		height: 50px;
+		left: 5%;
+	}
+	.dropbtn {
+		padding: 3px;
+		height: 46px;
+		top: 41px;
+		left: 60px;
+	}
+	.dropdown{
+		
+	}
+	.dropdown-content {
+		top: 89px;
+	}
+	.search{
+		width: 30%;
+		right: 45%;
+	}
+	.headerimg{
+		right: 52%;
+		top: -10px;
+	}
+	.headerimg p{
+		font-size: 11px;
+	}
+	.side .headerimg a img{
+		width: 15px;
+		margin: 0;
+	}
+	.side .headerimg a{
+		margin-right: 0;
+	}
+	.path{
+		right: 0px;
+	top: 92px;
+	font-size: 12px;
+	}
+	.image{
+		left: -2%;
+		width: 100%;
+		top: 79px;
+	}
+	.image img{
+		width: 100%;
+	}
+	.none{
+		display: none;
+	}
+	
+	.details{
+		width: 92%;
+		top: 100px;
+	}
+	.rateing{
+		width: 60%;
+	}
+	.productsdetails{
+		width: 92%;
+		top: 64px;
+	}
+	.delivery button {
+		left: -17%;
+}
+
+}
