@@ -1,0 +1,115 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    background-image: url("img/Untitled\ design.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.hed{
+    color: white;
+    margin-top: 125px;
+    margin-left: 180px;
+    float: left;   
+}
+.hed h1{
+    font-family: 'Pacifico', cursive;
+    font-size: 100px;
+    line-height: 100px;
+    background: linear-gradient(to right, #30CFD0 0%, #7551a1 100%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+    height: 345px;
+}
+.hed h1:hover{
+    background: linear-gradient(to right, #2c72b4 0%, #df829e 100%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;   
+}
+.hed h3{
+    font-family: 'Lexend Mega', sans-serif;
+    font-size: 18px;
+    margin-top: 0px;
+    margin-left: 20px;
+    background: linear-gradient(to right, #30CFD0 0%, #7551a1 100%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+.hed h3:hover{
+    background: linear-gradient(to right, #2c72b4 0%, #df829e 100%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+.menu{
+    float: right;
+    background-color: white;
+    margin-top: 125px;
+    margin-right: 180px;
+    width: 200px;
+    height: 400px;
+    border-radius: 15px;
+    background: rgb(230,231,232);
+    background: linear-gradient(90deg, rgba(230,231,232,0.908000700280112) 55%, rgba(235,252,255,0.9360119047619048) 100%);
+}
+.menu:hover{
+    background-position: right center; /* change the direction of the change here */
+      
+       text-decoration: none;
+       background-color: whitesmoke;
+}
+.menu ul{
+    list-style: none;
+    font-size: 14;
+    font-family: 'Lexend Mega', sans-serif;
+    line-height: 45px;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+.menu ul a{
+    display: block;
+    text-decoration: none;
+    color: #000;
+    font-family: 'Lexend Mega', sans-serif;
+    background: linear-gradient(to right, #30CFD0 0%, #7551a1 100%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+
+}
+.menu ul a:hover{
+        color: rgb(74, 77, 255);
+       text-decoration: none;     
+}
+.menu ul li{
+    border-radius: 10px;
+    font-size: 20px;
+    padding: 11px;
+}
+.menu  ul li:hover{
+    box-shadow: 0 0 5px black;
+    
+}
+button {background-image: linear-gradient(to right, #77A1D3 0%, #79CBCA  51%, #77A1D3  100%)}
+button {
+        margin: 10px;
+        margin-left: 10px;
+        padding: 10px 30px;
+        text-align: center;
+        text-transform: uppercase;
+        transition: 0.5s;
+        background-size: 200% auto;
+        box-shadow: 0 0 20px #eee;
+        border-radius: 10px;
+        display: block;
+        font-family: 'Lexend Mega', sans-serif;
+        font-size: 18px;
+        color: whitesmoke;
+        margin-left: 50px;
+     }
+ button:hover {
+       background-position: right center; /* change the direction of the change here */
+       color: #fff;
+       text-decoration: none;
+     }
+    
