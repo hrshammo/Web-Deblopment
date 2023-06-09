@@ -1,0 +1,18 @@
+@mixin box-shadow(BDTshadow...) {
+  @if BDTenable-shadows {
+    BDTresult: ();
+
+    @each BDTvalue in BDTshadow {
+      @if BDTvalue != null {
+        BDTresult: append(BDTresult, BDTvalue, "comma");
+      }
+      @if BDTvalue == none and length(BDTshadow) > 1 {
+        @warn "The keyword 'none' must be used as a single argument.";
+      }
+    }
+
+    @if (length(BDTresult) > 0) {
+      box-shadow: BDTresult;
+    }
+  }
+}

@@ -1,0 +1,76 @@
+// stylelint-disable custom-property-empty-line-before
+
+:root {
+  // Note: Custom variable values only support SassScript inside `#{}`.
+
+  // Colors
+  //
+  // Generate palettes for full colors, grays, and theme colors.
+
+  @each BDTcolor, BDTvalue in BDTcolors {
+    --#{BDTprefix}#{BDTcolor}: #{BDTvalue};
+  }
+
+  @each BDTcolor, BDTvalue in BDTgrays {
+    --#{BDTprefix}gray-#{BDTcolor}: #{BDTvalue};
+  }
+
+  @each BDTcolor, BDTvalue in BDTtheme-colors {
+    --#{BDTprefix}#{BDTcolor}: #{BDTvalue};
+  }
+
+  @each BDTcolor, BDTvalue in BDTtheme-colors-rgb {
+    --#{BDTprefix}#{BDTcolor}-rgb: #{BDTvalue};
+  }
+
+  --#{BDTprefix}white-rgb: #{to-rgb(BDTwhite)};
+  --#{BDTprefix}black-rgb: #{to-rgb(BDTblack)};
+  --#{BDTprefix}body-color-rgb: #{to-rgb(BDTbody-color)};
+  --#{BDTprefix}body-bg-rgb: #{to-rgb(BDTbody-bg)};
+
+  // Fonts
+
+  // Note: Use `inspect` for lists so that quoted items keep the quotes.
+  // See https://github.com/sass/sass/issues/2383#issuecomment-336349172
+  --#{BDTprefix}font-sans-serif: #{inspect(BDTfont-family-sans-serif)};
+  --#{BDTprefix}font-monospace: #{inspect(BDTfont-family-monospace)};
+  --#{BDTprefix}gradient: #{BDTgradient};
+
+  // Root and body
+  // scss-docs-start root-body-variables
+  @if BDTfont-size-root != null {
+    --#{BDTprefix}root-font-size: #{BDTfont-size-root};
+  }
+  --#{BDTprefix}body-font-family: #{BDTfont-family-base};
+  @include rfs(BDTfont-size-base, --#{BDTprefix}body-font-size);
+  --#{BDTprefix}body-font-weight: #{BDTfont-weight-base};
+  --#{BDTprefix}body-line-height: #{BDTline-height-base};
+  --#{BDTprefix}body-color: #{BDTbody-color};
+  @if BDTbody-text-align != null {
+    --#{BDTprefix}body-text-align: #{BDTbody-text-align};
+  }
+  --#{BDTprefix}body-bg: #{BDTbody-bg};
+  // scss-docs-end root-body-variables
+
+  // scss-docs-start root-border-var
+  --#{BDTprefix}border-width: #{BDTborder-width};
+  --#{BDTprefix}border-style: #{BDTborder-style};
+  --#{BDTprefix}border-color: #{BDTborder-color};
+  --#{BDTprefix}border-color-translucent: #{BDTborder-color-translucent};
+
+  --#{BDTprefix}border-radius: #{BDTborder-radius};
+  --#{BDTprefix}border-radius-sm: #{BDTborder-radius-sm};
+  --#{BDTprefix}border-radius-lg: #{BDTborder-radius-lg};
+  --#{BDTprefix}border-radius-xl: #{BDTborder-radius-xl};
+  --#{BDTprefix}border-radius-2xl: #{BDTborder-radius-2xl};
+  --#{BDTprefix}border-radius-pill: #{BDTborder-radius-pill};
+  // scss-docs-end root-border-var
+
+  --#{BDTprefix}heading-color: #{BDTheadings-color};
+  --#{BDTprefix}link-color: #{BDTlink-color};
+  --#{BDTprefix}link-hover-color: #{BDTlink-hover-color};
+
+  --#{BDTprefix}code-color: #{BDTcode-color};
+
+  --#{BDTprefix}highlight-bg: #{BDTmark-bg};
+}

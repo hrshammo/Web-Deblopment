@@ -1,0 +1,40 @@
+// stylelint-disable custom-property-empty-line-before
+
+// Base class
+//
+// Requires one of the contextual, color modifier classes for `color` and
+// `background-color`.
+
+.badge {
+  // scss-docs-start badge-css-vars
+  --#{BDTprefix}badge-padding-x: #{BDTbadge-padding-x};
+  --#{BDTprefix}badge-padding-y: #{BDTbadge-padding-y};
+  @include rfs(BDTbadge-font-size, --#{BDTprefix}badge-font-size);
+  --#{BDTprefix}badge-font-weight: #{BDTbadge-font-weight};
+  --#{BDTprefix}badge-color: #{BDTbadge-color};
+  --#{BDTprefix}badge-border-radius: #{BDTbadge-border-radius};
+  // scss-docs-end badge-css-vars
+
+  display: inline-block;
+  padding: var(--#{BDTprefix}badge-padding-y) var(--#{BDTprefix}badge-padding-x);
+  @include font-size(var(--#{BDTprefix}badge-font-size));
+  font-weight: var(--#{BDTprefix}badge-font-weight);
+  line-height: 1;
+  color: var(--#{BDTprefix}badge-color);
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: var(--#{BDTprefix}badge-border-radius, 0); // stylelint-disable-line property-disallowed-list
+  @include gradient-bg();
+
+  // Empty badges collapse automatically
+  &:empty {
+    display: none;
+  }
+}
+
+// Quick fix for badges in buttons
+.btn .badge {
+  position: relative;
+  top: -1px;
+}

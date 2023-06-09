@@ -1,0 +1,10 @@
+// Pagination
+
+// scss-docs-start pagination-mixin
+@mixin pagination-size(BDTpadding-y, BDTpadding-x, BDTfont-size, BDTborder-radius) {
+  --#{BDTprefix}pagination-padding-x: #{BDTpadding-x};
+  --#{BDTprefix}pagination-padding-y: #{BDTpadding-y};
+  @include rfs(BDTfont-size, --#{BDTprefix}pagination-font-size);
+  --#{BDTprefix}pagination-border-radius: #{BDTborder-radius}; // stylelint-disable-line custom-property-empty-line-before
+}
+// scss-docs-end pagination-mixin

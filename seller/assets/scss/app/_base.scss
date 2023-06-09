@@ -1,0 +1,202 @@
+/* ============= Base ============= */
+
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: BDTtheme-text-color-secondary;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	color: BDTtheme-text-color-primary;
+	font-weight: 600;
+}
+
+a {
+	color: BDTtheme-color-primary;
+	text-decoration: none;
+	&:hover {
+		color: darken(BDTtheme-color-primary, 5%);
+	}
+}
+
+hr {
+   background: darken(BDTtheme-border-color, 20%);	
+}
+
+.text-muted {
+	color: lighten(BDTtheme-text-color-light, 10%) !important;
+}
+
+.table-dark {
+	background: BDTtheme-text-color-primary;
+	color: #fff;
+}
+
+.table-bordered th, .table-bordered td {
+	border-color: BDTtheme-border-color;
+}
+
+.table th, .table td {
+	border-color: BDTtheme-border-color;
+}
+
+.table thead th {
+	border-color: BDTtheme-border-color;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+	background-color: BDTsmoky-white;
+}
+
+.table-dark th, .table-dark td, .table-dark thead th {
+	border-color: lighten(BDTtheme-text-color-primary, 20%);
+}
+
+
+.table-hover > tbody > tr:hover {
+	background-color: lighten(#f5f6fe, 10%);
+
+}
+
+
+.popover {
+	border-color: darken(BDTtheme-bg-light, 5%);
+}
+.bs-popover-left>.arrow::before, .bs-popover-auto[x-placement^="left"]>.arrow::before {
+	border-left-color: darken(BDTtheme-bg-light, 5%);
+}
+.bs-popover-right>.arrow::before, .bs-popover-auto[x-placement^="right"]>.arrow::before {
+	border-right-color: darken(BDTtheme-bg-light, 5%);
+}
+.bs-popover-top>.arrow::before, .bs-popover-auto[x-placement^="top"]>.arrow::before {
+	border-top-color: darken(BDTtheme-bg-light, 5%);
+}
+.bs-popover-bottom>.arrow::before, .bs-popover-auto[x-placement^="bottom"]>.arrow::before {
+	border-bottom-color: darken(BDTtheme-bg-light, 5%);
+}
+
+a.app-link {
+	color: BDTtheme-text-color-primary;
+	text-decoration: underline;
+    -webkit-text-decoration-color: rgba(BDTtheme-text-color-primary,0.3);
+    text-decoration-color: rgba(BDTtheme-text-color-primary,0.3);
+    &:hover {
+	    color: BDTtheme-color-primary;
+	    -webkit-text-decoration-color: rgba(BDTtheme-color-primary,0.8);
+	        text-decoration-color: rgba(BDTtheme-color-primary,0.8);
+    }
+}
+
+button.close {
+	&:focus {
+		outline: none;
+	    @include box-shadow(none);
+	}
+}
+
+.btn {
+	font-weight: 600;
+	padding: 0.5rem 1rem;
+	font-size: 0.875rem;
+	border: none;
+	&:hover, &:active, &:focus {
+		text-decoration:none;
+	}
+	.bi {
+		position: relative;
+		top: -2px;
+	}
+}
+
+.btn:focus, .btn.focus {
+	box-shadow: none !important;
+}
+
+.app-btn-primary {
+    background: BDTtheme-color-primary;
+	color: #fff;
+	border-color: BDTtheme-color-primary;
+	&:hover, &:active {
+		color: #fff;
+		background: lighten(BDTtheme-color-primary, 5%);
+		border-color: lighten(BDTtheme-color-primary, 5%);
+	}
+}
+
+.app-btn-secondary {
+	background: white;
+	color: BDTtheme-text-color-secondary;
+	border: 1px solid lighten(BDTtheme-text-color-secondary, 35%);
+	&:hover {
+		color: BDTtheme-color-primary;
+		border: 1px solid BDTtheme-color-primary;
+		background: white;
+	}
+}
+
+.btn-light {
+	background: BDTtheme-bg-light;
+	color: BDTtheme-color-primary;
+	&:hover {
+		background: BDTtheme-bg-light;
+		color: BDTtheme-color-primary;
+	}
+}
+
+
+
+
+.form-control {
+	padding-top: 0.6rem;
+	padding-bottom: 0.6rem;
+	height: 2.5rem;
+	border-color: BDTtheme-border-color;
+    color: BDTtheme-text-color-secondary;
+	&:focus {
+		@include box-shadow(none);
+		outline: none;
+		color: BDTtheme-text-color-secondary;
+	}
+}
+
+.form-check-input:checked {
+	background-color: BDTtheme-color-primary;
+	border-color: BDTtheme-color-primary;
+}
+
+.dropdown-menu {
+	border-color: BDTtheme-border-color;
+	
+	.dropdown-item {
+		padding: 0.5rem 1rem;		
+			
+		&:hover {
+			color: BDTtheme-text-color-primary;
+		}
+		
+	}
+	
+	.dropdown-item:hover, .dropdown-item:focus {
+		background: mix(BDTtheme-bg-light, white, 50%);
+	}
+	
+	.dropdown-item.active, .dropdown-item:active {
+		background: mix(BDTtheme-bg-light, white, 50%);
+	}
+}
+
+
+
+
+
+.dropdown-divider {
+	border-top-color: BDTtheme-border-color;
+	@include opacity(1);
+}
+
+.dropdown-toggle.no-toggle-arrow {
+	&:after {
+		display: none !important;
+	}
+}
+

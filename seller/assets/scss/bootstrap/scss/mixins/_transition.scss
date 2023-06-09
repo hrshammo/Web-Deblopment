@@ -1,0 +1,26 @@
+// stylelint-disable property-disallowed-list
+@mixin transition(BDTtransition...) {
+  @if length(BDTtransition) == 0 {
+    BDTtransition: BDTtransition-base;
+  }
+
+  @if length(BDTtransition) > 1 {
+    @each BDTvalue in BDTtransition {
+      @if BDTvalue == null or BDTvalue == none {
+        @warn "The keyword 'none' or 'null' must be used as a single argument.";
+      }
+    }
+  }
+
+  @if BDTenable-transitions {
+    @if nth(BDTtransition, 1) != null {
+      transition: BDTtransition;
+    }
+
+    @if BDTenable-reduced-motion and nth(BDTtransition, 1) != null and nth(BDTtransition, 1) != none {
+      @media (prefers-reduced-motion: reduce) {
+        transition: none;
+      }
+    }
+  }
+}

@@ -1,0 +1,152 @@
+// This mixin uses an `if()` technique to be compatible with Dart Sass
+// See https://github.com/sass/sass/issues/1873#issuecomment-152293725 for more details
+
+// scss-docs-start form-validation-mixins
+@mixin form-validation-state-selector(BDTstate) {
+  @if (BDTstate == "valid" or BDTstate == "invalid") {
+    .was-validated #{if(&, "&", "")}:#{BDTstate},
+    #{if(&, "&", "")}.is-#{BDTstate} {
+      @content;
+    }
+  } @else {
+    #{if(&, "&", "")}.is-#{BDTstate} {
+      @content;
+    }
+  }
+}
+
+@mixin form-validation-state(
+  BDTstate,
+  BDTcolor,
+  BDTicon,
+  BDTtooltip-color: color-contrast(BDTcolor),
+  BDTtooltip-bg-color: rgba(BDTcolor, BDTform-feedback-tooltip-opacity),
+  BDTfocus-box-shadow: 0 0 BDTinput-btn-focus-blur BDTinput-focus-width rgba(BDTcolor, BDTinput-btn-focus-color-opacity)
+) {
+  .#{BDTstate}-feedback {
+    display: none;
+    width: 100%;
+    margin-top: BDTform-feedback-margin-top;
+    @include font-size(BDTform-feedback-font-size);
+    font-style: BDTform-feedback-font-style;
+    color: BDTcolor;
+  }
+
+  .#{BDTstate}-tooltip {
+    position: absolute;
+    top: 100%;
+    z-index: 5;
+    display: none;
+    max-width: 100%; // Contain to parent when possible
+    padding: BDTform-feedback-tooltip-padding-y BDTform-feedback-tooltip-padding-x;
+    margin-top: .1rem;
+    @include font-size(BDTform-feedback-tooltip-font-size);
+    line-height: BDTform-feedback-tooltip-line-height;
+    color: BDTtooltip-color;
+    background-color: BDTtooltip-bg-color;
+    @include border-radius(BDTform-feedback-tooltip-border-radius);
+  }
+
+  @include form-validation-state-selector(BDTstate) {
+    ~ .#{BDTstate}-feedback,
+    ~ .#{BDTstate}-tooltip {
+      display: block;
+    }
+  }
+
+  .form-control {
+    @include form-validation-state-selector(BDTstate) {
+      border-color: BDTcolor;
+
+      @if BDTenable-validation-icons {
+        padding-right: BDTinput-height-inner;
+        background-image: escape-svg(BDTicon);
+        background-repeat: no-repeat;
+        background-position: right BDTinput-height-inner-quarter center;
+        background-size: BDTinput-height-inner-half BDTinput-height-inner-half;
+      }
+
+      &:focus {
+        border-color: BDTcolor;
+        box-shadow: BDTfocus-box-shadow;
+      }
+    }
+  }
+
+  // stylelint-disable-next-line selector-no-qualifying-type
+  textarea.form-control {
+    @include form-validation-state-selector(BDTstate) {
+      @if BDTenable-validation-icons {
+        padding-right: BDTinput-height-inner;
+        background-position: top BDTinput-height-inner-quarter right BDTinput-height-inner-quarter;
+      }
+    }
+  }
+
+  .form-select {
+    @include form-validation-state-selector(BDTstate) {
+      border-color: BDTcolor;
+
+      @if BDTenable-validation-icons {
+        &:not([multiple]):not([size]),
+        &:not([multiple])[size="1"] {
+          padding-right: BDTform-select-feedback-icon-padding-end;
+          background-image: escape-svg(BDTform-select-indicator), escape-svg(BDTicon);
+          background-position: BDTform-select-bg-position, BDTform-select-feedback-icon-position;
+          background-size: BDTform-select-bg-size, BDTform-select-feedback-icon-size;
+        }
+      }
+
+      &:focus {
+        border-color: BDTcolor;
+        box-shadow: BDTfocus-box-shadow;
+      }
+    }
+  }
+
+  .form-control-color {
+    @include form-validation-state-selector(BDTstate) {
+      @if BDTenable-validation-icons {
+        width: add(BDTform-color-width, BDTinput-height-inner);
+      }
+    }
+  }
+
+  .form-check-input {
+    @include form-validation-state-selector(BDTstate) {
+      border-color: BDTcolor;
+
+      &:checked {
+        background-color: BDTcolor;
+      }
+
+      &:focus {
+        box-shadow: BDTfocus-box-shadow;
+      }
+
+      ~ .form-check-label {
+        color: BDTcolor;
+      }
+    }
+  }
+  .form-check-inline .form-check-input {
+    ~ .#{BDTstate}-feedback {
+      margin-left: .5em;
+    }
+  }
+
+  .input-group .form-control,
+  .input-group .form-select {
+    @include form-validation-state-selector(BDTstate) {
+      @if BDTstate == "valid" {
+        z-index: 1;
+      } @else if BDTstate == "invalid" {
+        z-index: 2;
+      }
+      &:focus {
+        z-index: 3;
+      }
+    }
+  }
+}
+// scss-docs-end form-validation-mixins

@@ -1,0 +1,71 @@
+// stylelint-disable custom-property-empty-line-before
+
+// Button variants
+//
+// Easily pump out default styles, as well as :hover, :focus, :active,
+// and disabled options for all buttons
+
+// scss-docs-start btn-variant-mixin
+@mixin button-variant(
+  BDTbackground,
+  BDTborder,
+  BDTcolor: color-contrast(BDTbackground),
+  BDThover-background: if(BDTcolor == BDTcolor-contrast-light, shade-color(BDTbackground, BDTbtn-hover-bg-shade-amount), tint-color(BDTbackground, BDTbtn-hover-bg-tint-amount)),
+  BDThover-border: if(BDTcolor == BDTcolor-contrast-light, shade-color(BDTborder, BDTbtn-hover-border-shade-amount), tint-color(BDTborder, BDTbtn-hover-border-tint-amount)),
+  BDThover-color: color-contrast(BDThover-background),
+  BDTactive-background: if(BDTcolor == BDTcolor-contrast-light, shade-color(BDTbackground, BDTbtn-active-bg-shade-amount), tint-color(BDTbackground, BDTbtn-active-bg-tint-amount)),
+  BDTactive-border: if(BDTcolor == BDTcolor-contrast-light, shade-color(BDTborder, BDTbtn-active-border-shade-amount), tint-color(BDTborder, BDTbtn-active-border-tint-amount)),
+  BDTactive-color: color-contrast(BDTactive-background),
+  BDTdisabled-background: BDTbackground,
+  BDTdisabled-border: BDTborder,
+  BDTdisabled-color: color-contrast(BDTdisabled-background)
+) {
+  --#{BDTprefix}btn-color: #{BDTcolor};
+  --#{BDTprefix}btn-bg: #{BDTbackground};
+  --#{BDTprefix}btn-border-color: #{BDTborder};
+  --#{BDTprefix}btn-hover-color: #{BDThover-color};
+  --#{BDTprefix}btn-hover-bg: #{BDThover-background};
+  --#{BDTprefix}btn-hover-border-color: #{BDThover-border};
+  --#{BDTprefix}btn-focus-shadow-rgb: #{to-rgb(mix(BDTcolor, BDTborder, 15%))};
+  --#{BDTprefix}btn-active-color: #{BDTactive-color};
+  --#{BDTprefix}btn-active-bg: #{BDTactive-background};
+  --#{BDTprefix}btn-active-border-color: #{BDTactive-border};
+  --#{BDTprefix}btn-active-shadow: #{BDTbtn-active-box-shadow};
+  --#{BDTprefix}btn-disabled-color: #{BDTdisabled-color};
+  --#{BDTprefix}btn-disabled-bg: #{BDTdisabled-background};
+  --#{BDTprefix}btn-disabled-border-color: #{BDTdisabled-border};
+}
+// scss-docs-end btn-variant-mixin
+
+// scss-docs-start btn-outline-variant-mixin
+@mixin button-outline-variant(
+  BDTcolor,
+  BDTcolor-hover: color-contrast(BDTcolor),
+  BDTactive-background: BDTcolor,
+  BDTactive-border: BDTcolor,
+  BDTactive-color: color-contrast(BDTactive-background)
+) {
+  --#{BDTprefix}btn-color: #{BDTcolor};
+  --#{BDTprefix}btn-border-color: #{BDTcolor};
+  --#{BDTprefix}btn-hover-color: #{BDTcolor-hover};
+  --#{BDTprefix}btn-hover-bg: #{BDTactive-background};
+  --#{BDTprefix}btn-hover-border-color: #{BDTactive-border};
+  --#{BDTprefix}btn-focus-shadow-rgb: #{to-rgb(BDTcolor)};
+  --#{BDTprefix}btn-active-color: #{BDTactive-color};
+  --#{BDTprefix}btn-active-bg: #{BDTactive-background};
+  --#{BDTprefix}btn-active-border-color: #{BDTactive-border};
+  --#{BDTprefix}btn-active-shadow: #{BDTbtn-active-box-shadow};
+  --#{BDTprefix}btn-disabled-color: #{BDTcolor};
+  --#{BDTprefix}btn-disabled-bg: transparent;
+  --#{BDTprefix}gradient: none;
+}
+// scss-docs-end btn-outline-variant-mixin
+
+// scss-docs-start btn-size-mixin
+@mixin button-size(BDTpadding-y, BDTpadding-x, BDTfont-size, BDTborder-radius) {
+  --#{BDTprefix}btn-padding-y: #{BDTpadding-y};
+  --#{BDTprefix}btn-padding-x: #{BDTpadding-x};
+  @include rfs(BDTfont-size, --#{BDTprefix}btn-font-size);
+  --#{BDTprefix}btn-border-radius: #{BDTborder-radius};
+}
+// scss-docs-end btn-size-mixin

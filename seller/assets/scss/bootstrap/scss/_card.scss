@@ -1,0 +1,234 @@
+//
+// Base styles
+//
+
+.card {
+  // scss-docs-start card-css-vars
+  --#{BDTprefix}card-spacer-y: #{BDTcard-spacer-y};
+  --#{BDTprefix}card-spacer-x: #{BDTcard-spacer-x};
+  --#{BDTprefix}card-title-spacer-y: #{BDTcard-title-spacer-y};
+  --#{BDTprefix}card-border-width: #{BDTcard-border-width};
+  --#{BDTprefix}card-border-color: #{BDTcard-border-color};
+  --#{BDTprefix}card-border-radius: #{BDTcard-border-radius};
+  --#{BDTprefix}card-box-shadow: #{BDTcard-box-shadow};
+  --#{BDTprefix}card-inner-border-radius: #{BDTcard-inner-border-radius};
+  --#{BDTprefix}card-cap-padding-y: #{BDTcard-cap-padding-y};
+  --#{BDTprefix}card-cap-padding-x: #{BDTcard-cap-padding-x};
+  --#{BDTprefix}card-cap-bg: #{BDTcard-cap-bg};
+  --#{BDTprefix}card-cap-color: #{BDTcard-cap-color};
+  --#{BDTprefix}card-height: #{BDTcard-height};
+  --#{BDTprefix}card-color: #{BDTcard-color};
+  --#{BDTprefix}card-bg: #{BDTcard-bg};
+  --#{BDTprefix}card-img-overlay-padding: #{BDTcard-img-overlay-padding};
+  --#{BDTprefix}card-group-margin: #{BDTcard-group-margin};
+  // scss-docs-end card-css-vars
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0; // See https://github.com/twbs/bootstrap/pull/22740#issuecomment-305868106
+  height: var(--#{BDTprefix}card-height);
+  word-wrap: break-word;
+  background-color: var(--#{BDTprefix}card-bg);
+  background-clip: border-box;
+  border: var(--#{BDTprefix}card-border-width) solid var(--#{BDTprefix}card-border-color);
+  @include border-radius(var(--#{BDTprefix}card-border-radius));
+  @include box-shadow(var(--#{BDTprefix}card-box-shadow));
+
+  > hr {
+    margin-right: 0;
+    margin-left: 0;
+  }
+
+  > .list-group {
+    border-top: inherit;
+    border-bottom: inherit;
+
+    &:first-child {
+      border-top-width: 0;
+      @include border-top-radius(var(--#{BDTprefix}card-inner-border-radius));
+    }
+
+    &:last-child  {
+      border-bottom-width: 0;
+      @include border-bottom-radius(var(--#{BDTprefix}card-inner-border-radius));
+    }
+  }
+
+  // Due to specificity of the above selector (`.card > .list-group`), we must
+  // use a child selector here to prevent double borders.
+  > .card-header + .list-group,
+  > .list-group + .card-footer {
+    border-top: 0;
+  }
+}
+
+.card-body {
+  // Enable `flex-grow: 1` for decks and groups so that card blocks take up
+  // as much space as possible, ensuring footers are aligned to the bottom.
+  flex: 1 1 auto;
+  padding: var(--#{BDTprefix}card-spacer-y) var(--#{BDTprefix}card-spacer-x);
+  color: var(--#{BDTprefix}card-color);
+}
+
+.card-title {
+  margin-bottom: var(--#{BDTprefix}card-title-spacer-y);
+}
+
+.card-subtitle {
+  margin-top: calc(-.5 * var(--#{BDTprefix}card-title-spacer-y)); // stylelint-disable-line function-disallowed-list
+  margin-bottom: 0;
+}
+
+.card-text:last-child {
+  margin-bottom: 0;
+}
+
+.card-link {
+  &:hover {
+    text-decoration: if(BDTlink-hover-decoration == underline, none, null);
+  }
+
+  + .card-link {
+    margin-left: var(--#{BDTprefix}card-spacer-x);
+  }
+}
+
+//
+// Optional textual caps
+//
+
+.card-header {
+  padding: var(--#{BDTprefix}card-cap-padding-y) var(--#{BDTprefix}card-cap-padding-x);
+  margin-bottom: 0; // Removes the default margin-bottom of <hN>
+  color: var(--#{BDTprefix}card-cap-color);
+  background-color: var(--#{BDTprefix}card-cap-bg);
+  border-bottom: var(--#{BDTprefix}card-border-width) solid var(--#{BDTprefix}card-border-color);
+
+  &:first-child {
+    @include border-radius(var(--#{BDTprefix}card-inner-border-radius) var(--#{BDTprefix}card-inner-border-radius) 0 0);
+  }
+}
+
+.card-footer {
+  padding: var(--#{BDTprefix}card-cap-padding-y) var(--#{BDTprefix}card-cap-padding-x);
+  color: var(--#{BDTprefix}card-cap-color);
+  background-color: var(--#{BDTprefix}card-cap-bg);
+  border-top: var(--#{BDTprefix}card-border-width) solid var(--#{BDTprefix}card-border-color);
+
+  &:last-child {
+    @include border-radius(0 0 var(--#{BDTprefix}card-inner-border-radius) var(--#{BDTprefix}card-inner-border-radius));
+  }
+}
+
+
+//
+// Header navs
+//
+
+.card-header-tabs {
+  margin-right: calc(-.5 * var(--#{BDTprefix}card-cap-padding-x)); // stylelint-disable-line function-disallowed-list
+  margin-bottom: calc(-1 * var(--#{BDTprefix}card-cap-padding-y)); // stylelint-disable-line function-disallowed-list
+  margin-left: calc(-.5 * var(--#{BDTprefix}card-cap-padding-x)); // stylelint-disable-line function-disallowed-list
+  border-bottom: 0;
+
+  .nav-link.active {
+    background-color: var(--#{BDTprefix}card-bg);
+    border-bottom-color: var(--#{BDTprefix}card-bg);
+  }
+}
+
+.card-header-pills {
+  margin-right: calc(-.5 * var(--#{BDTprefix}card-cap-padding-x)); // stylelint-disable-line function-disallowed-list
+  margin-left: calc(-.5 * var(--#{BDTprefix}card-cap-padding-x)); // stylelint-disable-line function-disallowed-list
+}
+
+// Card image
+.card-img-overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: var(--#{BDTprefix}card-img-overlay-padding);
+  @include border-radius(var(--#{BDTprefix}card-inner-border-radius));
+}
+
+.card-img,
+.card-img-top,
+.card-img-bottom {
+  width: 100%; // Required because we use flexbox and this inherently applies align-self: stretch
+}
+
+.card-img,
+.card-img-top {
+  @include border-top-radius(var(--#{BDTprefix}card-inner-border-radius));
+}
+
+.card-img,
+.card-img-bottom {
+  @include border-bottom-radius(var(--#{BDTprefix}card-inner-border-radius));
+}
+
+
+//
+// Card groups
+//
+
+.card-group {
+  // The child selector allows nested `.card` within `.card-group`
+  // to display properly.
+  > .card {
+    margin-bottom: var(--#{BDTprefix}card-group-margin);
+  }
+
+  @include media-breakpoint-up(sm) {
+    display: flex;
+    flex-flow: row wrap;
+    // The child selector allows nested `.card` within `.card-group`
+    // to display properly.
+    > .card {
+      // Flexbugs #4: https://github.com/philipwalton/flexbugs#flexbug-4
+      flex: 1 0 0%;
+      margin-bottom: 0;
+
+      + .card {
+        margin-left: 0;
+        border-left: 0;
+      }
+
+      // Handle rounded corners
+      @if BDTenable-rounded {
+        &:not(:last-child) {
+          @include border-end-radius(0);
+
+          .card-img-top,
+          .card-header {
+            // stylelint-disable-next-line property-disallowed-list
+            border-top-right-radius: 0;
+          }
+          .card-img-bottom,
+          .card-footer {
+            // stylelint-disable-next-line property-disallowed-list
+            border-bottom-right-radius: 0;
+          }
+        }
+
+        &:not(:first-child) {
+          @include border-start-radius(0);
+
+          .card-img-top,
+          .card-header {
+            // stylelint-disable-next-line property-disallowed-list
+            border-top-left-radius: 0;
+          }
+          .card-img-bottom,
+          .card-footer {
+            // stylelint-disable-next-line property-disallowed-list
+            border-bottom-left-radius: 0;
+          }
+        }
+      }
+    }
+  }
+}

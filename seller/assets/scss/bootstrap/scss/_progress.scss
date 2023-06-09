@@ -1,0 +1,59 @@
+// Disable animation if transitions are disabled
+
+// scss-docs-start progress-keyframes
+@if BDTenable-transitions {
+  @keyframes progress-bar-stripes {
+    0% { background-position-x: BDTprogress-height; }
+  }
+}
+// scss-docs-end progress-keyframes
+
+.progress {
+  // scss-docs-start progress-css-vars
+  --#{BDTprefix}progress-height: #{BDTprogress-height};
+  @include rfs(BDTprogress-font-size, --#{BDTprefix}progress-font-size);
+  --#{BDTprefix}progress-bg: #{BDTprogress-bg}; // stylelint-disable-line custom-property-empty-line-before
+  --#{BDTprefix}progress-border-radius: #{BDTprogress-border-radius};
+  --#{BDTprefix}progress-box-shadow: #{BDTprogress-box-shadow};
+  --#{BDTprefix}progress-bar-color: #{BDTprogress-bar-color};
+  --#{BDTprefix}progress-bar-bg: #{BDTprogress-bar-bg};
+  --#{BDTprefix}progress-bar-transition: #{BDTprogress-bar-transition};
+  // scss-docs-end progress-css-vars
+
+  display: flex;
+  height: var(--#{BDTprefix}progress-height);
+  overflow: hidden; // force rounded corners by cropping it
+  @include font-size(var(--#{BDTprefix}progress-font-size));
+  background-color: var(--#{BDTprefix}progress-bg);
+  @include border-radius(var(--#{BDTprefix}progress-border-radius));
+  @include box-shadow(var(--#{BDTprefix}progress-box-shadow));
+}
+
+.progress-bar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  color: var(--#{BDTprefix}progress-bar-color);
+  text-align: center;
+  white-space: nowrap;
+  background-color: var(--#{BDTprefix}progress-bar-bg);
+  @include transition(var(--#{BDTprefix}progress-bar-transition));
+}
+
+.progress-bar-striped {
+  @include gradient-striped();
+  background-size: var(--#{BDTprefix}progress-height) var(--#{BDTprefix}progress-height);
+}
+
+@if BDTenable-transitions {
+  .progress-bar-animated {
+    animation: BDTprogress-bar-animation-timing progress-bar-stripes;
+
+    @if BDTenable-reduced-motion {
+      @media (prefers-reduced-motion: reduce) {
+        animation: none;
+      }
+    }
+  }
+}

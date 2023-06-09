@@ -1,0 +1,92 @@
+// Utility generator
+// Used to generate utilities & print utilities
+@mixin generate-utility(BDTutility, BDTinfix, BDTis-rfs-media-query: false) {
+  BDTvalues: map-get(BDTutility, values);
+
+  // If the values are a list or string, convert it into a map
+  @if type-of(BDTvalues) == "string" or type-of(nth(BDTvalues, 1)) != "list" {
+    BDTvalues: zip(BDTvalues, BDTvalues);
+  }
+
+  @each BDTkey, BDTvalue in BDTvalues {
+    BDTproperties: map-get(BDTutility, property);
+
+    // Multiple properties are possible, for example with vertical or horizontal margins or paddings
+    @if type-of(BDTproperties) == "string" {
+      BDTproperties: append((), BDTproperties);
+    }
+
+    // Use custom class if present
+    BDTproperty-class: if(map-has-key(BDTutility, class), map-get(BDTutility, class), nth(BDTproperties, 1));
+    BDTproperty-class: if(BDTproperty-class == null, "", BDTproperty-class);
+
+    // Use custom CSS variable name if present, otherwise default to `class`
+    BDTcss-variable-name: if(map-has-key(BDTutility, css-variable-name), map-get(BDTutility, css-variable-name), map-get(BDTutility, class));
+
+    // State params to generate pseudo-classes
+    BDTstate: if(map-has-key(BDTutility, state), map-get(BDTutility, state), ());
+
+    BDTinfix: if(BDTproperty-class == "" and str-slice(BDTinfix, 1, 1) == "-", str-slice(BDTinfix, 2), BDTinfix);
+
+    // Don't prefix if value key is null (eg. with shadow class)
+    BDTproperty-class-modifier: if(BDTkey, if(BDTproperty-class == "" and BDTinfix == "", "", "-") + BDTkey, "");
+
+    @if map-get(BDTutility, rfs) {
+      // Inside the media query
+      @if BDTis-rfs-media-query {
+        BDTval: rfs-value(BDTvalue);
+
+        // Do not render anything if fluid and non fluid values are the same
+        BDTvalue: if(BDTval == rfs-fluid-value(BDTvalue), null, BDTval);
+      }
+      @else {
+        BDTvalue: rfs-fluid-value(BDTvalue);
+      }
+    }
+
+    BDTis-css-var: map-get(BDTutility, css-var);
+    BDTis-local-vars: map-get(BDTutility, local-vars);
+    BDTis-rtl: map-get(BDTutility, rtl);
+
+    @if BDTvalue != null {
+      @if BDTis-rtl == false {
+        /* rtl:begin:remove */
+      }
+
+      @if BDTis-css-var {
+        .#{BDTproperty-class + BDTinfix + BDTproperty-class-modifier} {
+          --#{BDTprefix}#{BDTcss-variable-name}: #{BDTvalue};
+        }
+
+        @each BDTpseudo in BDTstate {
+          .#{BDTproperty-class + BDTinfix + BDTproperty-class-modifier}-#{BDTpseudo}:#{BDTpseudo} {
+            --#{BDTprefix}#{BDTcss-variable-name}: #{BDTvalue};
+          }
+        }
+      } @else {
+        .#{BDTproperty-class + BDTinfix + BDTproperty-class-modifier} {
+          @each BDTproperty in BDTproperties {
+            @if BDTis-local-vars {
+              @each BDTlocal-var, BDTvariable in BDTis-local-vars {
+                --#{BDTprefix}#{BDTlocal-var}: #{BDTvariable};
+              }
+            }
+            #{BDTproperty}: BDTvalue if(BDTenable-important-utilities, !important, null);
+          }
+        }
+
+        @each BDTpseudo in BDTstate {
+          .#{BDTproperty-class + BDTinfix + BDTproperty-class-modifier}-#{BDTpseudo}:#{BDTpseudo} {
+            @each BDTproperty in BDTproperties {
+              #{BDTproperty}: BDTvalue if(BDTenable-important-utilities, !important, null);
+            }
+          }
+        }
+      }
+
+      @if BDTis-rtl == false {
+        /* rtl:end:remove */
+      }
+    }
+  }
+}

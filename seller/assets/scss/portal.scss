@@ -1,0 +1,49 @@
+/*************************** Theme Colours****************************/
+// Define theme colour scheme
+BDTtheme-color-primary: #15a362;
+
+BDTtheme-text-color-primary: #252930;
+BDTtheme-text-color-secondary: lighten(BDTtheme-text-color-primary, 25%);
+BDTtheme-text-color-light: lighten(BDTtheme-text-color-primary, 40%);
+BDTtheme-bg-light: #f5f6fe;
+BDTtheme-border-color: lighten(BDTtheme-text-color-primary, 75%);
+BDTtheme-color-new: #5ab66e;
+BDTtheme-color-count: #EC776C;
+BDTtheme-error: #EC575B;
+BDTsmoky-white: #f5f5f5;
+
+BDTtheme-success-color: #5cb377;
+BDTtheme-warning-color: #EEBF41;
+BDTtheme-info-color: #5b99ea;
+BDTtheme-danger-color: #d26d69;
+
+
+BDTtheme-color-pdf: #DA2D27;
+BDTtheme-color-word: #66a0fd;
+BDTtheme-color-ppt: #f4b400;
+BDTtheme-color-excel: #0da95f;
+BDTtheme-color-video: #935dc1;
+BDTtheme-color-zip: #252930;
+
+/*************************** Variables Section. *****************************/
+// Create variables to override the default value for variables used in the Bootstrap SCSS files.
+
+
+BDTtheme-colors: (
+  "primary":  BDTtheme-color-primary, 
+  "secondary": BDTtheme-text-color-secondary, 
+  "success": BDTtheme-success-color,
+  "danger": BDTtheme-danger-color,
+  "warning": BDTtheme-warning-color,
+  "info": BDTtheme-info-color,
+);
+
+
+
+/*************************** Import Bootstrap  *****************************/
+@import "bootstrap/scss/bootstrap.scss";
+
+
+/*************************** Theme Styles Section ****************************/
+@import "app/styles.scss";
+

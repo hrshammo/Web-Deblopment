@@ -1,0 +1,111 @@
+// stylelint-disable custom-property-empty-line-before
+
+.pagination {
+  // scss-docs-start pagination-css-vars
+  --#{BDTprefix}pagination-padding-x: #{BDTpagination-padding-x};
+  --#{BDTprefix}pagination-padding-y: #{BDTpagination-padding-y};
+  @include rfs(BDTpagination-font-size, --#{BDTprefix}pagination-font-size);
+  --#{BDTprefix}pagination-color: #{BDTpagination-color};
+  --#{BDTprefix}pagination-bg: #{BDTpagination-bg};
+  --#{BDTprefix}pagination-border-width: #{BDTpagination-border-width};
+  --#{BDTprefix}pagination-border-color: #{BDTpagination-border-color};
+  --#{BDTprefix}pagination-border-radius: #{BDTpagination-border-radius};
+  --#{BDTprefix}pagination-hover-color: #{BDTpagination-hover-color};
+  --#{BDTprefix}pagination-hover-bg: #{BDTpagination-hover-bg};
+  --#{BDTprefix}pagination-hover-border-color: #{BDTpagination-hover-border-color};
+  --#{BDTprefix}pagination-focus-color: #{BDTpagination-focus-color};
+  --#{BDTprefix}pagination-focus-bg: #{BDTpagination-focus-bg};
+  --#{BDTprefix}pagination-focus-box-shadow: #{BDTpagination-focus-box-shadow};
+  --#{BDTprefix}pagination-active-color: #{BDTpagination-active-color};
+  --#{BDTprefix}pagination-active-bg: #{BDTpagination-active-bg};
+  --#{BDTprefix}pagination-active-border-color: #{BDTpagination-active-border-color};
+  --#{BDTprefix}pagination-disabled-color: #{BDTpagination-disabled-color};
+  --#{BDTprefix}pagination-disabled-bg: #{BDTpagination-disabled-bg};
+  --#{BDTprefix}pagination-disabled-border-color: #{BDTpagination-disabled-border-color};
+  // scss-docs-end pagination-css-vars
+
+  display: flex;
+  @include list-unstyled();
+}
+
+.page-link {
+  position: relative;
+  display: block;
+  padding: var(--#{BDTprefix}pagination-padding-y) var(--#{BDTprefix}pagination-padding-x);
+  @include font-size(var(--#{BDTprefix}pagination-font-size));
+  color: var(--#{BDTprefix}pagination-color);
+  text-decoration: if(BDTlink-decoration == none, null, none);
+  background-color: var(--#{BDTprefix}pagination-bg);
+  border: var(--#{BDTprefix}pagination-border-width) solid var(--#{BDTprefix}pagination-border-color);
+  @include transition(BDTpagination-transition);
+
+  &:hover {
+    z-index: 2;
+    color: var(--#{BDTprefix}pagination-hover-color);
+    text-decoration: if(BDTlink-hover-decoration == underline, none, null);
+    background-color: var(--#{BDTprefix}pagination-hover-bg);
+    border-color: var(--#{BDTprefix}pagination-hover-border-color);
+  }
+
+  &:focus {
+    z-index: 3;
+    color: var(--#{BDTprefix}pagination-focus-color);
+    background-color: var(--#{BDTprefix}pagination-focus-bg);
+    outline: BDTpagination-focus-outline;
+    box-shadow: var(--#{BDTprefix}pagination-focus-box-shadow);
+  }
+
+  &.active,
+  .active > & {
+    z-index: 3;
+    color: var(--#{BDTprefix}pagination-active-color);
+    @include gradient-bg(var(--#{BDTprefix}pagination-active-bg));
+    border-color: var(--#{BDTprefix}pagination-active-border-color);
+  }
+
+  &.disabled,
+  .disabled > & {
+    color: var(--#{BDTprefix}pagination-disabled-color);
+    pointer-events: none;
+    background-color: var(--#{BDTprefix}pagination-disabled-bg);
+    border-color: var(--#{BDTprefix}pagination-disabled-border-color);
+  }
+}
+
+.page-item {
+  &:not(:first-child) .page-link {
+    margin-left: BDTpagination-margin-start;
+  }
+
+  @if BDTpagination-margin-start == (calc(BDTpagination-border-width * -1)) {
+    &:first-child {
+      .page-link {
+        @include border-start-radius(var(--#{BDTprefix}pagination-border-radius));
+      }
+    }
+
+    &:last-child {
+      .page-link {
+        @include border-end-radius(var(--#{BDTprefix}pagination-border-radius));
+      }
+    }
+  } @else {
+    // Add border-radius to all pageLinks in case they have left margin
+    .page-link {
+      @include border-radius(var(--#{BDTprefix}pagination-border-radius));
+    }
+  }
+}
+
+
+//
+// Sizing
+//
+
+.pagination-lg {
+  @include pagination-size(BDTpagination-padding-y-lg, BDTpagination-padding-x-lg, BDTfont-size-lg, BDTpagination-border-radius-lg);
+}
+
+.pagination-sm {
+  @include pagination-size(BDTpagination-padding-y-sm, BDTpagination-padding-x-sm, BDTfont-size-sm, BDTpagination-border-radius-sm);
+}

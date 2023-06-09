@@ -1,0 +1,274 @@
+// Navbar
+//
+// Provide a static navbar from which we expand to create full-width, fixed, and
+// other navbar variations.
+
+.navbar {
+  // scss-docs-start navbar-css-vars
+  --#{BDTprefix}navbar-padding-x: #{if(BDTnavbar-padding-x == null, 0, BDTnavbar-padding-x)};
+  --#{BDTprefix}navbar-padding-y: #{BDTnavbar-padding-y};
+  --#{BDTprefix}navbar-color: #{BDTnavbar-light-color};
+  --#{BDTprefix}navbar-hover-color: #{BDTnavbar-light-hover-color};
+  --#{BDTprefix}navbar-disabled-color: #{BDTnavbar-light-disabled-color};
+  --#{BDTprefix}navbar-active-color: #{BDTnavbar-light-active-color};
+  --#{BDTprefix}navbar-brand-padding-y: #{BDTnavbar-brand-padding-y};
+  --#{BDTprefix}navbar-brand-margin-end: #{BDTnavbar-brand-margin-end};
+  --#{BDTprefix}navbar-brand-font-size: #{BDTnavbar-brand-font-size};
+  --#{BDTprefix}navbar-brand-color: #{BDTnavbar-light-brand-color};
+  --#{BDTprefix}navbar-brand-hover-color: #{BDTnavbar-light-brand-hover-color};
+  --#{BDTprefix}navbar-nav-link-padding-x: #{BDTnavbar-nav-link-padding-x};
+  --#{BDTprefix}navbar-toggler-padding-y: #{BDTnavbar-toggler-padding-y};
+  --#{BDTprefix}navbar-toggler-padding-x: #{BDTnavbar-toggler-padding-x};
+  --#{BDTprefix}navbar-toggler-font-size: #{BDTnavbar-toggler-font-size};
+  --#{BDTprefix}navbar-toggler-icon-bg: #{escape-svg(BDTnavbar-light-toggler-icon-bg)};
+  --#{BDTprefix}navbar-toggler-border-color: #{BDTnavbar-light-toggler-border-color};
+  --#{BDTprefix}navbar-toggler-border-radius: #{BDTnavbar-toggler-border-radius};
+  --#{BDTprefix}navbar-toggler-focus-width: #{BDTnavbar-toggler-focus-width};
+  --#{BDTprefix}navbar-toggler-transition: #{BDTnavbar-toggler-transition};
+  // scss-docs-end navbar-css-vars
+
+  position: relative;
+  display: flex;
+  flex-wrap: wrap; // allow us to do the line break for collapsing content
+  align-items: center;
+  justify-content: space-between; // space out brand from logo
+  padding: var(--#{BDTprefix}navbar-padding-y) var(--#{BDTprefix}navbar-padding-x);
+  @include gradient-bg();
+
+  // Because flex properties aren't inherited, we need to redeclare these first
+  // few properties so that content nested within behave properly.
+  // The `flex-wrap` property is inherited to simplify the expanded navbars
+  %container-flex-properties {
+    display: flex;
+    flex-wrap: inherit;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  > .container,
+  > .container-fluid {
+    @extend %container-flex-properties;
+  }
+
+  @each BDTbreakpoint, BDTcontainer-max-width in BDTcontainer-max-widths {
+    > .container#{breakpoint-infix(BDTbreakpoint, BDTcontainer-max-widths)} {
+      @extend %container-flex-properties;
+    }
+  }
+}
+
+
+// Navbar brand
+//
+// Used for brand, project, or site names.
+
+.navbar-brand {
+  padding-top: var(--#{BDTprefix}navbar-brand-padding-y);
+  padding-bottom: var(--#{BDTprefix}navbar-brand-padding-y);
+  margin-right: var(--#{BDTprefix}navbar-brand-margin-end);
+  @include font-size(var(--#{BDTprefix}navbar-brand-font-size));
+  color: var(--#{BDTprefix}navbar-brand-color);
+  text-decoration: if(BDTlink-decoration == none, null, none);
+  white-space: nowrap;
+
+  &:hover,
+  &:focus {
+    color: var(--#{BDTprefix}navbar-brand-hover-color);
+    text-decoration: if(BDTlink-hover-decoration == underline, none, null);
+  }
+}
+
+
+// Navbar nav
+//
+// Custom navbar navigation (doesn't require `.nav`, but does make use of `.nav-link`).
+
+.navbar-nav {
+  // scss-docs-start navbar-nav-css-vars
+  --#{BDTprefix}nav-link-padding-x: 0;
+  --#{BDTprefix}nav-link-padding-y: #{BDTnav-link-padding-y};
+  --#{BDTprefix}nav-link-color: var(--#{BDTprefix}navbar-color);
+  --#{BDTprefix}nav-link-hover-color: var(--#{BDTprefix}navbar-hover-color);
+  --#{BDTprefix}nav-link-disabled-color: var(--#{BDTprefix}navbar-disabled-color);
+  // scss-docs-end navbar-nav-css-vars
+
+  display: flex;
+  flex-direction: column; // cannot use `inherit` to get the `.navbar`s value
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+
+  .show > .nav-link,
+  .nav-link.active {
+    color: var(--#{BDTprefix}navbar-active-color);
+  }
+
+  .dropdown-menu {
+    position: static;
+  }
+}
+
+
+// Navbar text
+//
+//
+
+.navbar-text {
+  padding-top: BDTnav-link-padding-y;
+  padding-bottom: BDTnav-link-padding-y;
+  color: var(--#{BDTprefix}navbar-color);
+
+  a,
+  a:hover,
+  a:focus  {
+    color: var(--#{BDTprefix}navbar-active-color);
+  }
+}
+
+
+// Responsive navbar
+//
+// Custom styles for responsive collapsing and toggling of navbar contents.
+// Powered by the collapse Bootstrap JavaScript plugin.
+
+// When collapsed, prevent the toggleable navbar contents from appearing in
+// the default flexbox row orientation. Requires the use of `flex-wrap: wrap`
+// on the `.navbar` parent.
+.navbar-collapse {
+  flex-basis: 100%;
+  flex-grow: 1;
+  // For always expanded or extra full navbars, ensure content aligns itself
+  // properly vertically. Can be easily overridden with flex utilities.
+  align-items: center;
+}
+
+// Button for toggling the navbar when in its collapsed state
+.navbar-toggler {
+  padding: var(--#{BDTprefix}navbar-toggler-padding-y) var(--#{BDTprefix}navbar-toggler-padding-x);
+  @include font-size(var(--#{BDTprefix}navbar-toggler-font-size));
+  line-height: 1;
+  color: var(--#{BDTprefix}navbar-color);
+  background-color: transparent; // remove default button style
+  border: var(--#{BDTprefix}border-width) solid var(--#{BDTprefix}navbar-toggler-border-color); // remove default button style
+  @include border-radius(var(--#{BDTprefix}navbar-toggler-border-radius));
+  @include transition(var(--#{BDTprefix}navbar-toggler-transition));
+
+  &:hover {
+    text-decoration: none;
+  }
+
+  &:focus {
+    text-decoration: none;
+    outline: 0;
+    box-shadow: 0 0 0 var(--#{BDTprefix}navbar-toggler-focus-width);
+  }
+}
+
+// Keep as a separate element so folks can easily override it with another icon
+// or image file as needed.
+.navbar-toggler-icon {
+  display: inline-block;
+  width: 1.5em;
+  height: 1.5em;
+  vertical-align: middle;
+  background-image: var(--#{BDTprefix}navbar-toggler-icon-bg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
+}
+
+.navbar-nav-scroll {
+  max-height: var(--#{BDTprefix}scroll-height, 75vh);
+  overflow-y: auto;
+}
+
+// scss-docs-start navbar-expand-loop
+// Generate series of `.navbar-expand-*` responsive classes for configuring
+// where your navbar collapses.
+.navbar-expand {
+  @each BDTbreakpoint in map-keys(BDTgrid-breakpoints) {
+    BDTnext: breakpoint-next(BDTbreakpoint, BDTgrid-breakpoints);
+    BDTinfix: breakpoint-infix(BDTnext, BDTgrid-breakpoints);
+
+    // stylelint-disable-next-line scss/selector-no-union-class-name
+    &#{BDTinfix} {
+      @include media-breakpoint-up(BDTnext) {
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+
+        .navbar-nav {
+          flex-direction: row;
+
+          .dropdown-menu {
+            position: absolute;
+          }
+
+          .nav-link {
+            padding-right: var(--#{BDTprefix}navbar-nav-link-padding-x);
+            padding-left: var(--#{BDTprefix}navbar-nav-link-padding-x);
+          }
+        }
+
+        .navbar-nav-scroll {
+          overflow: visible;
+        }
+
+        .navbar-collapse {
+          display: flex !important; // stylelint-disable-line declaration-no-important
+          flex-basis: auto;
+        }
+
+        .navbar-toggler {
+          display: none;
+        }
+
+        .offcanvas {
+          // stylelint-disable declaration-no-important
+          position: static;
+          z-index: auto;
+          flex-grow: 1;
+          width: auto !important;
+          height: auto !important;
+          visibility: visible !important;
+          background-color: transparent !important;
+          border: 0 !important;
+          transform: none !important;
+          @include box-shadow(none);
+          @include transition(none);
+          // stylelint-enable declaration-no-important
+
+          .offcanvas-header {
+            display: none;
+          }
+
+          .offcanvas-body {
+            display: flex;
+            flex-grow: 0;
+            padding: 0;
+            overflow-y: visible;
+          }
+        }
+      }
+    }
+  }
+}
+// scss-docs-end navbar-expand-loop
+
+// Navbar themes
+//
+// Styles for switching between navbars with light or dark background.
+
+.navbar-light {
+  @include deprecate("`.navbar-light`", "v5.2.0", "v6.0.0", true);
+}
+
+.navbar-dark {
+  --#{BDTprefix}navbar-color: #{BDTnavbar-dark-color};
+  --#{BDTprefix}navbar-hover-color: #{BDTnavbar-dark-hover-color};
+  --#{BDTprefix}navbar-disabled-color: #{BDTnavbar-dark-disabled-color};
+  --#{BDTprefix}navbar-active-color: #{BDTnavbar-dark-active-color};
+  --#{BDTprefix}navbar-brand-color: #{BDTnavbar-dark-brand-color};
+  --#{BDTprefix}navbar-brand-hover-color: #{BDTnavbar-dark-brand-hover-color};
+  --#{BDTprefix}navbar-toggler-border-color: #{BDTnavbar-dark-toggler-border-color};
+  --#{BDTprefix}navbar-toggler-icon-bg: #{escape-svg(BDTnavbar-dark-toggler-icon-bg)};
+}

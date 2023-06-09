@@ -1,0 +1,127 @@
+// Breakpoint viewport sizes and media queries.
+//
+// Breakpoints are defined as a map of (name: minimum width), order from small to large:
+//
+//    (xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px, xxl: 1400px)
+//
+// The map defined in the `BDTgrid-breakpoints` global variable is used as the `BDTbreakpoints` argument by default.
+
+// Name of the next breakpoint, or null for the last breakpoint.
+//
+//    >> breakpoint-next(sm)
+//    md
+//    >> breakpoint-next(sm, (xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px, xxl: 1400px))
+//    md
+//    >> breakpoint-next(sm, BDTbreakpoint-names: (xs sm md lg xl xxl))
+//    md
+@function breakpoint-next(BDTname, BDTbreakpoints: BDTgrid-breakpoints, BDTbreakpoint-names: map-keys(BDTbreakpoints)) {
+  BDTn: index(BDTbreakpoint-names, BDTname);
+  @if not BDTn {
+    @error "breakpoint `#{BDTname}` not found in `#{BDTbreakpoints}`";
+  }
+  @return if(BDTn < length(BDTbreakpoint-names), nth(BDTbreakpoint-names, BDTn + 1), null);
+}
+
+// Minimum breakpoint width. Null for the smallest (first) breakpoint.
+//
+//    >> breakpoint-min(sm, (xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px, xxl: 1400px))
+//    576px
+@function breakpoint-min(BDTname, BDTbreakpoints: BDTgrid-breakpoints) {
+  BDTmin: map-get(BDTbreakpoints, BDTname);
+  @return if(BDTmin != 0, BDTmin, null);
+}
+
+// Maximum breakpoint width.
+// The maximum value is reduced by 0.02px to work around the limitations of
+// `min-` and `max-` prefixes and viewports with fractional widths.
+// See https://www.w3.org/TR/mediaqueries-4/#mq-min-max
+// Uses 0.02px rather than 0.01px to work around a current rounding bug in Safari.
+// See https://bugs.webkit.org/show_bug.cgi?id=178261
+//
+//    >> breakpoint-max(md, (xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px, xxl: 1400px))
+//    767.98px
+@function breakpoint-max(BDTname, BDTbreakpoints: BDTgrid-breakpoints) {
+  BDTmax: map-get(BDTbreakpoints, BDTname);
+  @return if(BDTmax and BDTmax > 0, BDTmax - .02, null);
+}
+
+// Returns a blank string if smallest breakpoint, otherwise returns the name with a dash in front.
+// Useful for making responsive utilities.
+//
+//    >> breakpoint-infix(xs, (xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px, xxl: 1400px))
+//    ""  (Returns a blank string)
+//    >> breakpoint-infix(sm, (xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px, xxl: 1400px))
+//    "-sm"
+@function breakpoint-infix(BDTname, BDTbreakpoints: BDTgrid-breakpoints) {
+  @return if(breakpoint-min(BDTname, BDTbreakpoints) == null, "", "-#{BDTname}");
+}
+
+// Media of at least the minimum breakpoint width. No query for the smallest breakpoint.
+// Makes the @content apply to the given breakpoint and wider.
+@mixin media-breakpoint-up(BDTname, BDTbreakpoints: BDTgrid-breakpoints) {
+  BDTmin: breakpoint-min(BDTname, BDTbreakpoints);
+  @if BDTmin {
+    @media (min-width: BDTmin) {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}
+
+// Media of at most the maximum breakpoint width. No query for the largest breakpoint.
+// Makes the @content apply to the given breakpoint and narrower.
+@mixin media-breakpoint-down(BDTname, BDTbreakpoints: BDTgrid-breakpoints) {
+  BDTmax: breakpoint-max(BDTname, BDTbreakpoints);
+  @if BDTmax {
+    @media (max-width: BDTmax) {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}
+
+// Media that spans multiple breakpoint widths.
+// Makes the @content apply between the min and max breakpoints
+@mixin media-breakpoint-between(BDTlower, BDTupper, BDTbreakpoints: BDTgrid-breakpoints) {
+  BDTmin: breakpoint-min(BDTlower, BDTbreakpoints);
+  BDTmax: breakpoint-max(BDTupper, BDTbreakpoints);
+
+  @if BDTmin != null and BDTmax != null {
+    @media (min-width: BDTmin) and (max-width: BDTmax) {
+      @content;
+    }
+  } @else if BDTmax == null {
+    @include media-breakpoint-up(BDTlower, BDTbreakpoints) {
+      @content;
+    }
+  } @else if BDTmin == null {
+    @include media-breakpoint-down(BDTupper, BDTbreakpoints) {
+      @content;
+    }
+  }
+}
+
+// Media between the breakpoint's minimum and maximum widths.
+// No minimum for the smallest breakpoint, and no maximum for the largest one.
+// Makes the @content apply only to the given breakpoint, not viewports any wider or narrower.
+@mixin media-breakpoint-only(BDTname, BDTbreakpoints: BDTgrid-breakpoints) {
+  BDTmin:  breakpoint-min(BDTname, BDTbreakpoints);
+  BDTnext: breakpoint-next(BDTname, BDTbreakpoints);
+  BDTmax:  breakpoint-max(BDTnext, BDTbreakpoints);
+
+  @if BDTmin != null and BDTmax != null {
+    @media (min-width: BDTmin) and (max-width: BDTmax) {
+      @content;
+    }
+  } @else if BDTmax == null {
+    @include media-breakpoint-up(BDTname, BDTbreakpoints) {
+      @content;
+    }
+  } @else if BDTmin == null {
+    @include media-breakpoint-down(BDTnext, BDTbreakpoints) {
+      @content;
+    }
+  }
+}

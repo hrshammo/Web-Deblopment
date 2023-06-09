@@ -1,0 +1,11 @@
+//
+// Form text
+//
+
+.form-text {
+  margin-top: BDTform-text-margin-top;
+  @include font-size(BDTform-text-font-size);
+  font-style: BDTform-text-font-style;
+  font-weight: BDTform-text-font-weight;
+  color: BDTform-text-color;
+}

@@ -1,0 +1,24 @@
+// scss-docs-start table-variant
+@mixin table-variant(BDTstate, BDTbackground) {
+  .table-#{BDTstate} {
+    BDTcolor: color-contrast(opaque(BDTbody-bg, BDTbackground));
+    BDThover-bg: mix(BDTcolor, BDTbackground, percentage(BDTtable-hover-bg-factor));
+    BDTstriped-bg: mix(BDTcolor, BDTbackground, percentage(BDTtable-striped-bg-factor));
+    BDTactive-bg: mix(BDTcolor, BDTbackground, percentage(BDTtable-active-bg-factor));
+    BDTborder-color: mix(BDTcolor, BDTbackground, percentage(BDTtable-border-factor));
+
+    --#{BDTprefix}table-color: #{BDTcolor};
+    --#{BDTprefix}table-bg: #{BDTbackground};
+    --#{BDTprefix}table-border-color: #{BDTborder-color};
+    --#{BDTprefix}table-striped-bg: #{BDTstriped-bg};
+    --#{BDTprefix}table-striped-color: #{color-contrast(BDTstriped-bg)};
+    --#{BDTprefix}table-active-bg: #{BDTactive-bg};
+    --#{BDTprefix}table-active-color: #{color-contrast(BDTactive-bg)};
+    --#{BDTprefix}table-hover-bg: #{BDThover-bg};
+    --#{BDTprefix}table-hover-color: #{color-contrast(BDThover-bg)};
+
+    color: var(--#{BDTprefix}table-color);
+    border-color: var(--#{BDTprefix}table-border-color);
+  }
+}
+// scss-docs-end table-variant

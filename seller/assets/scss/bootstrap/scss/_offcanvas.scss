@@ -1,0 +1,143 @@
+// stylelint-disable function-disallowed-list
+
+%offcanvas-css-vars {
+  // scss-docs-start offcanvas-css-vars
+  --#{BDTprefix}offcanvas-width: #{BDToffcanvas-horizontal-width};
+  --#{BDTprefix}offcanvas-height: #{BDToffcanvas-vertical-height};
+  --#{BDTprefix}offcanvas-padding-x: #{BDToffcanvas-padding-x};
+  --#{BDTprefix}offcanvas-padding-y: #{BDToffcanvas-padding-y};
+  --#{BDTprefix}offcanvas-color: #{BDToffcanvas-color};
+  --#{BDTprefix}offcanvas-bg: #{BDToffcanvas-bg-color};
+  --#{BDTprefix}offcanvas-border-width: #{BDToffcanvas-border-width};
+  --#{BDTprefix}offcanvas-border-color: #{BDToffcanvas-border-color};
+  --#{BDTprefix}offcanvas-box-shadow: #{BDToffcanvas-box-shadow};
+  // scss-docs-end offcanvas-css-vars
+}
+
+@each BDTbreakpoint in map-keys(BDTgrid-breakpoints) {
+  BDTnext: breakpoint-next(BDTbreakpoint, BDTgrid-breakpoints);
+  BDTinfix: breakpoint-infix(BDTnext, BDTgrid-breakpoints);
+
+  .offcanvas#{BDTinfix} {
+    @extend %offcanvas-css-vars;
+  }
+}
+
+@each BDTbreakpoint in map-keys(BDTgrid-breakpoints) {
+  BDTnext: breakpoint-next(BDTbreakpoint, BDTgrid-breakpoints);
+  BDTinfix: breakpoint-infix(BDTnext, BDTgrid-breakpoints);
+
+  .offcanvas#{BDTinfix} {
+    @include media-breakpoint-down(BDTnext) {
+      position: fixed;
+      bottom: 0;
+      z-index: BDTzindex-offcanvas;
+      display: flex;
+      flex-direction: column;
+      max-width: 100%;
+      color: var(--#{BDTprefix}offcanvas-color);
+      visibility: hidden;
+      background-color: var(--#{BDTprefix}offcanvas-bg);
+      background-clip: padding-box;
+      outline: 0;
+      @include box-shadow(var(--#{BDTprefix}offcanvas-box-shadow));
+      @include transition(transform BDToffcanvas-transition-duration ease-in-out);
+
+      &.showing,
+      &.show:not(.hiding) {
+        transform: none;
+      }
+
+      &.showing,
+      &.hiding,
+      &.show {
+        visibility: visible;
+      }
+
+      &.offcanvas-start {
+        top: 0;
+        left: 0;
+        width: var(--#{BDTprefix}offcanvas-width);
+        border-right: var(--#{BDTprefix}offcanvas-border-width) solid var(--#{BDTprefix}offcanvas-border-color);
+        transform: translateX(-100%);
+      }
+
+      &.offcanvas-end {
+        top: 0;
+        right: 0;
+        width: var(--#{BDTprefix}offcanvas-width);
+        border-left: var(--#{BDTprefix}offcanvas-border-width) solid var(--#{BDTprefix}offcanvas-border-color);
+        transform: translateX(100%);
+      }
+
+      &.offcanvas-top {
+        top: 0;
+        right: 0;
+        left: 0;
+        height: var(--#{BDTprefix}offcanvas-height);
+        max-height: 100%;
+        border-bottom: var(--#{BDTprefix}offcanvas-border-width) solid var(--#{BDTprefix}offcanvas-border-color);
+        transform: translateY(-100%);
+      }
+
+      &.offcanvas-bottom {
+        right: 0;
+        left: 0;
+        height: var(--#{BDTprefix}offcanvas-height);
+        max-height: 100%;
+        border-top: var(--#{BDTprefix}offcanvas-border-width) solid var(--#{BDTprefix}offcanvas-border-color);
+        transform: translateY(100%);
+      }
+    }
+
+    @if not (BDTinfix == "") {
+      @include media-breakpoint-up(BDTnext) {
+        --#{BDTprefix}offcanvas-height: auto;
+        --#{BDTprefix}offcanvas-border-width: 0;
+        background-color: transparent !important; // stylelint-disable-line declaration-no-important
+
+        .offcanvas-header {
+          display: none;
+        }
+
+        .offcanvas-body {
+          display: flex;
+          flex-grow: 0;
+          padding: 0;
+          overflow-y: visible;
+          // Reset `background-color` in case `.bg-*` classes are used in offcanvas
+          background-color: transparent !important; // stylelint-disable-line declaration-no-important
+        }
+      }
+    }
+  }
+}
+
+.offcanvas-backdrop {
+  @include overlay-backdrop(BDTzindex-offcanvas-backdrop, BDToffcanvas-backdrop-bg, BDToffcanvas-backdrop-opacity);
+}
+
+.offcanvas-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--#{BDTprefix}offcanvas-padding-y) var(--#{BDTprefix}offcanvas-padding-x);
+
+  .btn-close {
+    padding: calc(var(--#{BDTprefix}offcanvas-padding-y) * .5) calc(var(--#{BDTprefix}offcanvas-padding-x) * .5);
+    margin-top: calc(var(--#{BDTprefix}offcanvas-padding-y) * -.5);
+    margin-right: calc(var(--#{BDTprefix}offcanvas-padding-x) * -.5);
+    margin-bottom: calc(var(--#{BDTprefix}offcanvas-padding-y) * -.5);
+  }
+}
+
+.offcanvas-title {
+  margin-bottom: 0;
+  line-height: BDToffcanvas-title-line-height;
+}
+
+.offcanvas-body {
+  flex-grow: 1;
+  padding: var(--#{BDTprefix}offcanvas-padding-y) var(--#{BDTprefix}offcanvas-padding-x);
+  overflow-y: auto;
+}

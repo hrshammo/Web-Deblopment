@@ -1,0 +1,1631 @@
+// Variables
+//
+// Variables should follow the `BDTcomponent-state-property-size` formula for
+// consistent naming. Ex: BDTnav-link-disabled-color and BDTmodal-content-box-shadow-xs.
+
+// Color system
+
+// scss-docs-start gray-color-variables
+BDTwhite:    #fff !default;
+BDTgray-100: #f8f9fa !default;
+BDTgray-200: #e9ecef !default;
+BDTgray-300: #dee2e6 !default;
+BDTgray-400: #ced4da !default;
+BDTgray-500: #adb5bd !default;
+BDTgray-600: #6c757d !default;
+BDTgray-700: #495057 !default;
+BDTgray-800: #343a40 !default;
+BDTgray-900: #212529 !default;
+BDTblack:    #000 !default;
+// scss-docs-end gray-color-variables
+
+// fusv-disable
+// scss-docs-start gray-colors-map
+BDTgrays: (
+  "100": BDTgray-100,
+  "200": BDTgray-200,
+  "300": BDTgray-300,
+  "400": BDTgray-400,
+  "500": BDTgray-500,
+  "600": BDTgray-600,
+  "700": BDTgray-700,
+  "800": BDTgray-800,
+  "900": BDTgray-900
+) !default;
+// scss-docs-end gray-colors-map
+// fusv-enable
+
+// scss-docs-start color-variables
+BDTblue:    #0d6efd !default;
+BDTindigo:  #6610f2 !default;
+BDTpurple:  #6f42c1 !default;
+BDTpink:    #d63384 !default;
+BDTred:     #dc3545 !default;
+BDTorange:  #fd7e14 !default;
+BDTyellow:  #ffc107 !default;
+BDTgreen:   #198754 !default;
+BDTteal:    #20c997 !default;
+BDTcyan:    #0dcaf0 !default;
+// scss-docs-end color-variables
+
+// scss-docs-start colors-map
+BDTcolors: (
+  "blue":       BDTblue,
+  "indigo":     BDTindigo,
+  "purple":     BDTpurple,
+  "pink":       BDTpink,
+  "red":        BDTred,
+  "orange":     BDTorange,
+  "yellow":     BDTyellow,
+  "green":      BDTgreen,
+  "teal":       BDTteal,
+  "cyan":       BDTcyan,
+  "black":      BDTblack,
+  "white":      BDTwhite,
+  "gray":       BDTgray-600,
+  "gray-dark":  BDTgray-800
+) !default;
+// scss-docs-end colors-map
+
+// The contrast ratio to reach against white, to determine if color changes from "light" to "dark". Acceptable values for WCAG 2.0 are 3, 4.5 and 7.
+// See https://www.w3.org/TR/WCAG20/#visual-audio-contrast-contrast
+BDTmin-contrast-ratio:   4.5 !default;
+
+// Customize the light and dark text colors for use in our color contrast function.
+BDTcolor-contrast-dark:      BDTblack !default;
+BDTcolor-contrast-light:     BDTwhite !default;
+
+// fusv-disable
+BDTblue-100: tint-color(BDTblue, 80%) !default;
+BDTblue-200: tint-color(BDTblue, 60%) !default;
+BDTblue-300: tint-color(BDTblue, 40%) !default;
+BDTblue-400: tint-color(BDTblue, 20%) !default;
+BDTblue-500: BDTblue !default;
+BDTblue-600: shade-color(BDTblue, 20%) !default;
+BDTblue-700: shade-color(BDTblue, 40%) !default;
+BDTblue-800: shade-color(BDTblue, 60%) !default;
+BDTblue-900: shade-color(BDTblue, 80%) !default;
+
+BDTindigo-100: tint-color(BDTindigo, 80%) !default;
+BDTindigo-200: tint-color(BDTindigo, 60%) !default;
+BDTindigo-300: tint-color(BDTindigo, 40%) !default;
+BDTindigo-400: tint-color(BDTindigo, 20%) !default;
+BDTindigo-500: BDTindigo !default;
+BDTindigo-600: shade-color(BDTindigo, 20%) !default;
+BDTindigo-700: shade-color(BDTindigo, 40%) !default;
+BDTindigo-800: shade-color(BDTindigo, 60%) !default;
+BDTindigo-900: shade-color(BDTindigo, 80%) !default;
+
+BDTpurple-100: tint-color(BDTpurple, 80%) !default;
+BDTpurple-200: tint-color(BDTpurple, 60%) !default;
+BDTpurple-300: tint-color(BDTpurple, 40%) !default;
+BDTpurple-400: tint-color(BDTpurple, 20%) !default;
+BDTpurple-500: BDTpurple !default;
+BDTpurple-600: shade-color(BDTpurple, 20%) !default;
+BDTpurple-700: shade-color(BDTpurple, 40%) !default;
+BDTpurple-800: shade-color(BDTpurple, 60%) !default;
+BDTpurple-900: shade-color(BDTpurple, 80%) !default;
+
+BDTpink-100: tint-color(BDTpink, 80%) !default;
+BDTpink-200: tint-color(BDTpink, 60%) !default;
+BDTpink-300: tint-color(BDTpink, 40%) !default;
+BDTpink-400: tint-color(BDTpink, 20%) !default;
+BDTpink-500: BDTpink !default;
+BDTpink-600: shade-color(BDTpink, 20%) !default;
+BDTpink-700: shade-color(BDTpink, 40%) !default;
+BDTpink-800: shade-color(BDTpink, 60%) !default;
+BDTpink-900: shade-color(BDTpink, 80%) !default;
+
+BDTred-100: tint-color(BDTred, 80%) !default;
+BDTred-200: tint-color(BDTred, 60%) !default;
+BDTred-300: tint-color(BDTred, 40%) !default;
+BDTred-400: tint-color(BDTred, 20%) !default;
+BDTred-500: BDTred !default;
+BDTred-600: shade-color(BDTred, 20%) !default;
+BDTred-700: shade-color(BDTred, 40%) !default;
+BDTred-800: shade-color(BDTred, 60%) !default;
+BDTred-900: shade-color(BDTred, 80%) !default;
+
+BDTorange-100: tint-color(BDTorange, 80%) !default;
+BDTorange-200: tint-color(BDTorange, 60%) !default;
+BDTorange-300: tint-color(BDTorange, 40%) !default;
+BDTorange-400: tint-color(BDTorange, 20%) !default;
+BDTorange-500: BDTorange !default;
+BDTorange-600: shade-color(BDTorange, 20%) !default;
+BDTorange-700: shade-color(BDTorange, 40%) !default;
+BDTorange-800: shade-color(BDTorange, 60%) !default;
+BDTorange-900: shade-color(BDTorange, 80%) !default;
+
+BDTyellow-100: tint-color(BDTyellow, 80%) !default;
+BDTyellow-200: tint-color(BDTyellow, 60%) !default;
+BDTyellow-300: tint-color(BDTyellow, 40%) !default;
+BDTyellow-400: tint-color(BDTyellow, 20%) !default;
+BDTyellow-500: BDTyellow !default;
+BDTyellow-600: shade-color(BDTyellow, 20%) !default;
+BDTyellow-700: shade-color(BDTyellow, 40%) !default;
+BDTyellow-800: shade-color(BDTyellow, 60%) !default;
+BDTyellow-900: shade-color(BDTyellow, 80%) !default;
+
+BDTgreen-100: tint-color(BDTgreen, 80%) !default;
+BDTgreen-200: tint-color(BDTgreen, 60%) !default;
+BDTgreen-300: tint-color(BDTgreen, 40%) !default;
+BDTgreen-400: tint-color(BDTgreen, 20%) !default;
+BDTgreen-500: BDTgreen !default;
+BDTgreen-600: shade-color(BDTgreen, 20%) !default;
+BDTgreen-700: shade-color(BDTgreen, 40%) !default;
+BDTgreen-800: shade-color(BDTgreen, 60%) !default;
+BDTgreen-900: shade-color(BDTgreen, 80%) !default;
+
+BDTteal-100: tint-color(BDTteal, 80%) !default;
+BDTteal-200: tint-color(BDTteal, 60%) !default;
+BDTteal-300: tint-color(BDTteal, 40%) !default;
+BDTteal-400: tint-color(BDTteal, 20%) !default;
+BDTteal-500: BDTteal !default;
+BDTteal-600: shade-color(BDTteal, 20%) !default;
+BDTteal-700: shade-color(BDTteal, 40%) !default;
+BDTteal-800: shade-color(BDTteal, 60%) !default;
+BDTteal-900: shade-color(BDTteal, 80%) !default;
+
+BDTcyan-100: tint-color(BDTcyan, 80%) !default;
+BDTcyan-200: tint-color(BDTcyan, 60%) !default;
+BDTcyan-300: tint-color(BDTcyan, 40%) !default;
+BDTcyan-400: tint-color(BDTcyan, 20%) !default;
+BDTcyan-500: BDTcyan !default;
+BDTcyan-600: shade-color(BDTcyan, 20%) !default;
+BDTcyan-700: shade-color(BDTcyan, 40%) !default;
+BDTcyan-800: shade-color(BDTcyan, 60%) !default;
+BDTcyan-900: shade-color(BDTcyan, 80%) !default;
+
+BDTblues: (
+  "blue-100": BDTblue-100,
+  "blue-200": BDTblue-200,
+  "blue-300": BDTblue-300,
+  "blue-400": BDTblue-400,
+  "blue-500": BDTblue-500,
+  "blue-600": BDTblue-600,
+  "blue-700": BDTblue-700,
+  "blue-800": BDTblue-800,
+  "blue-900": BDTblue-900
+) !default;
+
+BDTindigos: (
+  "indigo-100": BDTindigo-100,
+  "indigo-200": BDTindigo-200,
+  "indigo-300": BDTindigo-300,
+  "indigo-400": BDTindigo-400,
+  "indigo-500": BDTindigo-500,
+  "indigo-600": BDTindigo-600,
+  "indigo-700": BDTindigo-700,
+  "indigo-800": BDTindigo-800,
+  "indigo-900": BDTindigo-900
+) !default;
+
+BDTpurples: (
+  "purple-100": BDTpurple-100,
+  "purple-200": BDTpurple-200,
+  "purple-300": BDTpurple-300,
+  "purple-400": BDTpurple-400,
+  "purple-500": BDTpurple-500,
+  "purple-600": BDTpurple-600,
+  "purple-700": BDTpurple-700,
+  "purple-800": BDTpurple-800,
+  "purple-900": BDTpurple-900
+) !default;
+
+BDTpinks: (
+  "pink-100": BDTpink-100,
+  "pink-200": BDTpink-200,
+  "pink-300": BDTpink-300,
+  "pink-400": BDTpink-400,
+  "pink-500": BDTpink-500,
+  "pink-600": BDTpink-600,
+  "pink-700": BDTpink-700,
+  "pink-800": BDTpink-800,
+  "pink-900": BDTpink-900
+) !default;
+
+BDTreds: (
+  "red-100": BDTred-100,
+  "red-200": BDTred-200,
+  "red-300": BDTred-300,
+  "red-400": BDTred-400,
+  "red-500": BDTred-500,
+  "red-600": BDTred-600,
+  "red-700": BDTred-700,
+  "red-800": BDTred-800,
+  "red-900": BDTred-900
+) !default;
+
+BDToranges: (
+  "orange-100": BDTorange-100,
+  "orange-200": BDTorange-200,
+  "orange-300": BDTorange-300,
+  "orange-400": BDTorange-400,
+  "orange-500": BDTorange-500,
+  "orange-600": BDTorange-600,
+  "orange-700": BDTorange-700,
+  "orange-800": BDTorange-800,
+  "orange-900": BDTorange-900
+) !default;
+
+BDTyellows: (
+  "yellow-100": BDTyellow-100,
+  "yellow-200": BDTyellow-200,
+  "yellow-300": BDTyellow-300,
+  "yellow-400": BDTyellow-400,
+  "yellow-500": BDTyellow-500,
+  "yellow-600": BDTyellow-600,
+  "yellow-700": BDTyellow-700,
+  "yellow-800": BDTyellow-800,
+  "yellow-900": BDTyellow-900
+) !default;
+
+BDTgreens: (
+  "green-100": BDTgreen-100,
+  "green-200": BDTgreen-200,
+  "green-300": BDTgreen-300,
+  "green-400": BDTgreen-400,
+  "green-500": BDTgreen-500,
+  "green-600": BDTgreen-600,
+  "green-700": BDTgreen-700,
+  "green-800": BDTgreen-800,
+  "green-900": BDTgreen-900
+) !default;
+
+BDTteals: (
+  "teal-100": BDTteal-100,
+  "teal-200": BDTteal-200,
+  "teal-300": BDTteal-300,
+  "teal-400": BDTteal-400,
+  "teal-500": BDTteal-500,
+  "teal-600": BDTteal-600,
+  "teal-700": BDTteal-700,
+  "teal-800": BDTteal-800,
+  "teal-900": BDTteal-900
+) !default;
+
+BDTcyans: (
+  "cyan-100": BDTcyan-100,
+  "cyan-200": BDTcyan-200,
+  "cyan-300": BDTcyan-300,
+  "cyan-400": BDTcyan-400,
+  "cyan-500": BDTcyan-500,
+  "cyan-600": BDTcyan-600,
+  "cyan-700": BDTcyan-700,
+  "cyan-800": BDTcyan-800,
+  "cyan-900": BDTcyan-900
+) !default;
+// fusv-enable
+
+// scss-docs-start theme-color-variables
+BDTprimary:       BDTblue !default;
+BDTsecondary:     BDTgray-600 !default;
+BDTsuccess:       BDTgreen !default;
+BDTinfo:          BDTcyan !default;
+BDTwarning:       BDTyellow !default;
+BDTdanger:        BDTred !default;
+BDTlight:         BDTgray-100 !default;
+BDTdark:          BDTgray-900 !default;
+// scss-docs-end theme-color-variables
+
+// scss-docs-start theme-colors-map
+BDTtheme-colors: (
+  "primary":    BDTprimary,
+  "secondary":  BDTsecondary,
+  "success":    BDTsuccess,
+  "info":       BDTinfo,
+  "warning":    BDTwarning,
+  "danger":     BDTdanger,
+  "light":      BDTlight,
+  "dark":       BDTdark
+) !default;
+// scss-docs-end theme-colors-map
+
+// Characters which are escaped by the escape-svg function
+BDTescaped-characters: (
+  ("<", "%3c"),
+  (">", "%3e"),
+  ("#", "%23"),
+  ("(", "%28"),
+  (")", "%29"),
+) !default;
+
+// Options
+//
+// Quickly modify global styling by enabling or disabling optional features.
+
+BDTenable-caret:                true !default;
+BDTenable-rounded:              true !default;
+BDTenable-shadows:              false !default;
+BDTenable-gradients:            false !default;
+BDTenable-transitions:          true !default;
+BDTenable-reduced-motion:       true !default;
+BDTenable-smooth-scroll:        true !default;
+BDTenable-grid-classes:         true !default;
+BDTenable-container-classes:    true !default;
+BDTenable-cssgrid:              false !default;
+BDTenable-button-pointers:      true !default;
+BDTenable-rfs:                  true !default;
+BDTenable-validation-icons:     true !default;
+BDTenable-negative-margins:     false !default;
+BDTenable-deprecation-messages: true !default;
+BDTenable-important-utilities:  true !default;
+
+// Prefix for :root CSS variables
+
+BDTvariable-prefix:             bs- !default; // Deprecated in v5.2.0 for the shorter `BDTprefix`
+BDTprefix:                      BDTvariable-prefix !default;
+
+// Gradient
+//
+// The gradient which is added to components if `BDTenable-gradients` is `true`
+// This gradient is also added to elements with `.bg-gradient`
+// scss-docs-start variable-gradient
+BDTgradient: linear-gradient(180deg, rgba(BDTwhite, .15), rgba(BDTwhite, 0)) !default;
+// scss-docs-end variable-gradient
+
+// Spacing
+//
+// Control the default styling of most Bootstrap elements by modifying these
+// variables. Mostly focused on spacing.
+// You can add more entries to the BDTspacers map, should you need more variation.
+
+// scss-docs-start spacer-variables-maps
+BDTspacer: 1rem !default;
+BDTspacers: (
+  0: 0,
+  1: BDTspacer * .25,
+  2: BDTspacer * .5,
+  3: BDTspacer,
+  4: BDTspacer * 1.5,
+  5: BDTspacer * 3,
+) !default;
+// scss-docs-end spacer-variables-maps
+
+// Position
+//
+// Define the edge positioning anchors of the position utilities.
+
+// scss-docs-start position-map
+BDTposition-values: (
+  0: 0,
+  50: 50%,
+  100: 100%
+) !default;
+// scss-docs-end position-map
+
+// Body
+//
+// Settings for the `<body>` element.
+
+BDTbody-bg:                   BDTwhite !default;
+BDTbody-color:                BDTgray-900 !default;
+BDTbody-text-align:           null !default;
+
+// Links
+//
+// Style anchor elements.
+
+BDTlink-color:                              BDTprimary !default;
+BDTlink-decoration:                         underline !default;
+BDTlink-shade-percentage:                   20% !default;
+BDTlink-hover-color:                        shift-color(BDTlink-color, BDTlink-shade-percentage) !default;
+BDTlink-hover-decoration:                   null !default;
+
+BDTstretched-link-pseudo-element:           after !default;
+BDTstretched-link-z-index:                  1 !default;
+
+// Paragraphs
+//
+// Style p element.
+
+BDTparagraph-margin-bottom:   1rem !default;
+
+
+// Grid breakpoints
+//
+// Define the minimum dimensions at which your layout will change,
+// adapting to different screen sizes, for use in media queries.
+
+// scss-docs-start grid-breakpoints
+BDTgrid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px
+) !default;
+// scss-docs-end grid-breakpoints
+
+@include _assert-ascending(BDTgrid-breakpoints, "BDTgrid-breakpoints");
+@include _assert-starts-at-zero(BDTgrid-breakpoints, "BDTgrid-breakpoints");
+
+
+// Grid containers
+//
+// Define the maximum width of `.container` for different screen sizes.
+
+// scss-docs-start container-max-widths
+BDTcontainer-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1140px,
+  xxl: 1320px
+) !default;
+// scss-docs-end container-max-widths
+
+@include _assert-ascending(BDTcontainer-max-widths, "BDTcontainer-max-widths");
+
+
+// Grid columns
+//
+// Set the number of columns and specify the width of the gutters.
+
+BDTgrid-columns:                12 !default;
+BDTgrid-gutter-width:           1.5rem !default;
+BDTgrid-row-columns:            6 !default;
+
+// Container padding
+
+BDTcontainer-padding-x: BDTgrid-gutter-width !default;
+
+
+// Components
+//
+// Define common padding and border radius sizes and more.
+
+// scss-docs-start border-variables
+BDTborder-width:                1px !default;
+BDTborder-widths: (
+  1: 1px,
+  2: 2px,
+  3: 3px,
+  4: 4px,
+  5: 5px
+) !default;
+
+BDTborder-style:                solid !default;
+BDTborder-color:                BDTgray-300 !default;
+BDTborder-color-translucent:    rgba(BDTblack, .175) !default;
+// scss-docs-end border-variables
+
+// scss-docs-start border-radius-variables
+BDTborder-radius:               .375rem !default;
+BDTborder-radius-sm:            .25rem !default;
+BDTborder-radius-lg:            .5rem !default;
+BDTborder-radius-xl:            1rem !default;
+BDTborder-radius-2xl:           2rem !default;
+BDTborder-radius-pill:          50rem !default;
+// scss-docs-end border-radius-variables
+
+// scss-docs-start box-shadow-variables
+BDTbox-shadow:                  0 .5rem 1rem rgba(BDTblack, .15) !default;
+BDTbox-shadow-sm:               0 .125rem .25rem rgba(BDTblack, .075) !default;
+BDTbox-shadow-lg:               0 1rem 3rem rgba(BDTblack, .175) !default;
+BDTbox-shadow-inset:            inset 0 1px 2px rgba(BDTblack, .075) !default;
+// scss-docs-end box-shadow-variables
+
+BDTcomponent-active-color:      BDTwhite !default;
+BDTcomponent-active-bg:         BDTprimary !default;
+
+// scss-docs-start caret-variables
+BDTcaret-width:                 .3em !default;
+BDTcaret-vertical-align:        BDTcaret-width * .85 !default;
+BDTcaret-spacing:               BDTcaret-width * .85 !default;
+// scss-docs-end caret-variables
+
+BDTtransition-base:             all .2s ease-in-out !default;
+BDTtransition-fade:             opacity .15s linear !default;
+// scss-docs-start collapse-transition
+BDTtransition-collapse:         height .35s ease !default;
+BDTtransition-collapse-width:   width .35s ease !default;
+// scss-docs-end collapse-transition
+
+// stylelint-disable function-disallowed-list
+// scss-docs-start aspect-ratios
+BDTaspect-ratios: (
+  "1x1": 100%,
+  "4x3": calc(3 / 4 * 100%),
+  "16x9": calc(9 / 16 * 100%),
+  "21x9": calc(9 / 21 * 100%)
+) !default;
+// scss-docs-end aspect-ratios
+// stylelint-enable function-disallowed-list
+
+// Typography
+//
+// Font, line-height, and color for body text, headings, and more.
+
+// scss-docs-start font-variables
+// stylelint-disable value-keyword-case
+BDTfont-family-sans-serif:      system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
+BDTfont-family-monospace:       SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !default;
+// stylelint-enable value-keyword-case
+BDTfont-family-base:            var(--#{BDTprefix}font-sans-serif) !default;
+BDTfont-family-code:            var(--#{BDTprefix}font-monospace) !default;
+
+// BDTfont-size-root affects the value of `rem`, which is used for as well font sizes, paddings, and margins
+// BDTfont-size-base affects the font size of the body text
+BDTfont-size-root:              null !default;
+BDTfont-size-base:              1rem !default; // Assumes the browser default, typically `16px`
+BDTfont-size-sm:                BDTfont-size-base * .875 !default;
+BDTfont-size-lg:                BDTfont-size-base * 1.25 !default;
+
+BDTfont-weight-lighter:         lighter !default;
+BDTfont-weight-light:           300 !default;
+BDTfont-weight-normal:          400 !default;
+BDTfont-weight-semibold:        600 !default;
+BDTfont-weight-bold:            700 !default;
+BDTfont-weight-bolder:          bolder !default;
+
+BDTfont-weight-base:            BDTfont-weight-normal !default;
+
+BDTline-height-base:            1.5 !default;
+BDTline-height-sm:              1.25 !default;
+BDTline-height-lg:              2 !default;
+
+BDTh1-font-size:                BDTfont-size-base * 2.5 !default;
+BDTh2-font-size:                BDTfont-size-base * 2 !default;
+BDTh3-font-size:                BDTfont-size-base * 1.75 !default;
+BDTh4-font-size:                BDTfont-size-base * 1.5 !default;
+BDTh5-font-size:                BDTfont-size-base * 1.25 !default;
+BDTh6-font-size:                BDTfont-size-base !default;
+// scss-docs-end font-variables
+
+// scss-docs-start font-sizes
+BDTfont-sizes: (
+  1: BDTh1-font-size,
+  2: BDTh2-font-size,
+  3: BDTh3-font-size,
+  4: BDTh4-font-size,
+  5: BDTh5-font-size,
+  6: BDTh6-font-size
+) !default;
+// scss-docs-end font-sizes
+
+// scss-docs-start headings-variables
+BDTheadings-margin-bottom:      BDTspacer * .5 !default;
+BDTheadings-font-family:        null !default;
+BDTheadings-font-style:         null !default;
+BDTheadings-font-weight:        500 !default;
+BDTheadings-line-height:        1.2 !default;
+BDTheadings-color:              null !default;
+// scss-docs-end headings-variables
+
+// scss-docs-start display-headings
+BDTdisplay-font-sizes: (
+  1: 5rem,
+  2: 4.5rem,
+  3: 4rem,
+  4: 3.5rem,
+  5: 3rem,
+  6: 2.5rem
+) !default;
+
+BDTdisplay-font-weight: 300 !default;
+BDTdisplay-line-height: BDTheadings-line-height !default;
+// scss-docs-end display-headings
+
+// scss-docs-start type-variables
+BDTlead-font-size:              BDTfont-size-base * 1.25 !default;
+BDTlead-font-weight:            300 !default;
+
+BDTsmall-font-size:             .875em !default;
+
+BDTsub-sup-font-size:           .75em !default;
+
+BDTtext-muted:                  rgba(var(--#{BDTprefix}body-color-rgb), .75) !default;
+
+BDTinitialism-font-size:        BDTsmall-font-size !default;
+
+BDTblockquote-margin-y:         BDTspacer !default;
+BDTblockquote-font-size:        BDTfont-size-base * 1.25 !default;
+BDTblockquote-footer-color:     BDTgray-600 !default;
+BDTblockquote-footer-font-size: BDTsmall-font-size !default;
+
+BDThr-margin-y:                 BDTspacer !default;
+BDThr-color:                    inherit !default;
+
+// fusv-disable
+BDThr-bg-color:                 null !default; // Deprecated in v5.2.0
+BDThr-height:                   null !default; // Deprecated in v5.2.0
+// fusv-enable
+
+BDThr-border-color:             null !default; // Allows for inherited colors
+BDThr-border-width:             BDTborder-width !default;
+BDThr-opacity:                  .25 !default;
+
+BDTlegend-margin-bottom:        .5rem !default;
+BDTlegend-font-size:            1.5rem !default;
+BDTlegend-font-weight:          null !default;
+
+BDTdt-font-weight:              BDTfont-weight-bold !default;
+
+BDTlist-inline-padding:         .5rem !default;
+
+BDTmark-padding:                .1875em !default;
+BDTmark-bg:                     BDTyellow-100 !default;
+// scss-docs-end type-variables
+
+
+// Tables
+//
+// Customizes the `.table` component with basic values, each used across all table variations.
+
+// scss-docs-start table-variables
+BDTtable-cell-padding-y:        .5rem !default;
+BDTtable-cell-padding-x:        .5rem !default;
+BDTtable-cell-padding-y-sm:     .25rem !default;
+BDTtable-cell-padding-x-sm:     .25rem !default;
+
+BDTtable-cell-vertical-align:   top !default;
+
+BDTtable-color:                 var(--#{BDTprefix}body-color) !default;
+BDTtable-bg:                    transparent !default;
+BDTtable-accent-bg:             transparent !default;
+
+BDTtable-th-font-weight:        null !default;
+
+BDTtable-striped-color:         BDTtable-color !default;
+BDTtable-striped-bg-factor:     .05 !default;
+BDTtable-striped-bg:            rgba(BDTblack, BDTtable-striped-bg-factor) !default;
+
+BDTtable-active-color:          BDTtable-color !default;
+BDTtable-active-bg-factor:      .1 !default;
+BDTtable-active-bg:             rgba(BDTblack, BDTtable-active-bg-factor) !default;
+
+BDTtable-hover-color:           BDTtable-color !default;
+BDTtable-hover-bg-factor:       .075 !default;
+BDTtable-hover-bg:              rgba(BDTblack, BDTtable-hover-bg-factor) !default;
+
+BDTtable-border-factor:         .1 !default;
+BDTtable-border-width:          BDTborder-width !default;
+BDTtable-border-color:          var(--#{BDTprefix}border-color) !default;
+
+BDTtable-striped-order:         odd !default;
+BDTtable-striped-columns-order: even !default;
+
+BDTtable-group-separator-color: currentcolor !default;
+
+BDTtable-caption-color:         BDTtext-muted !default;
+
+BDTtable-bg-scale:              -80% !default;
+// scss-docs-end table-variables
+
+// scss-docs-start table-loop
+BDTtable-variants: (
+  "primary":    shift-color(BDTprimary, BDTtable-bg-scale),
+  "secondary":  shift-color(BDTsecondary, BDTtable-bg-scale),
+  "success":    shift-color(BDTsuccess, BDTtable-bg-scale),
+  "info":       shift-color(BDTinfo, BDTtable-bg-scale),
+  "warning":    shift-color(BDTwarning, BDTtable-bg-scale),
+  "danger":     shift-color(BDTdanger, BDTtable-bg-scale),
+  "light":      BDTlight,
+  "dark":       BDTdark,
+) !default;
+// scss-docs-end table-loop
+
+
+// Buttons + Forms
+//
+// Shared variables that are reassigned to `BDTinput-` and `BDTbtn-` specific variables.
+
+// scss-docs-start input-btn-variables
+BDTinput-btn-padding-y:         .375rem !default;
+BDTinput-btn-padding-x:         .75rem !default;
+BDTinput-btn-font-family:       null !default;
+BDTinput-btn-font-size:         BDTfont-size-base !default;
+BDTinput-btn-line-height:       BDTline-height-base !default;
+
+BDTinput-btn-focus-width:         .25rem !default;
+BDTinput-btn-focus-color-opacity: .25 !default;
+BDTinput-btn-focus-color:         rgba(BDTcomponent-active-bg, BDTinput-btn-focus-color-opacity) !default;
+BDTinput-btn-focus-blur:          0 !default;
+BDTinput-btn-focus-box-shadow:    0 0 BDTinput-btn-focus-blur BDTinput-btn-focus-width BDTinput-btn-focus-color !default;
+
+BDTinput-btn-padding-y-sm:      .25rem !default;
+BDTinput-btn-padding-x-sm:      .5rem !default;
+BDTinput-btn-font-size-sm:      BDTfont-size-sm !default;
+
+BDTinput-btn-padding-y-lg:      .5rem !default;
+BDTinput-btn-padding-x-lg:      1rem !default;
+BDTinput-btn-font-size-lg:      BDTfont-size-lg !default;
+
+BDTinput-btn-border-width:      BDTborder-width !default;
+// scss-docs-end input-btn-variables
+
+
+// Buttons
+//
+// For each of Bootstrap's buttons, define text, background, and border color.
+
+// scss-docs-start btn-variables
+BDTbtn-padding-y:               BDTinput-btn-padding-y !default;
+BDTbtn-padding-x:               BDTinput-btn-padding-x !default;
+BDTbtn-font-family:             BDTinput-btn-font-family !default;
+BDTbtn-font-size:               BDTinput-btn-font-size !default;
+BDTbtn-line-height:             BDTinput-btn-line-height !default;
+BDTbtn-white-space:             null !default; // Set to `nowrap` to prevent text wrapping
+
+BDTbtn-padding-y-sm:            BDTinput-btn-padding-y-sm !default;
+BDTbtn-padding-x-sm:            BDTinput-btn-padding-x-sm !default;
+BDTbtn-font-size-sm:            BDTinput-btn-font-size-sm !default;
+
+BDTbtn-padding-y-lg:            BDTinput-btn-padding-y-lg !default;
+BDTbtn-padding-x-lg:            BDTinput-btn-padding-x-lg !default;
+BDTbtn-font-size-lg:            BDTinput-btn-font-size-lg !default;
+
+BDTbtn-border-width:            BDTinput-btn-border-width !default;
+
+BDTbtn-font-weight:             BDTfont-weight-normal !default;
+BDTbtn-box-shadow:              inset 0 1px 0 rgba(BDTwhite, .15), 0 1px 1px rgba(BDTblack, .075) !default;
+BDTbtn-focus-width:             BDTinput-btn-focus-width !default;
+BDTbtn-focus-box-shadow:        BDTinput-btn-focus-box-shadow !default;
+BDTbtn-disabled-opacity:        .65 !default;
+BDTbtn-active-box-shadow:       inset 0 3px 5px rgba(BDTblack, .125) !default;
+
+BDTbtn-link-color:              var(--#{BDTprefix}link-color) !default;
+BDTbtn-link-hover-color:        var(--#{BDTprefix}link-hover-color) !default;
+BDTbtn-link-disabled-color:     BDTgray-600 !default;
+
+// Allows for customizing button radius independently from global border radius
+BDTbtn-border-radius:           BDTborder-radius !default;
+BDTbtn-border-radius-sm:        BDTborder-radius-sm !default;
+BDTbtn-border-radius-lg:        BDTborder-radius-lg !default;
+
+BDTbtn-transition:              color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out !default;
+
+BDTbtn-hover-bg-shade-amount:       15% !default;
+BDTbtn-hover-bg-tint-amount:        15% !default;
+BDTbtn-hover-border-shade-amount:   20% !default;
+BDTbtn-hover-border-tint-amount:    10% !default;
+BDTbtn-active-bg-shade-amount:      20% !default;
+BDTbtn-active-bg-tint-amount:       20% !default;
+BDTbtn-active-border-shade-amount:  25% !default;
+BDTbtn-active-border-tint-amount:   10% !default;
+// scss-docs-end btn-variables
+
+
+// Forms
+
+// scss-docs-start form-text-variables
+BDTform-text-margin-top:                  .25rem !default;
+BDTform-text-font-size:                   BDTsmall-font-size !default;
+BDTform-text-font-style:                  null !default;
+BDTform-text-font-weight:                 null !default;
+BDTform-text-color:                       BDTtext-muted !default;
+// scss-docs-end form-text-variables
+
+// scss-docs-start form-label-variables
+BDTform-label-margin-bottom:              .5rem !default;
+BDTform-label-font-size:                  null !default;
+BDTform-label-font-style:                 null !default;
+BDTform-label-font-weight:                null !default;
+BDTform-label-color:                      null !default;
+// scss-docs-end form-label-variables
+
+// scss-docs-start form-input-variables
+BDTinput-padding-y:                       BDTinput-btn-padding-y !default;
+BDTinput-padding-x:                       BDTinput-btn-padding-x !default;
+BDTinput-font-family:                     BDTinput-btn-font-family !default;
+BDTinput-font-size:                       BDTinput-btn-font-size !default;
+BDTinput-font-weight:                     BDTfont-weight-base !default;
+BDTinput-line-height:                     BDTinput-btn-line-height !default;
+
+BDTinput-padding-y-sm:                    BDTinput-btn-padding-y-sm !default;
+BDTinput-padding-x-sm:                    BDTinput-btn-padding-x-sm !default;
+BDTinput-font-size-sm:                    BDTinput-btn-font-size-sm !default;
+
+BDTinput-padding-y-lg:                    BDTinput-btn-padding-y-lg !default;
+BDTinput-padding-x-lg:                    BDTinput-btn-padding-x-lg !default;
+BDTinput-font-size-lg:                    BDTinput-btn-font-size-lg !default;
+
+BDTinput-bg:                              BDTbody-bg !default;
+BDTinput-disabled-color:                  null !default;
+BDTinput-disabled-bg:                     BDTgray-200 !default;
+BDTinput-disabled-border-color:           null !default;
+
+BDTinput-color:                           BDTbody-color !default;
+BDTinput-border-color:                    BDTgray-400 !default;
+BDTinput-border-width:                    BDTinput-btn-border-width !default;
+BDTinput-box-shadow:                      BDTbox-shadow-inset !default;
+
+BDTinput-border-radius:                   BDTborder-radius !default;
+BDTinput-border-radius-sm:                BDTborder-radius-sm !default;
+BDTinput-border-radius-lg:                BDTborder-radius-lg !default;
+
+BDTinput-focus-bg:                        BDTinput-bg !default;
+BDTinput-focus-border-color:              tint-color(BDTcomponent-active-bg, 50%) !default;
+BDTinput-focus-color:                     BDTinput-color !default;
+BDTinput-focus-width:                     BDTinput-btn-focus-width !default;
+BDTinput-focus-box-shadow:                BDTinput-btn-focus-box-shadow !default;
+
+BDTinput-placeholder-color:               BDTgray-600 !default;
+BDTinput-plaintext-color:                 BDTbody-color !default;
+
+BDTinput-height-border:                   BDTinput-border-width * 2 !default;
+
+BDTinput-height-inner:                    add(BDTinput-line-height * 1em, BDTinput-padding-y * 2) !default;
+BDTinput-height-inner-half:               add(BDTinput-line-height * .5em, BDTinput-padding-y) !default;
+BDTinput-height-inner-quarter:            add(BDTinput-line-height * .25em, BDTinput-padding-y * .5) !default;
+
+BDTinput-height:                          add(BDTinput-line-height * 1em, add(BDTinput-padding-y * 2, BDTinput-height-border, false)) !default;
+BDTinput-height-sm:                       add(BDTinput-line-height * 1em, add(BDTinput-padding-y-sm * 2, BDTinput-height-border, false)) !default;
+BDTinput-height-lg:                       add(BDTinput-line-height * 1em, add(BDTinput-padding-y-lg * 2, BDTinput-height-border, false)) !default;
+
+BDTinput-transition:                      border-color .15s ease-in-out, box-shadow .15s ease-in-out !default;
+
+BDTform-color-width:                      3rem !default;
+// scss-docs-end form-input-variables
+
+// scss-docs-start form-check-variables
+BDTform-check-input-width:                  1em !default;
+BDTform-check-min-height:                   BDTfont-size-base * BDTline-height-base !default;
+BDTform-check-padding-start:                BDTform-check-input-width + .5em !default;
+BDTform-check-margin-bottom:                .125rem !default;
+BDTform-check-label-color:                  null !default;
+BDTform-check-label-cursor:                 null !default;
+BDTform-check-transition:                   null !default;
+
+BDTform-check-input-active-filter:          brightness(90%) !default;
+
+BDTform-check-input-bg:                     BDTinput-bg !default;
+BDTform-check-input-border:                 1px solid rgba(BDTblack, .25) !default;
+BDTform-check-input-border-radius:          .25em !default;
+BDTform-check-radio-border-radius:          50% !default;
+BDTform-check-input-focus-border:           BDTinput-focus-border-color !default;
+BDTform-check-input-focus-box-shadow:       BDTinput-btn-focus-box-shadow !default;
+
+BDTform-check-input-checked-color:          BDTcomponent-active-color !default;
+BDTform-check-input-checked-bg-color:       BDTcomponent-active-bg !default;
+BDTform-check-input-checked-border-color:   BDTform-check-input-checked-bg-color !default;
+BDTform-check-input-checked-bg-image:       url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><path fill='none' stroke='#{BDTform-check-input-checked-color}' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/></svg>") !default;
+BDTform-check-radio-checked-bg-image:       url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='2' fill='#{BDTform-check-input-checked-color}'/></svg>") !default;
+
+BDTform-check-input-indeterminate-color:          BDTcomponent-active-color !default;
+BDTform-check-input-indeterminate-bg-color:       BDTcomponent-active-bg !default;
+BDTform-check-input-indeterminate-border-color:   BDTform-check-input-indeterminate-bg-color !default;
+BDTform-check-input-indeterminate-bg-image:       url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><path fill='none' stroke='#{BDTform-check-input-indeterminate-color}' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10h8'/></svg>") !default;
+
+BDTform-check-input-disabled-opacity:        .5 !default;
+BDTform-check-label-disabled-opacity:        BDTform-check-input-disabled-opacity !default;
+BDTform-check-btn-check-disabled-opacity:    BDTbtn-disabled-opacity !default;
+
+BDTform-check-inline-margin-end:    1rem !default;
+// scss-docs-end form-check-variables
+
+// scss-docs-start form-switch-variables
+BDTform-switch-color:               rgba(BDTblack, .25) !default;
+BDTform-switch-width:               2em !default;
+BDTform-switch-padding-start:       BDTform-switch-width + .5em !default;
+BDTform-switch-bg-image:            url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='3' fill='#{BDTform-switch-color}'/></svg>") !default;
+BDTform-switch-border-radius:       BDTform-switch-width !default;
+BDTform-switch-transition:          background-position .15s ease-in-out !default;
+
+BDTform-switch-focus-color:         BDTinput-focus-border-color !default;
+BDTform-switch-focus-bg-image:      url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='3' fill='#{BDTform-switch-focus-color}'/></svg>") !default;
+
+BDTform-switch-checked-color:       BDTcomponent-active-color !default;
+BDTform-switch-checked-bg-image:    url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='3' fill='#{BDTform-switch-checked-color}'/></svg>") !default;
+BDTform-switch-checked-bg-position: right center !default;
+// scss-docs-end form-switch-variables
+
+// scss-docs-start input-group-variables
+BDTinput-group-addon-padding-y:           BDTinput-padding-y !default;
+BDTinput-group-addon-padding-x:           BDTinput-padding-x !default;
+BDTinput-group-addon-font-weight:         BDTinput-font-weight !default;
+BDTinput-group-addon-color:               BDTinput-color !default;
+BDTinput-group-addon-bg:                  BDTgray-200 !default;
+BDTinput-group-addon-border-color:        BDTinput-border-color !default;
+// scss-docs-end input-group-variables
+
+// scss-docs-start form-select-variables
+BDTform-select-padding-y:             BDTinput-padding-y !default;
+BDTform-select-padding-x:             BDTinput-padding-x !default;
+BDTform-select-font-family:           BDTinput-font-family !default;
+BDTform-select-font-size:             BDTinput-font-size !default;
+BDTform-select-indicator-padding:     BDTform-select-padding-x * 3 !default; // Extra padding for background-image
+BDTform-select-font-weight:           BDTinput-font-weight !default;
+BDTform-select-line-height:           BDTinput-line-height !default;
+BDTform-select-color:                 BDTinput-color !default;
+BDTform-select-bg:                    BDTinput-bg !default;
+BDTform-select-disabled-color:        null !default;
+BDTform-select-disabled-bg:           BDTgray-200 !default;
+BDTform-select-disabled-border-color: BDTinput-disabled-border-color !default;
+BDTform-select-bg-position:           right BDTform-select-padding-x center !default;
+BDTform-select-bg-size:               16px 12px !default; // In pixels because image dimensions
+BDTform-select-indicator-color:       BDTgray-800 !default;
+BDTform-select-indicator:             url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path fill='none' stroke='#{BDTform-select-indicator-color}' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/></svg>") !default;
+
+BDTform-select-feedback-icon-padding-end: BDTform-select-padding-x * 2.5 + BDTform-select-indicator-padding !default;
+BDTform-select-feedback-icon-position:    center right BDTform-select-indicator-padding !default;
+BDTform-select-feedback-icon-size:        BDTinput-height-inner-half BDTinput-height-inner-half !default;
+
+BDTform-select-border-width:        BDTinput-border-width !default;
+BDTform-select-border-color:        BDTinput-border-color !default;
+BDTform-select-border-radius:       BDTinput-border-radius !default;
+BDTform-select-box-shadow:          BDTbox-shadow-inset !default;
+
+BDTform-select-focus-border-color:  BDTinput-focus-border-color !default;
+BDTform-select-focus-width:         BDTinput-focus-width !default;
+BDTform-select-focus-box-shadow:    0 0 0 BDTform-select-focus-width BDTinput-btn-focus-color !default;
+
+BDTform-select-padding-y-sm:        BDTinput-padding-y-sm !default;
+BDTform-select-padding-x-sm:        BDTinput-padding-x-sm !default;
+BDTform-select-font-size-sm:        BDTinput-font-size-sm !default;
+BDTform-select-border-radius-sm:    BDTinput-border-radius-sm !default;
+
+BDTform-select-padding-y-lg:        BDTinput-padding-y-lg !default;
+BDTform-select-padding-x-lg:        BDTinput-padding-x-lg !default;
+BDTform-select-font-size-lg:        BDTinput-font-size-lg !default;
+BDTform-select-border-radius-lg:    BDTinput-border-radius-lg !default;
+
+BDTform-select-transition:          BDTinput-transition !default;
+// scss-docs-end form-select-variables
+
+// scss-docs-start form-range-variables
+BDTform-range-track-width:          100% !default;
+BDTform-range-track-height:         .5rem !default;
+BDTform-range-track-cursor:         pointer !default;
+BDTform-range-track-bg:             BDTgray-300 !default;
+BDTform-range-track-border-radius:  1rem !default;
+BDTform-range-track-box-shadow:     BDTbox-shadow-inset !default;
+
+BDTform-range-thumb-width:                   1rem !default;
+BDTform-range-thumb-height:                  BDTform-range-thumb-width !default;
+BDTform-range-thumb-bg:                      BDTcomponent-active-bg !default;
+BDTform-range-thumb-border:                  0 !default;
+BDTform-range-thumb-border-radius:           1rem !default;
+BDTform-range-thumb-box-shadow:              0 .1rem .25rem rgba(BDTblack, .1) !default;
+BDTform-range-thumb-focus-box-shadow:        0 0 0 1px BDTbody-bg, BDTinput-focus-box-shadow !default;
+BDTform-range-thumb-focus-box-shadow-width:  BDTinput-focus-width !default; // For focus box shadow issue in Edge
+BDTform-range-thumb-active-bg:               tint-color(BDTcomponent-active-bg, 70%) !default;
+BDTform-range-thumb-disabled-bg:             BDTgray-500 !default;
+BDTform-range-thumb-transition:              background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out !default;
+// scss-docs-end form-range-variables
+
+// scss-docs-start form-file-variables
+BDTform-file-button-color:          BDTinput-color !default;
+BDTform-file-button-bg:             BDTinput-group-addon-bg !default;
+BDTform-file-button-hover-bg:       shade-color(BDTform-file-button-bg, 5%) !default;
+// scss-docs-end form-file-variables
+
+// scss-docs-start form-floating-variables
+BDTform-floating-height:            add(3.5rem, BDTinput-height-border) !default;
+BDTform-floating-line-height:       1.25 !default;
+BDTform-floating-padding-x:         BDTinput-padding-x !default;
+BDTform-floating-padding-y:         1rem !default;
+BDTform-floating-input-padding-t:   1.625rem !default;
+BDTform-floating-input-padding-b:   .625rem !default;
+BDTform-floating-label-opacity:     .65 !default;
+BDTform-floating-label-transform:   scale(.85) translateY(-.5rem) translateX(.15rem) !default;
+BDTform-floating-transition:        opacity .1s ease-in-out, transform .1s ease-in-out !default;
+// scss-docs-end form-floating-variables
+
+// Form validation
+
+// scss-docs-start form-feedback-variables
+BDTform-feedback-margin-top:          BDTform-text-margin-top !default;
+BDTform-feedback-font-size:           BDTform-text-font-size !default;
+BDTform-feedback-font-style:          BDTform-text-font-style !default;
+BDTform-feedback-valid-color:         BDTsuccess !default;
+BDTform-feedback-invalid-color:       BDTdanger !default;
+
+BDTform-feedback-icon-valid-color:    BDTform-feedback-valid-color !default;
+BDTform-feedback-icon-valid:          url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'><path fill='#{BDTform-feedback-icon-valid-color}' d='M2.3 6.73.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/></svg>") !default;
+BDTform-feedback-icon-invalid-color:  BDTform-feedback-invalid-color !default;
+BDTform-feedback-icon-invalid:        url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='#{BDTform-feedback-icon-invalid-color}'><circle cx='6' cy='6' r='4.5'/><path stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/><circle cx='6' cy='8.2' r='.6' fill='#{BDTform-feedback-icon-invalid-color}' stroke='none'/></svg>") !default;
+// scss-docs-end form-feedback-variables
+
+// scss-docs-start form-validation-states
+BDTform-validation-states: (
+  "valid": (
+    "color": BDTform-feedback-valid-color,
+    "icon": BDTform-feedback-icon-valid
+  ),
+  "invalid": (
+    "color": BDTform-feedback-invalid-color,
+    "icon": BDTform-feedback-icon-invalid
+  )
+) !default;
+// scss-docs-end form-validation-states
+
+// Z-index master list
+//
+// Warning: Avoid customizing these values. They're used for a bird's eye view
+// of components dependent on the z-axis and are designed to all work together.
+
+// scss-docs-start zindex-stack
+BDTzindex-dropdown:                   1000 !default;
+BDTzindex-sticky:                     1020 !default;
+BDTzindex-fixed:                      1030 !default;
+BDTzindex-offcanvas-backdrop:         1040 !default;
+BDTzindex-offcanvas:                  1045 !default;
+BDTzindex-modal-backdrop:             1050 !default;
+BDTzindex-modal:                      1055 !default;
+BDTzindex-popover:                    1070 !default;
+BDTzindex-tooltip:                    1080 !default;
+BDTzindex-toast:                      1090 !default;
+// scss-docs-end zindex-stack
+
+
+// Navs
+
+// scss-docs-start nav-variables
+BDTnav-link-padding-y:                .5rem !default;
+BDTnav-link-padding-x:                1rem !default;
+BDTnav-link-font-size:                null !default;
+BDTnav-link-font-weight:              null !default;
+BDTnav-link-color:                    var(--#{BDTprefix}link-color) !default;
+BDTnav-link-hover-color:              var(--#{BDTprefix}link-hover-color) !default;
+BDTnav-link-transition:               color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out !default;
+BDTnav-link-disabled-color:           BDTgray-600 !default;
+
+BDTnav-tabs-border-color:             BDTgray-300 !default;
+BDTnav-tabs-border-width:             BDTborder-width !default;
+BDTnav-tabs-border-radius:            BDTborder-radius !default;
+BDTnav-tabs-link-hover-border-color:  BDTgray-200 BDTgray-200 BDTnav-tabs-border-color !default;
+BDTnav-tabs-link-active-color:        BDTgray-700 !default;
+BDTnav-tabs-link-active-bg:           BDTbody-bg !default;
+BDTnav-tabs-link-active-border-color: BDTgray-300 BDTgray-300 BDTnav-tabs-link-active-bg !default;
+
+BDTnav-pills-border-radius:           BDTborder-radius !default;
+BDTnav-pills-link-active-color:       BDTcomponent-active-color !default;
+BDTnav-pills-link-active-bg:          BDTcomponent-active-bg !default;
+// scss-docs-end nav-variables
+
+
+// Navbar
+
+// scss-docs-start navbar-variables
+BDTnavbar-padding-y:                  BDTspacer * .5 !default;
+BDTnavbar-padding-x:                  null !default;
+
+BDTnavbar-nav-link-padding-x:         .5rem !default;
+
+BDTnavbar-brand-font-size:            BDTfont-size-lg !default;
+// Compute the navbar-brand padding-y so the navbar-brand will have the same height as navbar-text and nav-link
+BDTnav-link-height:                   BDTfont-size-base * BDTline-height-base + BDTnav-link-padding-y * 2 !default;
+BDTnavbar-brand-height:               BDTnavbar-brand-font-size * BDTline-height-base !default;
+BDTnavbar-brand-padding-y:            (BDTnav-link-height - BDTnavbar-brand-height) * .5 !default;
+BDTnavbar-brand-margin-end:           1rem !default;
+
+BDTnavbar-toggler-padding-y:          .25rem !default;
+BDTnavbar-toggler-padding-x:          .75rem !default;
+BDTnavbar-toggler-font-size:          BDTfont-size-lg !default;
+BDTnavbar-toggler-border-radius:      BDTbtn-border-radius !default;
+BDTnavbar-toggler-focus-width:        BDTbtn-focus-width !default;
+BDTnavbar-toggler-transition:         box-shadow .15s ease-in-out !default;
+// scss-docs-end navbar-variables
+
+// scss-docs-start navbar-theme-variables
+BDTnavbar-dark-color:                 rgba(BDTwhite, .55) !default;
+BDTnavbar-dark-hover-color:           rgba(BDTwhite, .75) !default;
+BDTnavbar-dark-active-color:          BDTwhite !default;
+BDTnavbar-dark-disabled-color:        rgba(BDTwhite, .25) !default;
+BDTnavbar-dark-toggler-icon-bg:       url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'><path stroke='#{BDTnavbar-dark-color}' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/></svg>") !default;
+BDTnavbar-dark-toggler-border-color:  rgba(BDTwhite, .1) !default;
+
+BDTnavbar-light-color:                rgba(BDTblack, .55) !default;
+BDTnavbar-light-hover-color:          rgba(BDTblack, .7) !default;
+BDTnavbar-light-active-color:         rgba(BDTblack, .9) !default;
+BDTnavbar-light-disabled-color:       rgba(BDTblack, .3) !default;
+BDTnavbar-light-toggler-icon-bg:      url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'><path stroke='#{BDTnavbar-light-color}' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/></svg>") !default;
+BDTnavbar-light-toggler-border-color: rgba(BDTblack, .1) !default;
+
+BDTnavbar-light-brand-color:                BDTnavbar-light-active-color !default;
+BDTnavbar-light-brand-hover-color:          BDTnavbar-light-active-color !default;
+BDTnavbar-dark-brand-color:                 BDTnavbar-dark-active-color !default;
+BDTnavbar-dark-brand-hover-color:           BDTnavbar-dark-active-color !default;
+// scss-docs-end navbar-theme-variables
+
+
+// Dropdowns
+//
+// Dropdown menu container and contents.
+
+// scss-docs-start dropdown-variables
+BDTdropdown-min-width:                10rem !default;
+BDTdropdown-padding-x:                0 !default;
+BDTdropdown-padding-y:                .5rem !default;
+BDTdropdown-spacer:                   .125rem !default;
+BDTdropdown-font-size:                BDTfont-size-base !default;
+BDTdropdown-color:                    BDTbody-color !default;
+BDTdropdown-bg:                       BDTwhite !default;
+BDTdropdown-border-color:             var(--#{BDTprefix}border-color-translucent) !default;
+BDTdropdown-border-radius:            BDTborder-radius !default;
+BDTdropdown-border-width:             BDTborder-width !default;
+BDTdropdown-inner-border-radius:      subtract(BDTdropdown-border-radius, BDTdropdown-border-width) !default;
+BDTdropdown-divider-bg:               BDTdropdown-border-color !default;
+BDTdropdown-divider-margin-y:         BDTspacer * .5 !default;
+BDTdropdown-box-shadow:               BDTbox-shadow !default;
+
+BDTdropdown-link-color:               BDTgray-900 !default;
+BDTdropdown-link-hover-color:         shade-color(BDTdropdown-link-color, 10%) !default;
+BDTdropdown-link-hover-bg:            BDTgray-200 !default;
+
+BDTdropdown-link-active-color:        BDTcomponent-active-color !default;
+BDTdropdown-link-active-bg:           BDTcomponent-active-bg !default;
+
+BDTdropdown-link-disabled-color:      BDTgray-500 !default;
+
+BDTdropdown-item-padding-y:           BDTspacer * .25 !default;
+BDTdropdown-item-padding-x:           BDTspacer !default;
+
+BDTdropdown-header-color:             BDTgray-600 !default;
+BDTdropdown-header-padding-x:         BDTdropdown-item-padding-x !default;
+BDTdropdown-header-padding-y:         BDTdropdown-padding-y !default;
+// fusv-disable
+BDTdropdown-header-padding:           BDTdropdown-header-padding-y BDTdropdown-header-padding-x !default; // Deprecated in v5.2.0
+// fusv-enable
+// scss-docs-end dropdown-variables
+
+// scss-docs-start dropdown-dark-variables
+BDTdropdown-dark-color:               BDTgray-300 !default;
+BDTdropdown-dark-bg:                  BDTgray-800 !default;
+BDTdropdown-dark-border-color:        BDTdropdown-border-color !default;
+BDTdropdown-dark-divider-bg:          BDTdropdown-divider-bg !default;
+BDTdropdown-dark-box-shadow:          null !default;
+BDTdropdown-dark-link-color:          BDTdropdown-dark-color !default;
+BDTdropdown-dark-link-hover-color:    BDTwhite !default;
+BDTdropdown-dark-link-hover-bg:       rgba(BDTwhite, .15) !default;
+BDTdropdown-dark-link-active-color:   BDTdropdown-link-active-color !default;
+BDTdropdown-dark-link-active-bg:      BDTdropdown-link-active-bg !default;
+BDTdropdown-dark-link-disabled-color: BDTgray-500 !default;
+BDTdropdown-dark-header-color:        BDTgray-500 !default;
+// scss-docs-end dropdown-dark-variables
+
+
+// Pagination
+
+// scss-docs-start pagination-variables
+BDTpagination-padding-y:              .375rem !default;
+BDTpagination-padding-x:              .75rem !default;
+BDTpagination-padding-y-sm:           .25rem !default;
+BDTpagination-padding-x-sm:           .5rem !default;
+BDTpagination-padding-y-lg:           .75rem !default;
+BDTpagination-padding-x-lg:           1.5rem !default;
+
+BDTpagination-font-size:              BDTfont-size-base !default;
+
+BDTpagination-color:                  var(--#{BDTprefix}link-color) !default;
+BDTpagination-bg:                     BDTwhite !default;
+BDTpagination-border-radius:          BDTborder-radius !default;
+BDTpagination-border-width:           BDTborder-width !default;
+BDTpagination-margin-start:           calc(BDTpagination-border-width * -1) !default; // stylelint-disable-line function-disallowed-list
+BDTpagination-border-color:           BDTgray-300 !default;
+
+BDTpagination-focus-color:            var(--#{BDTprefix}link-hover-color) !default;
+BDTpagination-focus-bg:               BDTgray-200 !default;
+BDTpagination-focus-box-shadow:       BDTinput-btn-focus-box-shadow !default;
+BDTpagination-focus-outline:          0 !default;
+
+BDTpagination-hover-color:            var(--#{BDTprefix}link-hover-color) !default;
+BDTpagination-hover-bg:               BDTgray-200 !default;
+BDTpagination-hover-border-color:     BDTgray-300 !default;
+
+BDTpagination-active-color:           BDTcomponent-active-color !default;
+BDTpagination-active-bg:              BDTcomponent-active-bg !default;
+BDTpagination-active-border-color:    BDTpagination-active-bg !default;
+
+BDTpagination-disabled-color:         BDTgray-600 !default;
+BDTpagination-disabled-bg:            BDTwhite !default;
+BDTpagination-disabled-border-color:  BDTgray-300 !default;
+
+BDTpagination-transition:              color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out !default;
+
+BDTpagination-border-radius-sm:       BDTborder-radius-sm !default;
+BDTpagination-border-radius-lg:       BDTborder-radius-lg !default;
+// scss-docs-end pagination-variables
+
+
+// Placeholders
+
+// scss-docs-start placeholders
+BDTplaceholder-opacity-max:           .5 !default;
+BDTplaceholder-opacity-min:           .2 !default;
+// scss-docs-end placeholders
+
+// Cards
+
+// scss-docs-start card-variables
+BDTcard-spacer-y:                     BDTspacer !default;
+BDTcard-spacer-x:                     BDTspacer !default;
+BDTcard-title-spacer-y:               BDTspacer * .5 !default;
+BDTcard-border-width:                 BDTborder-width !default;
+BDTcard-border-color:                 var(--#{BDTprefix}border-color-translucent) !default;
+BDTcard-border-radius:                BDTborder-radius !default;
+BDTcard-box-shadow:                   null !default;
+BDTcard-inner-border-radius:          subtract(BDTcard-border-radius, BDTcard-border-width) !default;
+BDTcard-cap-padding-y:                BDTcard-spacer-y * .5 !default;
+BDTcard-cap-padding-x:                BDTcard-spacer-x !default;
+BDTcard-cap-bg:                       rgba(BDTblack, .03) !default;
+BDTcard-cap-color:                    null !default;
+BDTcard-height:                       null !default;
+BDTcard-color:                        null !default;
+BDTcard-bg:                           BDTwhite !default;
+BDTcard-img-overlay-padding:          BDTspacer !default;
+BDTcard-group-margin:                 BDTgrid-gutter-width * .5 !default;
+// scss-docs-end card-variables
+
+// Accordion
+
+// scss-docs-start accordion-variables
+BDTaccordion-padding-y:                     1rem !default;
+BDTaccordion-padding-x:                     1.25rem !default;
+BDTaccordion-color:                         var(--#{BDTprefix}body-color) !default;
+BDTaccordion-bg:                            BDTbody-bg !default;
+BDTaccordion-border-width:                  BDTborder-width !default;
+BDTaccordion-border-color:                  var(--#{BDTprefix}border-color) !default;
+BDTaccordion-border-radius:                 BDTborder-radius !default;
+BDTaccordion-inner-border-radius:           subtract(BDTaccordion-border-radius, BDTaccordion-border-width) !default;
+
+BDTaccordion-body-padding-y:                BDTaccordion-padding-y !default;
+BDTaccordion-body-padding-x:                BDTaccordion-padding-x !default;
+
+BDTaccordion-button-padding-y:              BDTaccordion-padding-y !default;
+BDTaccordion-button-padding-x:              BDTaccordion-padding-x !default;
+BDTaccordion-button-color:                  BDTaccordion-color !default;
+BDTaccordion-button-bg:                     var(--#{BDTprefix}accordion-bg) !default;
+BDTaccordion-transition:                    BDTbtn-transition, border-radius .15s ease !default;
+BDTaccordion-button-active-bg:              tint-color(BDTcomponent-active-bg, 90%) !default;
+BDTaccordion-button-active-color:           shade-color(BDTprimary, 10%) !default;
+
+BDTaccordion-button-focus-border-color:     BDTinput-focus-border-color !default;
+BDTaccordion-button-focus-box-shadow:       BDTbtn-focus-box-shadow !default;
+
+BDTaccordion-icon-width:                    1.25rem !default;
+BDTaccordion-icon-color:                    BDTaccordion-button-color !default;
+BDTaccordion-icon-active-color:             BDTaccordion-button-active-color !default;
+BDTaccordion-icon-transition:               transform .2s ease-in-out !default;
+BDTaccordion-icon-transform:                rotate(-180deg) !default;
+
+BDTaccordion-button-icon:         url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{BDTaccordion-icon-color}'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>") !default;
+BDTaccordion-button-active-icon:  url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{BDTaccordion-icon-active-color}'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>") !default;
+// scss-docs-end accordion-variables
+
+// Tooltips
+
+// scss-docs-start tooltip-variables
+BDTtooltip-font-size:                 BDTfont-size-sm !default;
+BDTtooltip-max-width:                 200px !default;
+BDTtooltip-color:                     BDTwhite !default;
+BDTtooltip-bg:                        BDTblack !default;
+BDTtooltip-border-radius:             BDTborder-radius !default;
+BDTtooltip-opacity:                   .9 !default;
+BDTtooltip-padding-y:                 BDTspacer * .25 !default;
+BDTtooltip-padding-x:                 BDTspacer * .5 !default;
+BDTtooltip-margin:                    null !default; // TODO: remove this in v6
+
+BDTtooltip-arrow-width:               .8rem !default;
+BDTtooltip-arrow-height:              .4rem !default;
+// fusv-disable
+BDTtooltip-arrow-color:               null !default; // Deprecated in Bootstrap 5.2.0 for CSS variables
+// fusv-enable
+// scss-docs-end tooltip-variables
+
+// Form tooltips must come after regular tooltips
+// scss-docs-start tooltip-feedback-variables
+BDTform-feedback-tooltip-padding-y:     BDTtooltip-padding-y !default;
+BDTform-feedback-tooltip-padding-x:     BDTtooltip-padding-x !default;
+BDTform-feedback-tooltip-font-size:     BDTtooltip-font-size !default;
+BDTform-feedback-tooltip-line-height:   null !default;
+BDTform-feedback-tooltip-opacity:       BDTtooltip-opacity !default;
+BDTform-feedback-tooltip-border-radius: BDTtooltip-border-radius !default;
+// scss-docs-end tooltip-feedback-variables
+
+
+// Popovers
+
+// scss-docs-start popover-variables
+BDTpopover-font-size:                 BDTfont-size-sm !default;
+BDTpopover-bg:                        BDTwhite !default;
+BDTpopover-max-width:                 276px !default;
+BDTpopover-border-width:              BDTborder-width !default;
+BDTpopover-border-color:              var(--#{BDTprefix}border-color-translucent) !default;
+BDTpopover-border-radius:             BDTborder-radius-lg !default;
+BDTpopover-inner-border-radius:       subtract(BDTpopover-border-radius, BDTpopover-border-width) !default;
+BDTpopover-box-shadow:                BDTbox-shadow !default;
+
+BDTpopover-header-font-size:          BDTfont-size-base !default;
+BDTpopover-header-bg:                 shade-color(BDTpopover-bg, 6%) !default;
+BDTpopover-header-color:              var(--#{BDTprefix}heading-color) !default;
+BDTpopover-header-padding-y:          .5rem !default;
+BDTpopover-header-padding-x:          BDTspacer !default;
+
+BDTpopover-body-color:                BDTbody-color !default;
+BDTpopover-body-padding-y:            BDTspacer !default;
+BDTpopover-body-padding-x:            BDTspacer !default;
+
+BDTpopover-arrow-width:               1rem !default;
+BDTpopover-arrow-height:              .5rem !default;
+// scss-docs-end popover-variables
+
+// fusv-disable
+// Deprecated in Bootstrap 5.2.0 for CSS variables
+BDTpopover-arrow-color:               BDTpopover-bg !default;
+BDTpopover-arrow-outer-color:         var(--#{BDTprefix}border-color-translucent) !default;
+// fusv-enable
+
+
+// Toasts
+
+// scss-docs-start toast-variables
+BDTtoast-max-width:                   350px !default;
+BDTtoast-padding-x:                   .75rem !default;
+BDTtoast-padding-y:                   .5rem !default;
+BDTtoast-font-size:                   .875rem !default;
+BDTtoast-color:                       null !default;
+BDTtoast-background-color:            rgba(BDTwhite, .85) !default;
+BDTtoast-border-width:                BDTborder-width !default;
+BDTtoast-border-color:                var(--#{BDTprefix}border-color-translucent) !default;
+BDTtoast-border-radius:               BDTborder-radius !default;
+BDTtoast-box-shadow:                  BDTbox-shadow !default;
+BDTtoast-spacing:                     BDTcontainer-padding-x !default;
+
+BDTtoast-header-color:                BDTgray-600 !default;
+BDTtoast-header-background-color:     rgba(BDTwhite, .85) !default;
+BDTtoast-header-border-color:         rgba(BDTblack, .05) !default;
+// scss-docs-end toast-variables
+
+
+// Badges
+
+// scss-docs-start badge-variables
+BDTbadge-font-size:                   .75em !default;
+BDTbadge-font-weight:                 BDTfont-weight-bold !default;
+BDTbadge-color:                       BDTwhite !default;
+BDTbadge-padding-y:                   .35em !default;
+BDTbadge-padding-x:                   .65em !default;
+BDTbadge-border-radius:               BDTborder-radius !default;
+// scss-docs-end badge-variables
+
+
+// Modals
+
+// scss-docs-start modal-variables
+BDTmodal-inner-padding:               BDTspacer !default;
+
+BDTmodal-footer-margin-between:       .5rem !default;
+
+BDTmodal-dialog-margin:               .5rem !default;
+BDTmodal-dialog-margin-y-sm-up:       1.75rem !default;
+
+BDTmodal-title-line-height:           BDTline-height-base !default;
+
+BDTmodal-content-color:               null !default;
+BDTmodal-content-bg:                  BDTwhite !default;
+BDTmodal-content-border-color:        var(--#{BDTprefix}border-color-translucent) !default;
+BDTmodal-content-border-width:        BDTborder-width !default;
+BDTmodal-content-border-radius:       BDTborder-radius-lg !default;
+BDTmodal-content-inner-border-radius: subtract(BDTmodal-content-border-radius, BDTmodal-content-border-width) !default;
+BDTmodal-content-box-shadow-xs:       BDTbox-shadow-sm !default;
+BDTmodal-content-box-shadow-sm-up:    BDTbox-shadow !default;
+
+BDTmodal-backdrop-bg:                 BDTblack !default;
+BDTmodal-backdrop-opacity:            .5 !default;
+
+BDTmodal-header-border-color:         var(--#{BDTprefix}border-color) !default;
+BDTmodal-header-border-width:         BDTmodal-content-border-width !default;
+BDTmodal-header-padding-y:            BDTmodal-inner-padding !default;
+BDTmodal-header-padding-x:            BDTmodal-inner-padding !default;
+BDTmodal-header-padding:              BDTmodal-header-padding-y BDTmodal-header-padding-x !default; // Keep this for backwards compatibility
+
+BDTmodal-footer-bg:                   null !default;
+BDTmodal-footer-border-color:         BDTmodal-header-border-color !default;
+BDTmodal-footer-border-width:         BDTmodal-header-border-width !default;
+
+BDTmodal-sm:                          300px !default;
+BDTmodal-md:                          500px !default;
+BDTmodal-lg:                          800px !default;
+BDTmodal-xl:                          1140px !default;
+
+BDTmodal-fade-transform:              translate(0, -50px) !default;
+BDTmodal-show-transform:              none !default;
+BDTmodal-transition:                  transform .3s ease-out !default;
+BDTmodal-scale-transform:             scale(1.02) !default;
+// scss-docs-end modal-variables
+
+
+// Alerts
+//
+// Define alert colors, border radius, and padding.
+
+// scss-docs-start alert-variables
+BDTalert-padding-y:               BDTspacer !default;
+BDTalert-padding-x:               BDTspacer !default;
+BDTalert-margin-bottom:           1rem !default;
+BDTalert-border-radius:           BDTborder-radius !default;
+BDTalert-link-font-weight:        BDTfont-weight-bold !default;
+BDTalert-border-width:            BDTborder-width !default;
+BDTalert-bg-scale:                -80% !default;
+BDTalert-border-scale:            -70% !default;
+BDTalert-color-scale:             40% !default;
+BDTalert-dismissible-padding-r:   BDTalert-padding-x * 3 !default; // 3x covers width of x plus default padding on either side
+// scss-docs-end alert-variables
+
+
+// Progress bars
+
+// scss-docs-start progress-variables
+BDTprogress-height:                   1rem !default;
+BDTprogress-font-size:                BDTfont-size-base * .75 !default;
+BDTprogress-bg:                       BDTgray-200 !default;
+BDTprogress-border-radius:            BDTborder-radius !default;
+BDTprogress-box-shadow:               BDTbox-shadow-inset !default;
+BDTprogress-bar-color:                BDTwhite !default;
+BDTprogress-bar-bg:                   BDTprimary !default;
+BDTprogress-bar-animation-timing:     1s linear infinite !default;
+BDTprogress-bar-transition:           width .6s ease !default;
+// scss-docs-end progress-variables
+
+
+// List group
+
+// scss-docs-start list-group-variables
+BDTlist-group-color:                  BDTgray-900 !default;
+BDTlist-group-bg:                     BDTwhite !default;
+BDTlist-group-border-color:           rgba(BDTblack, .125) !default;
+BDTlist-group-border-width:           BDTborder-width !default;
+BDTlist-group-border-radius:          BDTborder-radius !default;
+
+BDTlist-group-item-padding-y:         BDTspacer * .5 !default;
+BDTlist-group-item-padding-x:         BDTspacer !default;
+BDTlist-group-item-bg-scale:          -80% !default;
+BDTlist-group-item-color-scale:       40% !default;
+
+BDTlist-group-hover-bg:               BDTgray-100 !default;
+BDTlist-group-active-color:           BDTcomponent-active-color !default;
+BDTlist-group-active-bg:              BDTcomponent-active-bg !default;
+BDTlist-group-active-border-color:    BDTlist-group-active-bg !default;
+
+BDTlist-group-disabled-color:         BDTgray-600 !default;
+BDTlist-group-disabled-bg:            BDTlist-group-bg !default;
+
+BDTlist-group-action-color:           BDTgray-700 !default;
+BDTlist-group-action-hover-color:     BDTlist-group-action-color !default;
+
+BDTlist-group-action-active-color:    BDTbody-color !default;
+BDTlist-group-action-active-bg:       BDTgray-200 !default;
+// scss-docs-end list-group-variables
+
+
+// Image thumbnails
+
+// scss-docs-start thumbnail-variables
+BDTthumbnail-padding:                 .25rem !default;
+BDTthumbnail-bg:                      BDTbody-bg !default;
+BDTthumbnail-border-width:            BDTborder-width !default;
+BDTthumbnail-border-color:            var(--#{BDTprefix}border-color) !default;
+BDTthumbnail-border-radius:           BDTborder-radius !default;
+BDTthumbnail-box-shadow:              BDTbox-shadow-sm !default;
+// scss-docs-end thumbnail-variables
+
+
+// Figures
+
+// scss-docs-start figure-variables
+BDTfigure-caption-font-size:          BDTsmall-font-size !default;
+BDTfigure-caption-color:              BDTgray-600 !default;
+// scss-docs-end figure-variables
+
+
+// Breadcrumbs
+
+// scss-docs-start breadcrumb-variables
+BDTbreadcrumb-font-size:              null !default;
+BDTbreadcrumb-padding-y:              0 !default;
+BDTbreadcrumb-padding-x:              0 !default;
+BDTbreadcrumb-item-padding-x:         .5rem !default;
+BDTbreadcrumb-margin-bottom:          1rem !default;
+BDTbreadcrumb-bg:                     null !default;
+BDTbreadcrumb-divider-color:          BDTgray-600 !default;
+BDTbreadcrumb-active-color:           BDTgray-600 !default;
+BDTbreadcrumb-divider:                quote("/") !default;
+BDTbreadcrumb-divider-flipped:        BDTbreadcrumb-divider !default;
+BDTbreadcrumb-border-radius:          null !default;
+// scss-docs-end breadcrumb-variables
+
+// Carousel
+
+// scss-docs-start carousel-variables
+BDTcarousel-control-color:             BDTwhite !default;
+BDTcarousel-control-width:             15% !default;
+BDTcarousel-control-opacity:           .5 !default;
+BDTcarousel-control-hover-opacity:     .9 !default;
+BDTcarousel-control-transition:        opacity .15s ease !default;
+
+BDTcarousel-indicator-width:           30px !default;
+BDTcarousel-indicator-height:          3px !default;
+BDTcarousel-indicator-hit-area-height: 10px !default;
+BDTcarousel-indicator-spacer:          3px !default;
+BDTcarousel-indicator-opacity:         .5 !default;
+BDTcarousel-indicator-active-bg:       BDTwhite !default;
+BDTcarousel-indicator-active-opacity:  1 !default;
+BDTcarousel-indicator-transition:      opacity .6s ease !default;
+
+BDTcarousel-caption-width:             70% !default;
+BDTcarousel-caption-color:             BDTwhite !default;
+BDTcarousel-caption-padding-y:         1.25rem !default;
+BDTcarousel-caption-spacer:            1.25rem !default;
+
+BDTcarousel-control-icon-width:        2rem !default;
+
+BDTcarousel-control-prev-icon-bg:      url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{BDTcarousel-control-color}'><path d='M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z'/></svg>") !default;
+BDTcarousel-control-next-icon-bg:      url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{BDTcarousel-control-color}'><path d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z'/></svg>") !default;
+
+BDTcarousel-transition-duration:       .6s !default;
+BDTcarousel-transition:                transform BDTcarousel-transition-duration ease-in-out !default; // Define transform transition first if using multiple transitions (e.g., `transform 2s ease, opacity .5s ease-out`)
+
+BDTcarousel-dark-indicator-active-bg:  BDTblack !default;
+BDTcarousel-dark-caption-color:        BDTblack !default;
+BDTcarousel-dark-control-icon-filter:  invert(1) grayscale(100) !default;
+// scss-docs-end carousel-variables
+
+
+// Spinners
+
+// scss-docs-start spinner-variables
+BDTspinner-width:           2rem !default;
+BDTspinner-height:          BDTspinner-width !default;
+BDTspinner-vertical-align:  -.125em !default;
+BDTspinner-border-width:    .25em !default;
+BDTspinner-animation-speed: .75s !default;
+
+BDTspinner-width-sm:        1rem !default;
+BDTspinner-height-sm:       BDTspinner-width-sm !default;
+BDTspinner-border-width-sm: .2em !default;
+// scss-docs-end spinner-variables
+
+
+// Close
+
+// scss-docs-start close-variables
+BDTbtn-close-width:            1em !default;
+BDTbtn-close-height:           BDTbtn-close-width !default;
+BDTbtn-close-padding-x:        .25em !default;
+BDTbtn-close-padding-y:        BDTbtn-close-padding-x !default;
+BDTbtn-close-color:            BDTblack !default;
+BDTbtn-close-bg:               url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{BDTbtn-close-color}'><path d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/></svg>") !default;
+BDTbtn-close-focus-shadow:     BDTinput-btn-focus-box-shadow !default;
+BDTbtn-close-opacity:          .5 !default;
+BDTbtn-close-hover-opacity:    .75 !default;
+BDTbtn-close-focus-opacity:    1 !default;
+BDTbtn-close-disabled-opacity: .25 !default;
+BDTbtn-close-white-filter:     invert(1) grayscale(100%) brightness(200%) !default;
+// scss-docs-end close-variables
+
+
+// Offcanvas
+
+// scss-docs-start offcanvas-variables
+BDToffcanvas-padding-y:               BDTmodal-inner-padding !default;
+BDToffcanvas-padding-x:               BDTmodal-inner-padding !default;
+BDToffcanvas-horizontal-width:        400px !default;
+BDToffcanvas-vertical-height:         30vh !default;
+BDToffcanvas-transition-duration:     .3s !default;
+BDToffcanvas-border-color:            BDTmodal-content-border-color !default;
+BDToffcanvas-border-width:            BDTmodal-content-border-width !default;
+BDToffcanvas-title-line-height:       BDTmodal-title-line-height !default;
+BDToffcanvas-bg-color:                BDTmodal-content-bg !default;
+BDToffcanvas-color:                   BDTmodal-content-color !default;
+BDToffcanvas-box-shadow:              BDTmodal-content-box-shadow-xs !default;
+BDToffcanvas-backdrop-bg:             BDTmodal-backdrop-bg !default;
+BDToffcanvas-backdrop-opacity:        BDTmodal-backdrop-opacity !default;
+// scss-docs-end offcanvas-variables
+
+// Code
+
+BDTcode-font-size:                    BDTsmall-font-size !default;
+BDTcode-color:                        BDTpink !default;
+
+BDTkbd-padding-y:                     .1875rem !default;
+BDTkbd-padding-x:                     .375rem !default;
+BDTkbd-font-size:                     BDTcode-font-size !default;
+BDTkbd-color:                         var(--#{BDTprefix}body-bg) !default;
+BDTkbd-bg:                            var(--#{BDTprefix}body-color) !default;
+BDTnested-kbd-font-weight:            null !default; // Deprecated in v5.2.0, removing in v6
+
+BDTpre-color:                         null !default;

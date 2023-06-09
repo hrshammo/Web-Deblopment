@@ -1,0 +1,248 @@
+// The dropdown wrapper (`<div>`)
+.dropup,
+.dropend,
+.dropdown,
+.dropstart,
+.dropup-center,
+.dropdown-center {
+  position: relative;
+}
+
+.dropdown-toggle {
+  white-space: nowrap;
+
+  // Generate the caret automatically
+  @include caret();
+}
+
+// The dropdown menu
+.dropdown-menu {
+  // scss-docs-start dropdown-css-vars
+  --#{BDTprefix}dropdown-min-width: #{BDTdropdown-min-width};
+  --#{BDTprefix}dropdown-padding-x: #{BDTdropdown-padding-x};
+  --#{BDTprefix}dropdown-padding-y: #{BDTdropdown-padding-y};
+  --#{BDTprefix}dropdown-spacer: #{BDTdropdown-spacer};
+  @include rfs(BDTdropdown-font-size, --#{BDTprefix}dropdown-font-size);
+  --#{BDTprefix}dropdown-color: #{BDTdropdown-color}; // stylelint-disable-line custom-property-empty-line-before
+  --#{BDTprefix}dropdown-bg: #{BDTdropdown-bg};
+  --#{BDTprefix}dropdown-border-color: #{BDTdropdown-border-color};
+  --#{BDTprefix}dropdown-border-radius: #{BDTdropdown-border-radius};
+  --#{BDTprefix}dropdown-border-width: #{BDTdropdown-border-width};
+  --#{BDTprefix}dropdown-inner-border-radius: #{BDTdropdown-inner-border-radius};
+  --#{BDTprefix}dropdown-divider-bg: #{BDTdropdown-divider-bg};
+  --#{BDTprefix}dropdown-divider-margin-y: #{BDTdropdown-divider-margin-y};
+  --#{BDTprefix}dropdown-box-shadow: #{BDTdropdown-box-shadow};
+  --#{BDTprefix}dropdown-link-color: #{BDTdropdown-link-color};
+  --#{BDTprefix}dropdown-link-hover-color: #{BDTdropdown-link-hover-color};
+  --#{BDTprefix}dropdown-link-hover-bg: #{BDTdropdown-link-hover-bg};
+  --#{BDTprefix}dropdown-link-active-color: #{BDTdropdown-link-active-color};
+  --#{BDTprefix}dropdown-link-active-bg: #{BDTdropdown-link-active-bg};
+  --#{BDTprefix}dropdown-link-disabled-color: #{BDTdropdown-link-disabled-color};
+  --#{BDTprefix}dropdown-item-padding-x: #{BDTdropdown-item-padding-x};
+  --#{BDTprefix}dropdown-item-padding-y: #{BDTdropdown-item-padding-y};
+  --#{BDTprefix}dropdown-header-color: #{BDTdropdown-header-color};
+  --#{BDTprefix}dropdown-header-padding-x: #{BDTdropdown-header-padding-x};
+  --#{BDTprefix}dropdown-header-padding-y: #{BDTdropdown-header-padding-y};
+  // scss-docs-end dropdown-css-vars
+
+  position: absolute;
+  z-index: BDTzindex-dropdown;
+  display: none; // none by default, but block on "open" of the menu
+  min-width: var(--#{BDTprefix}dropdown-min-width);
+  padding: var(--#{BDTprefix}dropdown-padding-y) var(--#{BDTprefix}dropdown-padding-x);
+  margin: 0; // Override default margin of ul
+  @include font-size(var(--#{BDTprefix}dropdown-font-size));
+  color: var(--#{BDTprefix}dropdown-color);
+  text-align: left; // Ensures proper alignment if parent has it changed (e.g., modal footer)
+  list-style: none;
+  background-color: var(--#{BDTprefix}dropdown-bg);
+  background-clip: padding-box;
+  border: var(--#{BDTprefix}dropdown-border-width) solid var(--#{BDTprefix}dropdown-border-color);
+  @include border-radius(var(--#{BDTprefix}dropdown-border-radius));
+  @include box-shadow(var(--#{BDTprefix}dropdown-box-shadow));
+
+  &[data-bs-popper] {
+    top: 100%;
+    left: 0;
+    margin-top: var(--#{BDTprefix}dropdown-spacer);
+  }
+}
+
+// scss-docs-start responsive-breakpoints
+// We deliberately hardcode the `bs-` prefix because we check
+// this custom property in JS to determine Popper's positioning
+
+@each BDTbreakpoint in map-keys(BDTgrid-breakpoints) {
+  @include media-breakpoint-up(BDTbreakpoint) {
+    BDTinfix: breakpoint-infix(BDTbreakpoint, BDTgrid-breakpoints);
+
+    .dropdown-menu#{BDTinfix}-start {
+      --bs-position: start;
+
+      &[data-bs-popper] {
+        right: auto;
+        left: 0;
+      }
+    }
+
+    .dropdown-menu#{BDTinfix}-end {
+      --bs-position: end;
+
+      &[data-bs-popper] {
+        right: 0;
+        left: auto;
+      }
+    }
+  }
+}
+// scss-docs-end responsive-breakpoints
+
+// Allow for dropdowns to go bottom up (aka, dropup-menu)
+// Just add .dropup after the standard .dropdown class and you're set.
+.dropup {
+  .dropdown-menu[data-bs-popper] {
+    top: auto;
+    bottom: 100%;
+    margin-top: 0;
+    margin-bottom: var(--#{BDTprefix}dropdown-spacer);
+  }
+
+  .dropdown-toggle {
+    @include caret(up);
+  }
+}
+
+.dropend {
+  .dropdown-menu[data-bs-popper] {
+    top: 0;
+    right: auto;
+    left: 100%;
+    margin-top: 0;
+    margin-left: var(--#{BDTprefix}dropdown-spacer);
+  }
+
+  .dropdown-toggle {
+    @include caret(end);
+    &::after {
+      vertical-align: 0;
+    }
+  }
+}
+
+.dropstart {
+  .dropdown-menu[data-bs-popper] {
+    top: 0;
+    right: 100%;
+    left: auto;
+    margin-top: 0;
+    margin-right: var(--#{BDTprefix}dropdown-spacer);
+  }
+
+  .dropdown-toggle {
+    @include caret(start);
+    &::before {
+      vertical-align: 0;
+    }
+  }
+}
+
+
+// Dividers (basically an `<hr>`) within the dropdown
+.dropdown-divider {
+  height: 0;
+  margin: var(--#{BDTprefix}dropdown-divider-margin-y) 0;
+  overflow: hidden;
+  border-top: 1px solid var(--#{BDTprefix}dropdown-divider-bg);
+  opacity: 1; // Revisit in v6 to de-dupe styles that conflict with <hr> element
+}
+
+// Links, buttons, and more within the dropdown menu
+//
+// `<button>`-specific styles are denoted with `// For <button>s`
+.dropdown-item {
+  display: block;
+  width: 100%; // For `<button>`s
+  padding: var(--#{BDTprefix}dropdown-item-padding-y) var(--#{BDTprefix}dropdown-item-padding-x);
+  clear: both;
+  font-weight: BDTfont-weight-normal;
+  color: var(--#{BDTprefix}dropdown-link-color);
+  text-align: inherit; // For `<button>`s
+  text-decoration: if(BDTlink-decoration == none, null, none);
+  white-space: nowrap; // prevent links from randomly breaking onto new lines
+  background-color: transparent; // For `<button>`s
+  border: 0; // For `<button>`s
+
+  // Prevent dropdown overflow if there's no padding
+  // See https://github.com/twbs/bootstrap/pull/27703
+  @if BDTdropdown-padding-y == 0 {
+    &:first-child {
+      @include border-top-radius(var(--#{BDTprefix}dropdown-inner-border-radius));
+    }
+
+    &:last-child {
+      @include border-bottom-radius(var(--#{BDTprefix}dropdown-inner-border-radius));
+    }
+  }
+
+  &:hover,
+  &:focus {
+    color: var(--#{BDTprefix}dropdown-link-hover-color);
+    text-decoration: if(BDTlink-hover-decoration == underline, none, null);
+    @include gradient-bg(var(--#{BDTprefix}dropdown-link-hover-bg));
+  }
+
+  &.active,
+  &:active {
+    color: var(--#{BDTprefix}dropdown-link-active-color);
+    text-decoration: none;
+    @include gradient-bg(var(--#{BDTprefix}dropdown-link-active-bg));
+  }
+
+  &.disabled,
+  &:disabled {
+    color: var(--#{BDTprefix}dropdown-link-disabled-color);
+    pointer-events: none;
+    background-color: transparent;
+    // Remove CSS gradients if they're enabled
+    background-image: if(BDTenable-gradients, none, null);
+  }
+}
+
+.dropdown-menu.show {
+  display: block;
+}
+
+// Dropdown section headers
+.dropdown-header {
+  display: block;
+  padding: var(--#{BDTprefix}dropdown-header-padding-y) var(--#{BDTprefix}dropdown-header-padding-x);
+  margin-bottom: 0; // for use with heading elements
+  @include font-size(BDTfont-size-sm);
+  color: var(--#{BDTprefix}dropdown-header-color);
+  white-space: nowrap; // as with > li > a
+}
+
+// Dropdown text
+.dropdown-item-text {
+  display: block;
+  padding: var(--#{BDTprefix}dropdown-item-padding-y) var(--#{BDTprefix}dropdown-item-padding-x);
+  color: var(--#{BDTprefix}dropdown-link-color);
+}
+
+// Dark dropdowns
+.dropdown-menu-dark {
+  // scss-docs-start dropdown-dark-css-vars
+  --#{BDTprefix}dropdown-color: #{BDTdropdown-dark-color};
+  --#{BDTprefix}dropdown-bg: #{BDTdropdown-dark-bg};
+  --#{BDTprefix}dropdown-border-color: #{BDTdropdown-dark-border-color};
+  --#{BDTprefix}dropdown-box-shadow: #{BDTdropdown-dark-box-shadow};
+  --#{BDTprefix}dropdown-link-color: #{BDTdropdown-dark-link-color};
+  --#{BDTprefix}dropdown-link-hover-color: #{BDTdropdown-dark-link-hover-color};
+  --#{BDTprefix}dropdown-divider-bg: #{BDTdropdown-dark-divider-bg};
+  --#{BDTprefix}dropdown-link-hover-bg: #{BDTdropdown-dark-link-hover-bg};
+  --#{BDTprefix}dropdown-link-active-color: #{BDTdropdown-dark-link-active-color};
+  --#{BDTprefix}dropdown-link-active-bg: #{BDTdropdown-dark-link-active-bg};
+  --#{BDTprefix}dropdown-link-disabled-color: #{BDTdropdown-dark-link-disabled-color};
+  --#{BDTprefix}dropdown-header-color: #{BDTdropdown-dark-header-color};
+  // scss-docs-end dropdown-dark-css-vars
+}

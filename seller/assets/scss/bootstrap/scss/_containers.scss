@@ -1,0 +1,41 @@
+// Container widths
+//
+// Set the container width, and override it for fixed navbars in media queries.
+
+@if BDTenable-container-classes {
+  // Single container class with breakpoint max-widths
+  .container,
+  // 100% wide container at all breakpoints
+  .container-fluid {
+    @include make-container();
+  }
+
+  // Responsive containers that are 100% wide until a breakpoint
+  @each BDTbreakpoint, BDTcontainer-max-width in BDTcontainer-max-widths {
+    .container-#{BDTbreakpoint} {
+      @extend .container-fluid;
+    }
+
+    @include media-breakpoint-up(BDTbreakpoint, BDTgrid-breakpoints) {
+      %responsive-container-#{BDTbreakpoint} {
+        max-width: BDTcontainer-max-width;
+      }
+
+      // Extend each breakpoint which is smaller or equal to the current breakpoint
+      BDTextend-breakpoint: true;
+
+      @each BDTname, BDTwidth in BDTgrid-breakpoints {
+        @if (BDTextend-breakpoint) {
+          .container#{breakpoint-infix(BDTname, BDTgrid-breakpoints)} {
+            @extend %responsive-container-#{BDTbreakpoint};
+          }
+
+          // Once the current breakpoint is reached, stop extending
+          @if (BDTbreakpoint == BDTname) {
+            BDTextend-breakpoint: false;
+          }
+        }
+      }
+    }
+  }
+}

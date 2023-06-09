@@ -1,0 +1,78 @@
+// stylelint-disable property-disallowed-list
+// Single side border-radius
+
+// Helper function to replace negative values with 0
+@function valid-radius(BDTradius) {
+  BDTreturn: ();
+  @each BDTvalue in BDTradius {
+    @if type-of(BDTvalue) == number {
+      BDTreturn: append(BDTreturn, max(BDTvalue, 0));
+    } @else {
+      BDTreturn: append(BDTreturn, BDTvalue);
+    }
+  }
+  @return BDTreturn;
+}
+
+// scss-docs-start border-radius-mixins
+@mixin border-radius(BDTradius: BDTborder-radius, BDTfallback-border-radius: false) {
+  @if BDTenable-rounded {
+    border-radius: valid-radius(BDTradius);
+  }
+  @else if BDTfallback-border-radius != false {
+    border-radius: BDTfallback-border-radius;
+  }
+}
+
+@mixin border-top-radius(BDTradius: BDTborder-radius) {
+  @if BDTenable-rounded {
+    border-top-left-radius: valid-radius(BDTradius);
+    border-top-right-radius: valid-radius(BDTradius);
+  }
+}
+
+@mixin border-end-radius(BDTradius: BDTborder-radius) {
+  @if BDTenable-rounded {
+    border-top-right-radius: valid-radius(BDTradius);
+    border-bottom-right-radius: valid-radius(BDTradius);
+  }
+}
+
+@mixin border-bottom-radius(BDTradius: BDTborder-radius) {
+  @if BDTenable-rounded {
+    border-bottom-right-radius: valid-radius(BDTradius);
+    border-bottom-left-radius: valid-radius(BDTradius);
+  }
+}
+
+@mixin border-start-radius(BDTradius: BDTborder-radius) {
+  @if BDTenable-rounded {
+    border-top-left-radius: valid-radius(BDTradius);
+    border-bottom-left-radius: valid-radius(BDTradius);
+  }
+}
+
+@mixin border-top-start-radius(BDTradius: BDTborder-radius) {
+  @if BDTenable-rounded {
+    border-top-left-radius: valid-radius(BDTradius);
+  }
+}
+
+@mixin border-top-end-radius(BDTradius: BDTborder-radius) {
+  @if BDTenable-rounded {
+    border-top-right-radius: valid-radius(BDTradius);
+  }
+}
+
+@mixin border-bottom-end-radius(BDTradius: BDTborder-radius) {
+  @if BDTenable-rounded {
+    border-bottom-right-radius: valid-radius(BDTradius);
+  }
+}
+
+@mixin border-bottom-start-radius(BDTradius: BDTborder-radius) {
+  @if BDTenable-rounded {
+    border-bottom-left-radius: valid-radius(BDTradius);
+  }
+}
+// scss-docs-end border-radius-mixins

@@ -1,0 +1,90 @@
+/* ============= Theme Mixins ============= */
+@mixin opacity (BDTopacity: 0.5) {
+	-webkit-opacity: 	BDTopacity;
+	-moz-opacity: 		BDTopacity;
+	opacity: 		BDTopacity;
+}
+
+@mixin scale (BDTfactor) {
+	-webkit-transform: scale(BDTfactor);
+	-moz-transform: 	 scale(BDTfactor);
+	-ms-transform: 		 scale(BDTfactor);
+	-o-transform: 		 scale(BDTfactor);
+}
+
+
+@mixin background-size (BDTstring: contain) {
+    -webkit-background-size: BDTstring;
+    -moz-background-size: BDTstring;
+    -o-background-size: BDTstring;
+    background-size: BDTstring;
+}
+
+
+@mixin reset-box-sizing (BDTsize:content-box) {
+  &,
+  *,
+  *:before,
+  *:after {
+    -webkit-box-sizing: BDTsize;
+	-moz-box-sizing:    BDTsize;
+	box-sizing:         BDTsize;
+  }
+}
+
+@mixin placeholder (BDTcolor: #999) {
+    &::-webkit-input-placeholder { /* WebKit browsers */
+        color: BDTcolor;
+    }
+    &:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+        color: BDTcolor;
+    }
+    &::-moz-placeholder { /* Mozilla Firefox 19+ */
+        color: BDTcolor;
+    }
+    &:-ms-input-placeholder { /* Internet Explorer 10+ */
+        color: BDTcolor;
+    }
+}
+
+@mixin box-shadow (BDTshaodw) {
+	-webkit-box-shadow: BDTshaodw;
+	-moz-box-shadow: BDTshaodw;
+	box-shadow: BDTshaodw;
+}
+
+// generic transform
+@mixin transform(BDTtransforms) {
+	   -moz-transform: BDTtransforms;
+	     -o-transform: BDTtransforms;
+	    -ms-transform: BDTtransforms;
+	-webkit-transform: BDTtransforms;
+          transform: BDTtransforms;
+}
+// rotate
+@mixin rotate (BDTdeg) {
+  @include transform(rotate(#{BDTdeg}deg));
+}
+ 
+// scale
+@mixin scale(BDTscale) {
+	 @include transform(scale(BDTscale));
+} 
+// translate
+@mixin translate (BDTx, BDTy) {
+   @include transform(translate(BDTx, BDTy));
+}
+// skew
+@mixin skew (BDTx, BDTy) {
+   @include transform(skew(#{BDTx}deg, #{BDTy}deg));
+}
+//transform origin
+@mixin transform-origin (BDTorigin) {
+    moz-transform-origin: BDTorigin;
+	     -o-transform-origin: BDTorigin;
+	    -ms-transform-origin: BDTorigin;
+	-webkit-transform-origin: BDTorigin;
+          transform-origin: BDTorigin;
+}
+
+

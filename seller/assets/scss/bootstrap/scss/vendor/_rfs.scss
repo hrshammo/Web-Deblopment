@@ -1,0 +1,354 @@
+// stylelint-disable property-blacklist, scss/dollar-variable-default
+
+// SCSS RFS mixin
+//
+// Automated responsive values for font sizes, paddings, margins and much more
+//
+// Licensed under MIT (https://github.com/twbs/rfs/blob/main/LICENSE)
+
+// Configuration
+
+// Base value
+BDTrfs-base-value: 1.25rem !default;
+BDTrfs-unit: rem !default;
+
+@if BDTrfs-unit != rem and BDTrfs-unit != px {
+  @error "`#{BDTrfs-unit}` is not a valid unit for BDTrfs-unit. Use `px` or `rem`.";
+}
+
+// Breakpoint at where values start decreasing if screen width is smaller
+BDTrfs-breakpoint: 1200px !default;
+BDTrfs-breakpoint-unit: px !default;
+
+@if BDTrfs-breakpoint-unit != px and BDTrfs-breakpoint-unit != em and BDTrfs-breakpoint-unit != rem {
+  @error "`#{BDTrfs-breakpoint-unit}` is not a valid unit for BDTrfs-breakpoint-unit. Use `px`, `em` or `rem`.";
+}
+
+// Resize values based on screen height and width
+BDTrfs-two-dimensional: false !default;
+
+// Factor of decrease
+BDTrfs-factor: 10 !default;
+
+@if type-of(BDTrfs-factor) != number or BDTrfs-factor <= 1 {
+  @error "`#{BDTrfs-factor}` is not a valid  BDTrfs-factor, it must be greater than 1.";
+}
+
+// Mode. Possibilities: "min-media-query", "max-media-query"
+BDTrfs-mode: min-media-query !default;
+
+// Generate enable or disable classes. Possibilities: false, "enable" or "disable"
+BDTrfs-class: false !default;
+
+// 1 rem = BDTrfs-rem-value px
+BDTrfs-rem-value: 16 !default;
+
+// Safari iframe resize bug: https://github.com/twbs/rfs/issues/14
+BDTrfs-safari-iframe-resize-bug-fix: false !default;
+
+// Disable RFS by setting BDTenable-rfs to false
+BDTenable-rfs: true !default;
+
+// Cache BDTrfs-base-value unit
+BDTrfs-base-value-unit: unit(BDTrfs-base-value);
+
+@function divide(BDTdividend, BDTdivisor, BDTprecision: 10) {
+  BDTsign: if(BDTdividend > 0 and BDTdivisor > 0 or BDTdividend < 0 and BDTdivisor < 0, 1, -1);
+  BDTdividend: abs(BDTdividend);
+  BDTdivisor: abs(BDTdivisor);
+  @if BDTdividend == 0 {
+    @return 0;
+  }
+  @if BDTdivisor == 0 {
+    @error "Cannot divide by 0";
+  }
+  BDTremainder: BDTdividend;
+  BDTresult: 0;
+  BDTfactor: 10;
+  @while (BDTremainder > 0 and BDTprecision >= 0) {
+    BDTquotient: 0;
+    @while (BDTremainder >= BDTdivisor) {
+      BDTremainder: BDTremainder - BDTdivisor;
+      BDTquotient: BDTquotient + 1;
+    }
+    BDTresult: BDTresult * 10 + BDTquotient;
+    BDTfactor: BDTfactor * .1;
+    BDTremainder: BDTremainder * 10;
+    BDTprecision: BDTprecision - 1;
+    @if (BDTprecision < 0 and BDTremainder >= BDTdivisor * 5) {
+      BDTresult: BDTresult + 1;
+    }
+  }
+  BDTresult: BDTresult * BDTfactor * BDTsign;
+  BDTdividend-unit: unit(BDTdividend);
+  BDTdivisor-unit: unit(BDTdivisor);
+  BDTunit-map: (
+    "px": 1px,
+    "rem": 1rem,
+    "em": 1em,
+    "%": 1%
+  );
+  @if (BDTdividend-unit != BDTdivisor-unit and map-has-key(BDTunit-map, BDTdividend-unit)) {
+    BDTresult: BDTresult * map-get(BDTunit-map, BDTdividend-unit);
+  }
+  @return BDTresult;
+}
+
+// Remove px-unit from BDTrfs-base-value for calculations
+@if BDTrfs-base-value-unit == px {
+  BDTrfs-base-value: divide(BDTrfs-base-value, BDTrfs-base-value * 0 + 1);
+}
+@else if BDTrfs-base-value-unit == rem {
+  BDTrfs-base-value: divide(BDTrfs-base-value, divide(BDTrfs-base-value * 0 + 1, BDTrfs-rem-value));
+}
+
+// Cache BDTrfs-breakpoint unit to prevent multiple calls
+BDTrfs-breakpoint-unit-cache: unit(BDTrfs-breakpoint);
+
+// Remove unit from BDTrfs-breakpoint for calculations
+@if BDTrfs-breakpoint-unit-cache == px {
+  BDTrfs-breakpoint: divide(BDTrfs-breakpoint, BDTrfs-breakpoint * 0 + 1);
+}
+@else if BDTrfs-breakpoint-unit-cache == rem or BDTrfs-breakpoint-unit-cache == "em" {
+  BDTrfs-breakpoint: divide(BDTrfs-breakpoint, divide(BDTrfs-breakpoint * 0 + 1, BDTrfs-rem-value));
+}
+
+// Calculate the media query value
+BDTrfs-mq-value: if(BDTrfs-breakpoint-unit == px, #{BDTrfs-breakpoint}px, #{divide(BDTrfs-breakpoint, BDTrfs-rem-value)}#{BDTrfs-breakpoint-unit});
+BDTrfs-mq-property-width: if(BDTrfs-mode == max-media-query, max-width, min-width);
+BDTrfs-mq-property-height: if(BDTrfs-mode == max-media-query, max-height, min-height);
+
+// Internal mixin used to determine which media query needs to be used
+@mixin _rfs-media-query {
+  @if BDTrfs-two-dimensional {
+    @if BDTrfs-mode == max-media-query {
+      @media (#{BDTrfs-mq-property-width}: #{BDTrfs-mq-value}), (#{BDTrfs-mq-property-height}: #{BDTrfs-mq-value}) {
+        @content;
+      }
+    }
+    @else {
+      @media (#{BDTrfs-mq-property-width}: #{BDTrfs-mq-value}) and (#{BDTrfs-mq-property-height}: #{BDTrfs-mq-value}) {
+        @content;
+      }
+    }
+  }
+  @else {
+    @media (#{BDTrfs-mq-property-width}: #{BDTrfs-mq-value}) {
+      @content;
+    }
+  }
+}
+
+// Internal mixin that adds disable classes to the selector if needed.
+@mixin _rfs-rule {
+  @if BDTrfs-class == disable and BDTrfs-mode == max-media-query {
+    // Adding an extra class increases specificity, which prevents the media query to override the property
+    &,
+    .disable-rfs &,
+    &.disable-rfs {
+      @content;
+    }
+  }
+  @else if BDTrfs-class == enable and BDTrfs-mode == min-media-query {
+    .enable-rfs &,
+    &.enable-rfs {
+      @content;
+    }
+  }
+  @else {
+    @content;
+  }
+}
+
+// Internal mixin that adds enable classes to the selector if needed.
+@mixin _rfs-media-query-rule {
+
+  @if BDTrfs-class == enable {
+    @if BDTrfs-mode == min-media-query {
+      @content;
+    }
+
+    @include _rfs-media-query {
+      .enable-rfs &,
+      &.enable-rfs {
+        @content;
+      }
+    }
+  }
+  @else {
+    @if BDTrfs-class == disable and BDTrfs-mode == min-media-query {
+      .disable-rfs &,
+      &.disable-rfs {
+        @content;
+      }
+    }
+    @include _rfs-media-query {
+      @content;
+    }
+  }
+}
+
+// Helper function to get the formatted non-responsive value
+@function rfs-value(BDTvalues) {
+  // Convert to list
+  BDTvalues: if(type-of(BDTvalues) != list, (BDTvalues,), BDTvalues);
+
+  BDTval: '';
+
+  // Loop over each value and calculate value
+  @each BDTvalue in BDTvalues {
+    @if BDTvalue == 0 {
+      BDTval: BDTval + ' 0';
+    }
+    @else {
+      // Cache BDTvalue unit
+      BDTunit: if(type-of(BDTvalue) == "number", unit(BDTvalue), false);
+
+      @if BDTunit == px {
+        // Convert to rem if needed
+        BDTval: BDTval + ' ' + if(BDTrfs-unit == rem, #{divide(BDTvalue, BDTvalue * 0 + BDTrfs-rem-value)}rem, BDTvalue);
+      }
+      @else if BDTunit == rem {
+        // Convert to px if needed
+        BDTval: BDTval + ' ' + if(BDTrfs-unit == px, #{divide(BDTvalue, BDTvalue * 0 + 1) * BDTrfs-rem-value}px, BDTvalue);
+      }
+      @else {
+        // If BDTvalue isn't a number (like inherit) or BDTvalue has a unit (not px or rem, like 1.5em) or BDT is 0, just print the value
+        BDTval: BDTval + ' ' + BDTvalue;
+      }
+    }
+  }
+
+  // Remove first space
+  @return unquote(str-slice(BDTval, 2));
+}
+
+// Helper function to get the responsive value calculated by RFS
+@function rfs-fluid-value(BDTvalues) {
+  // Convert to list
+  BDTvalues: if(type-of(BDTvalues) != list, (BDTvalues,), BDTvalues);
+
+  BDTval: '';
+
+  // Loop over each value and calculate value
+  @each BDTvalue in BDTvalues {
+    @if BDTvalue == 0 {
+      BDTval: BDTval + ' 0';
+    }
+
+    @else {
+      // Cache BDTvalue unit
+      BDTunit: if(type-of(BDTvalue) == "number", unit(BDTvalue), false);
+
+      // If BDTvalue isn't a number (like inherit) or BDTvalue has a unit (not px or rem, like 1.5em) or BDT is 0, just print the value
+      @if not BDTunit or BDTunit != px and BDTunit != rem {
+        BDTval: BDTval + ' ' + BDTvalue;
+      }
+
+      @else {
+        // Remove unit from BDTvalue for calculations
+        BDTvalue: divide(BDTvalue, BDTvalue * 0 + if(BDTunit == px, 1, divide(1, BDTrfs-rem-value)));
+
+        // Only add the media query if the value is greater than the minimum value
+        @if abs(BDTvalue) <= BDTrfs-base-value or not BDTenable-rfs {
+          BDTval: BDTval + ' ' +  if(BDTrfs-unit == rem, #{divide(BDTvalue, BDTrfs-rem-value)}rem, #{BDTvalue}px);
+        }
+        @else {
+          // Calculate the minimum value
+          BDTvalue-min: BDTrfs-base-value + divide(abs(BDTvalue) - BDTrfs-base-value, BDTrfs-factor);
+
+          // Calculate difference between BDTvalue and the minimum value
+          BDTvalue-diff: abs(BDTvalue) - BDTvalue-min;
+
+          // Base value formatting
+          BDTmin-width: if(BDTrfs-unit == rem, #{divide(BDTvalue-min, BDTrfs-rem-value)}rem, #{BDTvalue-min}px);
+
+          // Use negative value if needed
+          BDTmin-width: if(BDTvalue < 0, -BDTmin-width, BDTmin-width);
+
+          // Use `vmin` if two-dimensional is enabled
+          BDTvariable-unit: if(BDTrfs-two-dimensional, vmin, vw);
+
+          // Calculate the variable width between 0 and BDTrfs-breakpoint
+          BDTvariable-width: #{divide(BDTvalue-diff * 100, BDTrfs-breakpoint)}#{BDTvariable-unit};
+
+          // Return the calculated value
+          BDTval: BDTval + ' calc(' + BDTmin-width + if(BDTvalue < 0, ' - ', ' + ') + BDTvariable-width + ')';
+        }
+      }
+    }
+  }
+
+  // Remove first space
+  @return unquote(str-slice(BDTval, 2));
+}
+
+// RFS mixin
+@mixin rfs(BDTvalues, BDTproperty: font-size) {
+  @if BDTvalues != null {
+    BDTval: rfs-value(BDTvalues);
+    BDTfluidVal: rfs-fluid-value(BDTvalues);
+
+    // Do not print the media query if responsive & non-responsive values are the same
+    @if BDTval == BDTfluidVal {
+      #{BDTproperty}: BDTval;
+    }
+    @else {
+      @include _rfs-rule {
+        #{BDTproperty}: if(BDTrfs-mode == max-media-query, BDTval, BDTfluidVal);
+
+        // Include safari iframe resize fix if needed
+        min-width: if(BDTrfs-safari-iframe-resize-bug-fix, (0 * 1vw), null);
+      }
+
+      @include _rfs-media-query-rule {
+        #{BDTproperty}: if(BDTrfs-mode == max-media-query, BDTfluidVal, BDTval);
+      }
+    }
+  }
+}
+
+// Shorthand helper mixins
+@mixin font-size(BDTvalue) {
+  @include rfs(BDTvalue);
+}
+
+@mixin padding(BDTvalue) {
+  @include rfs(BDTvalue, padding);
+}
+
+@mixin padding-top(BDTvalue) {
+  @include rfs(BDTvalue, padding-top);
+}
+
+@mixin padding-right(BDTvalue) {
+  @include rfs(BDTvalue, padding-right);
+}
+
+@mixin padding-bottom(BDTvalue) {
+  @include rfs(BDTvalue, padding-bottom);
+}
+
+@mixin padding-left(BDTvalue) {
+  @include rfs(BDTvalue, padding-left);
+}
+
+@mixin margin(BDTvalue) {
+  @include rfs(BDTvalue, margin);
+}
+
+@mixin margin-top(BDTvalue) {
+  @include rfs(BDTvalue, margin-top);
+}
+
+@mixin margin-right(BDTvalue) {
+  @include rfs(BDTvalue, margin-right);
+}
+
+@mixin margin-bottom(BDTvalue) {
+  @include rfs(BDTvalue, margin-bottom);
+}
+
+@mixin margin-left(BDTvalue) {
+  @include rfs(BDTvalue, margin-left);
+}

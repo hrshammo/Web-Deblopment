@@ -1,0 +1,91 @@
+// Range
+//
+// Style range inputs the same across browsers. Vendor-specific rules for pseudo
+// elements cannot be mixed. As such, there are no shared styles for focus or
+// active states on prefixed selectors.
+
+.form-range {
+  width: 100%;
+  height: add(BDTform-range-thumb-height, BDTform-range-thumb-focus-box-shadow-width * 2);
+  padding: 0; // Need to reset padding
+  background-color: transparent;
+  appearance: none;
+
+  &:focus {
+    outline: 0;
+
+    // Pseudo-elements must be split across multiple rulesets to have an effect.
+    // No box-shadow() mixin for focus accessibility.
+    &::-webkit-slider-thumb { box-shadow: BDTform-range-thumb-focus-box-shadow; }
+    &::-moz-range-thumb     { box-shadow: BDTform-range-thumb-focus-box-shadow; }
+  }
+
+  &::-moz-focus-outer {
+    border: 0;
+  }
+
+  &::-webkit-slider-thumb {
+    width: BDTform-range-thumb-width;
+    height: BDTform-range-thumb-height;
+    margin-top: (BDTform-range-track-height - BDTform-range-thumb-height) * .5; // Webkit specific
+    @include gradient-bg(BDTform-range-thumb-bg);
+    border: BDTform-range-thumb-border;
+    @include border-radius(BDTform-range-thumb-border-radius);
+    @include box-shadow(BDTform-range-thumb-box-shadow);
+    @include transition(BDTform-range-thumb-transition);
+    appearance: none;
+
+    &:active {
+      @include gradient-bg(BDTform-range-thumb-active-bg);
+    }
+  }
+
+  &::-webkit-slider-runnable-track {
+    width: BDTform-range-track-width;
+    height: BDTform-range-track-height;
+    color: transparent; // Why?
+    cursor: BDTform-range-track-cursor;
+    background-color: BDTform-range-track-bg;
+    border-color: transparent;
+    @include border-radius(BDTform-range-track-border-radius);
+    @include box-shadow(BDTform-range-track-box-shadow);
+  }
+
+  &::-moz-range-thumb {
+    width: BDTform-range-thumb-width;
+    height: BDTform-range-thumb-height;
+    @include gradient-bg(BDTform-range-thumb-bg);
+    border: BDTform-range-thumb-border;
+    @include border-radius(BDTform-range-thumb-border-radius);
+    @include box-shadow(BDTform-range-thumb-box-shadow);
+    @include transition(BDTform-range-thumb-transition);
+    appearance: none;
+
+    &:active {
+      @include gradient-bg(BDTform-range-thumb-active-bg);
+    }
+  }
+
+  &::-moz-range-track {
+    width: BDTform-range-track-width;
+    height: BDTform-range-track-height;
+    color: transparent;
+    cursor: BDTform-range-track-cursor;
+    background-color: BDTform-range-track-bg;
+    border-color: transparent; // Firefox specific?
+    @include border-radius(BDTform-range-track-border-radius);
+    @include box-shadow(BDTform-range-track-box-shadow);
+  }
+
+  &:disabled {
+    pointer-events: none;
+
+    &::-webkit-slider-thumb {
+      background-color: BDTform-range-thumb-disabled-bg;
+    }
+
+    &::-moz-range-thumb {
+      background-color: BDTform-range-thumb-disabled-bg;
+    }
+  }
+}

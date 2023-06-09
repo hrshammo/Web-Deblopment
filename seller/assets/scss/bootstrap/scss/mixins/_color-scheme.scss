@@ -1,0 +1,7 @@
+// scss-docs-start mixin-color-scheme
+@mixin color-scheme(BDTname) {
+  @media (prefers-color-scheme: #{BDTname}) {
+    @content;
+  }
+}
+// scss-docs-end mixin-color-scheme

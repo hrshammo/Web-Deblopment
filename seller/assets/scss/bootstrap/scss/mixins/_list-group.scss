@@ -1,0 +1,24 @@
+// List Groups
+
+// scss-docs-start list-group-mixin
+@mixin list-group-item-variant(BDTstate, BDTbackground, BDTcolor) {
+  .list-group-item-#{BDTstate} {
+    color: BDTcolor;
+    background-color: BDTbackground;
+
+    &.list-group-item-action {
+      &:hover,
+      &:focus {
+        color: BDTcolor;
+        background-color: shade-color(BDTbackground, 10%);
+      }
+
+      &.active {
+        color: BDTwhite;
+        background-color: BDTcolor;
+        border-color: BDTcolor;
+      }
+    }
+  }
+}
+// scss-docs-end list-group-mixin

@@ -1,0 +1,85 @@
+//
+// Rotating border
+//
+
+.spinner-grow,
+.spinner-border {
+  display: inline-block;
+  width: var(--#{BDTprefix}spinner-width);
+  height: var(--#{BDTprefix}spinner-height);
+  vertical-align: var(--#{BDTprefix}spinner-vertical-align);
+  // stylelint-disable-next-line property-disallowed-list
+  border-radius: 50%;
+  animation: var(--#{BDTprefix}spinner-animation-speed) linear infinite var(--#{BDTprefix}spinner-animation-name);
+}
+
+// scss-docs-start spinner-border-keyframes
+@keyframes spinner-border {
+  to { transform: rotate(360deg) #{"/* rtl:ignore */"}; }
+}
+// scss-docs-end spinner-border-keyframes
+
+.spinner-border {
+  // scss-docs-start spinner-border-css-vars
+  --#{BDTprefix}spinner-width: #{BDTspinner-width};
+  --#{BDTprefix}spinner-height: #{BDTspinner-height};
+  --#{BDTprefix}spinner-vertical-align: #{BDTspinner-vertical-align};
+  --#{BDTprefix}spinner-border-width: #{BDTspinner-border-width};
+  --#{BDTprefix}spinner-animation-speed: #{BDTspinner-animation-speed};
+  --#{BDTprefix}spinner-animation-name: spinner-border;
+  // scss-docs-end spinner-border-css-vars
+
+  border: var(--#{BDTprefix}spinner-border-width) solid currentcolor;
+  border-right-color: transparent;
+}
+
+.spinner-border-sm {
+  // scss-docs-start spinner-border-sm-css-vars
+  --#{BDTprefix}spinner-width: #{BDTspinner-width-sm};
+  --#{BDTprefix}spinner-height: #{BDTspinner-height-sm};
+  --#{BDTprefix}spinner-border-width: #{BDTspinner-border-width-sm};
+  // scss-docs-end spinner-border-sm-css-vars
+}
+
+//
+// Growing circle
+//
+
+// scss-docs-start spinner-grow-keyframes
+@keyframes spinner-grow {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    opacity: 1;
+    transform: none;
+  }
+}
+// scss-docs-end spinner-grow-keyframes
+
+.spinner-grow {
+  // scss-docs-start spinner-grow-css-vars
+  --#{BDTprefix}spinner-width: #{BDTspinner-width};
+  --#{BDTprefix}spinner-height: #{BDTspinner-height};
+  --#{BDTprefix}spinner-vertical-align: #{BDTspinner-vertical-align};
+  --#{BDTprefix}spinner-animation-speed: #{BDTspinner-animation-speed};
+  --#{BDTprefix}spinner-animation-name: spinner-grow;
+  // scss-docs-end spinner-grow-css-vars
+
+  background-color: currentcolor;
+  opacity: 0;
+}
+
+.spinner-grow-sm {
+  --#{BDTprefix}spinner-width: #{BDTspinner-width-sm};
+  --#{BDTprefix}spinner-height: #{BDTspinner-height-sm};
+}
+
+@if BDTenable-reduced-motion {
+  @media (prefers-reduced-motion: reduce) {
+    .spinner-border,
+    .spinner-grow {
+      --#{BDTprefix}spinner-animation-speed: #{BDTspinner-animation-speed * 2};
+    }
+  }
+}

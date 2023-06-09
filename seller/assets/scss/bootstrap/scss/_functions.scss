@@ -1,0 +1,302 @@
+// Bootstrap functions
+//
+// Utility mixins and functions for evaluating source code across our variables, maps, and mixins.
+
+// Ascending
+// Used to evaluate Sass maps like our grid breakpoints.
+@mixin _assert-ascending(BDTmap, BDTmap-name) {
+  BDTprev-key: null;
+  BDTprev-num: null;
+  @each BDTkey, BDTnum in BDTmap {
+    @if BDTprev-num == null or unit(BDTnum) == "%" or unit(BDTprev-num) == "%" {
+      // Do nothing
+    } @else if not comparable(BDTprev-num, BDTnum) {
+      @warn "Potentially invalid value for #{BDTmap-name}: This map must be in ascending order, but key '#{BDTkey}' has value #{BDTnum} whose unit makes it incomparable to #{BDTprev-num}, the value of the previous key '#{BDTprev-key}' !";
+    } @else if BDTprev-num >= BDTnum {
+      @warn "Invalid value for #{BDTmap-name}: This map must be in ascending order, but key '#{BDTkey}' has value #{BDTnum} which isn't greater than #{BDTprev-num}, the value of the previous key '#{BDTprev-key}' !";
+    }
+    BDTprev-key: BDTkey;
+    BDTprev-num: BDTnum;
+  }
+}
+
+// Starts at zero
+// Used to ensure the min-width of the lowest breakpoint starts at 0.
+@mixin _assert-starts-at-zero(BDTmap, BDTmap-name: "BDTgrid-breakpoints") {
+  @if length(BDTmap) > 0 {
+    BDTvalues: map-values(BDTmap);
+    BDTfirst-value: nth(BDTvalues, 1);
+    @if BDTfirst-value != 0 {
+      @warn "First breakpoint in #{BDTmap-name} must start at 0, but starts at #{BDTfirst-value}.";
+    }
+  }
+}
+
+// Colors
+@function to-rgb(BDTvalue) {
+  @return red(BDTvalue), green(BDTvalue), blue(BDTvalue);
+}
+
+// stylelint-disable scss/dollar-variable-pattern
+@function rgba-css-var(BDTidentifier, BDTtarget) {
+  @if BDTidentifier == "body" and BDTtarget == "bg" {
+    @return rgba(var(--#{BDTprefix}#{BDTidentifier}-bg-rgb), var(--#{BDTprefix}#{BDTtarget}-opacity));
+  } @if BDTidentifier == "body" and BDTtarget == "text" {
+    @return rgba(var(--#{BDTprefix}#{BDTidentifier}-color-rgb), var(--#{BDTprefix}#{BDTtarget}-opacity));
+  } @else {
+    @return rgba(var(--#{BDTprefix}#{BDTidentifier}-rgb), var(--#{BDTprefix}#{BDTtarget}-opacity));
+  }
+}
+
+@function map-loop(BDTmap, BDTfunc, BDTargs...) {
+  BDT_map: ();
+
+  @each BDTkey, BDTvalue in BDTmap {
+    // allow to pass the BDTkey and BDTvalue of the map as an function argument
+    BDT_args: ();
+    @each BDTarg in BDTargs {
+      BDT_args: append(BDT_args, if(BDTarg == "BDTkey", BDTkey, if(BDTarg == "BDTvalue", BDTvalue, BDTarg)));
+    }
+
+    BDT_map: map-merge(BDT_map, (BDTkey: call(get-function(BDTfunc), BDT_args...)));
+  }
+
+  @return BDT_map;
+}
+// stylelint-enable scss/dollar-variable-pattern
+
+@function varify(BDTlist) {
+  BDTresult: null;
+  @each BDTentry in BDTlist {
+    BDTresult: append(BDTresult, var(--#{BDTprefix}#{BDTentry}), space);
+  }
+  @return BDTresult;
+}
+
+// Internal Bootstrap function to turn maps into its negative variant.
+// It prefixes the keys with `n` and makes the value negative.
+@function negativify-map(BDTmap) {
+  BDTresult: ();
+  @each BDTkey, BDTvalue in BDTmap {
+    @if BDTkey != 0 {
+      BDTresult: map-merge(BDTresult, ("n" + BDTkey: (-BDTvalue)));
+    }
+  }
+  @return BDTresult;
+}
+
+// Get multiple keys from a sass map
+@function map-get-multiple(BDTmap, BDTvalues) {
+  BDTresult: ();
+  @each BDTkey, BDTvalue in BDTmap {
+    @if (index(BDTvalues, BDTkey) != null) {
+      BDTresult: map-merge(BDTresult, (BDTkey: BDTvalue));
+    }
+  }
+  @return BDTresult;
+}
+
+// Merge multiple maps
+@function map-merge-multiple(BDTmaps...) {
+  BDTmerged-maps: ();
+
+  @each BDTmap in BDTmaps {
+    BDTmerged-maps: map-merge(BDTmerged-maps, BDTmap);
+  }
+  @return BDTmerged-maps;
+}
+
+// Replace `BDTsearch` with `BDTreplace` in `BDTstring`
+// Used on our SVG icon backgrounds for custom forms.
+//
+// @author Hugo Giraudel
+// @param {String} BDTstring - Initial string
+// @param {String} BDTsearch - Substring to replace
+// @param {String} BDTreplace ('') - New value
+// @return {String} - Updated string
+@function str-replace(BDTstring, BDTsearch, BDTreplace: "") {
+  BDTindex: str-index(BDTstring, BDTsearch);
+
+  @if BDTindex {
+    @return str-slice(BDTstring, 1, BDTindex - 1) + BDTreplace + str-replace(str-slice(BDTstring, BDTindex + str-length(BDTsearch)), BDTsearch, BDTreplace);
+  }
+
+  @return BDTstring;
+}
+
+// See https://codepen.io/kevinweber/pen/dXWoRw
+//
+// Requires the use of quotes around data URIs.
+
+@function escape-svg(BDTstring) {
+  @if str-index(BDTstring, "data:image/svg+xml") {
+    @each BDTchar, BDTencoded in BDTescaped-characters {
+      // Do not escape the url brackets
+      @if str-index(BDTstring, "url(") == 1 {
+        BDTstring: url("#{str-replace(str-slice(BDTstring, 6, -3), BDTchar, BDTencoded)}");
+      } @else {
+        BDTstring: str-replace(BDTstring, BDTchar, BDTencoded);
+      }
+    }
+  }
+
+  @return BDTstring;
+}
+
+// Color contrast
+// See https://github.com/twbs/bootstrap/pull/30168
+
+// A list of pre-calculated numbers of pow(divide((divide(BDTvalue, 255) + .055), 1.055), 2.4). (from 0 to 255)
+// stylelint-disable-next-line scss/dollar-variable-default, scss/dollar-variable-pattern
+BDT_luminance-list: .0008 .001 .0011 .0013 .0015 .0017 .002 .0022 .0025 .0027 .003 .0033 .0037 .004 .0044 .0048 .0052 .0056 .006 .0065 .007 .0075 .008 .0086 .0091 .0097 .0103 .011 .0116 .0123 .013 .0137 .0144 .0152 .016 .0168 .0176 .0185 .0194 .0203 .0212 .0222 .0232 .0242 .0252 .0262 .0273 .0284 .0296 .0307 .0319 .0331 .0343 .0356 .0369 .0382 .0395 .0409 .0423 .0437 .0452 .0467 .0482 .0497 .0513 .0529 .0545 .0561 .0578 .0595 .0612 .063 .0648 .0666 .0685 .0704 .0723 .0742 .0762 .0782 .0802 .0823 .0844 .0865 .0887 .0908 .0931 .0953 .0976 .0999 .1022 .1046 .107 .1095 .1119 .1144 .117 .1195 .1221 .1248 .1274 .1301 .1329 .1356 .1384 .1413 .1441 .147 .15 .1529 .1559 .159 .162 .1651 .1683 .1714 .1746 .1779 .1812 .1845 .1878 .1912 .1946 .1981 .2016 .2051 .2086 .2122 .2159 .2195 .2232 .227 .2307 .2346 .2384 .2423 .2462 .2502 .2542 .2582 .2623 .2664 .2705 .2747 .2789 .2831 .2874 .2918 .2961 .3005 .305 .3095 .314 .3185 .3231 .3278 .3325 .3372 .3419 .3467 .3515 .3564 .3613 .3663 .3712 .3763 .3813 .3864 .3916 .3968 .402 .4072 .4125 .4179 .4233 .4287 .4342 .4397 .4452 .4508 .4564 .4621 .4678 .4735 .4793 .4851 .491 .4969 .5029 .5089 .5149 .521 .5271 .5333 .5395 .5457 .552 .5583 .5647 .5711 .5776 .5841 .5906 .5972 .6038 .6105 .6172 .624 .6308 .6376 .6445 .6514 .6584 .6654 .6724 .6795 .6867 .6939 .7011 .7084 .7157 .7231 .7305 .7379 .7454 .7529 .7605 .7682 .7758 .7835 .7913 .7991 .807 .8148 .8228 .8308 .8388 .8469 .855 .8632 .8714 .8796 .8879 .8963 .9047 .9131 .9216 .9301 .9387 .9473 .956 .9647 .9734 .9823 .9911 1;
+
+@function color-contrast(BDTbackground, BDTcolor-contrast-dark: BDTcolor-contrast-dark, BDTcolor-contrast-light: BDTcolor-contrast-light, BDTmin-contrast-ratio: BDTmin-contrast-ratio) {
+  BDTforegrounds: BDTcolor-contrast-light, BDTcolor-contrast-dark, BDTwhite, BDTblack;
+  BDTmax-ratio: 0;
+  BDTmax-ratio-color: null;
+
+  @each BDTcolor in BDTforegrounds {
+    BDTcontrast-ratio: contrast-ratio(BDTbackground, BDTcolor);
+    @if BDTcontrast-ratio > BDTmin-contrast-ratio {
+      @return BDTcolor;
+    } @else if BDTcontrast-ratio > BDTmax-ratio {
+      BDTmax-ratio: BDTcontrast-ratio;
+      BDTmax-ratio-color: BDTcolor;
+    }
+  }
+
+  @warn "Found no color leading to #{BDTmin-contrast-ratio}:1 contrast ratio against #{BDTbackground}...";
+
+  @return BDTmax-ratio-color;
+}
+
+@function contrast-ratio(BDTbackground, BDTforeground: BDTcolor-contrast-light) {
+  BDTl1: luminance(BDTbackground);
+  BDTl2: luminance(opaque(BDTbackground, BDTforeground));
+
+  @return if(BDTl1 > BDTl2, divide(BDTl1 + .05, BDTl2 + .05), divide(BDTl2 + .05, BDTl1 + .05));
+}
+
+// Return WCAG2.0 relative luminance
+// See https://www.w3.org/WAI/GL/wiki/Relative_luminance
+// See https://www.w3.org/TR/WCAG20-TECHS/G17.html#G17-tests
+@function luminance(BDTcolor) {
+  BDTrgb: (
+    "r": red(BDTcolor),
+    "g": green(BDTcolor),
+    "b": blue(BDTcolor)
+  );
+
+  @each BDTname, BDTvalue in BDTrgb {
+    BDTvalue: if(divide(BDTvalue, 255) < .03928, divide(divide(BDTvalue, 255), 12.92), nth(BDT_luminance-list, BDTvalue + 1));
+    BDTrgb: map-merge(BDTrgb, (BDTname: BDTvalue));
+  }
+
+  @return (map-get(BDTrgb, "r") * .2126) + (map-get(BDTrgb, "g") * .7152) + (map-get(BDTrgb, "b") * .0722);
+}
+
+// Return opaque color
+// opaque(#fff, rgba(0, 0, 0, .5)) => #808080
+@function opaque(BDTbackground, BDTforeground) {
+  @return mix(rgba(BDTforeground, 1), BDTbackground, opacity(BDTforeground) * 100);
+}
+
+// scss-docs-start color-functions
+// Tint a color: mix a color with white
+@function tint-color(BDTcolor, BDTweight) {
+  @return mix(white, BDTcolor, BDTweight);
+}
+
+// Shade a color: mix a color with black
+@function shade-color(BDTcolor, BDTweight) {
+  @return mix(black, BDTcolor, BDTweight);
+}
+
+// Shade the color if the weight is positive, else tint it
+@function shift-color(BDTcolor, BDTweight) {
+  @return if(BDTweight > 0, shade-color(BDTcolor, BDTweight), tint-color(BDTcolor, -BDTweight));
+}
+// scss-docs-end color-functions
+
+// Return valid calc
+@function add(BDTvalue1, BDTvalue2, BDTreturn-calc: true) {
+  @if BDTvalue1 == null {
+    @return BDTvalue2;
+  }
+
+  @if BDTvalue2 == null {
+    @return BDTvalue1;
+  }
+
+  @if type-of(BDTvalue1) == number and type-of(BDTvalue2) == number and comparable(BDTvalue1, BDTvalue2) {
+    @return BDTvalue1 + BDTvalue2;
+  }
+
+  @return if(BDTreturn-calc == true, calc(#{BDTvalue1} + #{BDTvalue2}), BDTvalue1 + unquote(" + ") + BDTvalue2);
+}
+
+@function subtract(BDTvalue1, BDTvalue2, BDTreturn-calc: true) {
+  @if BDTvalue1 == null and BDTvalue2 == null {
+    @return null;
+  }
+
+  @if BDTvalue1 == null {
+    @return -BDTvalue2;
+  }
+
+  @if BDTvalue2 == null {
+    @return BDTvalue1;
+  }
+
+  @if type-of(BDTvalue1) == number and type-of(BDTvalue2) == number and comparable(BDTvalue1, BDTvalue2) {
+    @return BDTvalue1 - BDTvalue2;
+  }
+
+  @if type-of(BDTvalue2) != number {
+    BDTvalue2: unquote("(") + BDTvalue2 + unquote(")");
+  }
+
+  @return if(BDTreturn-calc == true, calc(#{BDTvalue1} - #{BDTvalue2}), BDTvalue1 + unquote(" - ") + BDTvalue2);
+}
+
+@function divide(BDTdividend, BDTdivisor, BDTprecision: 10) {
+  BDTsign: if(BDTdividend > 0 and BDTdivisor > 0 or BDTdividend < 0 and BDTdivisor < 0, 1, -1);
+  BDTdividend: abs(BDTdividend);
+  BDTdivisor: abs(BDTdivisor);
+  @if BDTdividend == 0 {
+    @return 0;
+  }
+  @if BDTdivisor == 0 {
+    @error "Cannot divide by 0";
+  }
+  BDTremainder: BDTdividend;
+  BDTresult: 0;
+  BDTfactor: 10;
+  @while (BDTremainder > 0 and BDTprecision >= 0) {
+    BDTquotient: 0;
+    @while (BDTremainder >= BDTdivisor) {
+      BDTremainder: BDTremainder - BDTdivisor;
+      BDTquotient: BDTquotient + 1;
+    }
+    BDTresult: BDTresult * 10 + BDTquotient;
+    BDTfactor: BDTfactor * .1;
+    BDTremainder: BDTremainder * 10;
+    BDTprecision: BDTprecision - 1;
+    @if (BDTprecision < 0 and BDTremainder >= BDTdivisor * 5) {
+      BDTresult: BDTresult + 1;
+    }
+  }
+  BDTresult: BDTresult * BDTfactor * BDTsign;
+  BDTdividend-unit: unit(BDTdividend);
+  BDTdivisor-unit: unit(BDTdivisor);
+  BDTunit-map: (
+    "px": 1px,
+    "rem": 1rem,
+    "em": 1em,
+    "%": 1%
+  );
+  @if (BDTdividend-unit != BDTdivisor-unit and map-has-key(BDTunit-map, BDTdividend-unit)) {
+    BDTresult: BDTresult * map-get(BDTunit-map, BDTdividend-unit);
+  }
+  @return BDTresult;
+}

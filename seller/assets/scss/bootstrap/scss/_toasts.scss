@@ -1,0 +1,70 @@
+.toast {
+  // scss-docs-start toast-css-vars
+  --#{BDTprefix}toast-padding-x: #{BDTtoast-padding-x};
+  --#{BDTprefix}toast-padding-y: #{BDTtoast-padding-y};
+  --#{BDTprefix}toast-spacing: #{BDTtoast-spacing};
+  --#{BDTprefix}toast-max-width: #{BDTtoast-max-width};
+  @include rfs(BDTtoast-font-size, --#{BDTprefix}toast-font-size);
+  --#{BDTprefix}toast-color: #{BDTtoast-color}; // stylelint-disable-line custom-property-empty-line-before
+  --#{BDTprefix}toast-bg: #{BDTtoast-background-color};
+  --#{BDTprefix}toast-border-width: #{BDTtoast-border-width};
+  --#{BDTprefix}toast-border-color: #{BDTtoast-border-color};
+  --#{BDTprefix}toast-border-radius: #{BDTtoast-border-radius};
+  --#{BDTprefix}toast-box-shadow: #{BDTtoast-box-shadow};
+  --#{BDTprefix}toast-header-color: #{BDTtoast-header-color};
+  --#{BDTprefix}toast-header-bg: #{BDTtoast-header-background-color};
+  --#{BDTprefix}toast-header-border-color: #{BDTtoast-header-border-color};
+  // scss-docs-end toast-css-vars
+
+  width: var(--#{BDTprefix}toast-max-width);
+  max-width: 100%;
+  @include font-size(var(--#{BDTprefix}toast-font-size));
+  color: var(--#{BDTprefix}toast-color);
+  pointer-events: auto;
+  background-color: var(--#{BDTprefix}toast-bg);
+  background-clip: padding-box;
+  border: var(--#{BDTprefix}toast-border-width) solid var(--#{BDTprefix}toast-border-color);
+  box-shadow: var(--#{BDTprefix}toast-box-shadow);
+  @include border-radius(var(--#{BDTprefix}toast-border-radius));
+
+  &.showing {
+    opacity: 0;
+  }
+
+  &:not(.show) {
+    display: none;
+  }
+}
+
+.toast-container {
+  position: absolute;
+  z-index: BDTzindex-toast;
+  width: max-content;
+  max-width: 100%;
+  pointer-events: none;
+
+  > :not(:last-child) {
+    margin-bottom: var(--#{BDTprefix}toast-spacing);
+  }
+}
+
+.toast-header {
+  display: flex;
+  align-items: center;
+  padding: var(--#{BDTprefix}toast-padding-y) var(--#{BDTprefix}toast-padding-x);
+  color: var(--#{BDTprefix}toast-header-color);
+  background-color: var(--#{BDTprefix}toast-header-bg);
+  background-clip: padding-box;
+  border-bottom: var(--#{BDTprefix}toast-border-width) solid var(--#{BDTprefix}toast-header-border-color);
+  @include border-top-radius(calc(var(--#{BDTprefix}toast-border-radius) - var(--#{BDTprefix}toast-border-width)));
+
+  .btn-close {
+    margin-right: calc(var(--#{BDTprefix}toast-padding-x) * -.5); // stylelint-disable-line function-disallowed-list
+    margin-left: var(--#{BDTprefix}toast-padding-x);
+  }
+}
+
+.toast-body {
+  padding: var(--#{BDTprefix}toast-padding-x);
+  word-wrap: break-word;
+}

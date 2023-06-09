@@ -1,0 +1,11 @@
+// Container mixins
+
+@mixin make-container(BDTgutter: BDTcontainer-padding-x) {
+  --#{BDTprefix}gutter-x: #{BDTgutter};
+  --#{BDTprefix}gutter-y: 0;
+  width: 100%;
+  padding-right: calc(var(--#{BDTprefix}gutter-x) * .5); // stylelint-disable-line function-disallowed-list
+  padding-left: calc(var(--#{BDTprefix}gutter-x) * .5); // stylelint-disable-line function-disallowed-list
+  margin-right: auto;
+  margin-left: auto;
+}

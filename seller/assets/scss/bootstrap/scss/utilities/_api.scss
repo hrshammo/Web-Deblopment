@@ -1,0 +1,47 @@
+// Loop over each breakpoint
+@each BDTbreakpoint in map-keys(BDTgrid-breakpoints) {
+
+  // Generate media query if needed
+  @include media-breakpoint-up(BDTbreakpoint) {
+    BDTinfix: breakpoint-infix(BDTbreakpoint, BDTgrid-breakpoints);
+
+    // Loop over each utility property
+    @each BDTkey, BDTutility in BDTutilities {
+      // The utility can be disabled with `false`, thus check if the utility is a map first
+      // Only proceed if responsive media queries are enabled or if it's the base media query
+      @if type-of(BDTutility) == "map" and (map-get(BDTutility, responsive) or BDTinfix == "") {
+        @include generate-utility(BDTutility, BDTinfix);
+      }
+    }
+  }
+}
+
+// RFS rescaling
+@media (min-width: BDTrfs-mq-value) {
+  @each BDTbreakpoint in map-keys(BDTgrid-breakpoints) {
+    BDTinfix: breakpoint-infix(BDTbreakpoint, BDTgrid-breakpoints);
+
+    @if (map-get(BDTgrid-breakpoints, BDTbreakpoint) < BDTrfs-breakpoint) {
+      // Loop over each utility property
+      @each BDTkey, BDTutility in BDTutilities {
+        // The utility can be disabled with `false`, thus check if the utility is a map first
+        // Only proceed if responsive media queries are enabled or if it's the base media query
+        @if type-of(BDTutility) == "map" and map-get(BDTutility, rfs) and (map-get(BDTutility, responsive) or BDTinfix == "") {
+          @include generate-utility(BDTutility, BDTinfix, true);
+        }
+      }
+    }
+  }
+}
+
+
+// Print utilities
+@media print {
+  @each BDTkey, BDTutility in BDTutilities {
+    // The utility can be disabled with `false`, thus check if the utility is a map first
+    // Then check if the utility needs print styles
+    @if type-of(BDTutility) == "map" and map-get(BDTutility, print) == true {
+      @include generate-utility(BDTutility, "-print");
+    }
+  }
+}

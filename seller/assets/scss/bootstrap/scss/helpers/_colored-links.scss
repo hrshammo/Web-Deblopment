@@ -1,0 +1,12 @@
+@each BDTcolor, BDTvalue in BDTtheme-colors {
+  .link-#{BDTcolor} {
+    color: BDTvalue !important; // stylelint-disable-line declaration-no-important
+
+    @if BDTlink-shade-percentage != 0 {
+      &:hover,
+      &:focus {
+        color: if(color-contrast(BDTvalue) == BDTcolor-contrast-light, shade-color(BDTvalue, BDTlink-shade-percentage), tint-color(BDTvalue, BDTlink-shade-percentage)) !important; // stylelint-disable-line declaration-no-important
+      }
+    }
+  }
+}

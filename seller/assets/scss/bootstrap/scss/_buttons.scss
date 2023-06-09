@@ -1,0 +1,158 @@
+// stylelint-disable custom-property-empty-line-before
+
+//
+// Base styles
+//
+
+.btn {
+  // scss-docs-start btn-css-vars
+  --#{BDTprefix}btn-padding-x: #{BDTbtn-padding-x};
+  --#{BDTprefix}btn-padding-y: #{BDTbtn-padding-y};
+  --#{BDTprefix}btn-font-family: #{BDTbtn-font-family};
+  @include rfs(BDTbtn-font-size, --#{BDTprefix}btn-font-size);
+  --#{BDTprefix}btn-font-weight: #{BDTbtn-font-weight};
+  --#{BDTprefix}btn-line-height: #{BDTbtn-line-height};
+  --#{BDTprefix}btn-color: #{BDTbody-color};
+  --#{BDTprefix}btn-bg: transparent;
+  --#{BDTprefix}btn-border-width: #{BDTbtn-border-width};
+  --#{BDTprefix}btn-border-color: transparent;
+  --#{BDTprefix}btn-border-radius: #{BDTbtn-border-radius};
+  --#{BDTprefix}btn-box-shadow: #{BDTbtn-box-shadow};
+  --#{BDTprefix}btn-disabled-opacity: #{BDTbtn-disabled-opacity};
+  --#{BDTprefix}btn-focus-box-shadow: 0 0 0 #{BDTbtn-focus-width} rgba(var(--#{BDTprefix}btn-focus-shadow-rgb), .5);
+  // scss-docs-end btn-css-vars
+
+  display: inline-block;
+  padding: var(--#{BDTprefix}btn-padding-y) var(--#{BDTprefix}btn-padding-x);
+  font-family: var(--#{BDTprefix}btn-font-family);
+  @include font-size(var(--#{BDTprefix}btn-font-size));
+  font-weight: var(--#{BDTprefix}btn-font-weight);
+  line-height: var(--#{BDTprefix}btn-line-height);
+  color: var(--#{BDTprefix}btn-color);
+  text-align: center;
+  text-decoration: if(BDTlink-decoration == none, null, none);
+  white-space: BDTbtn-white-space;
+  vertical-align: middle;
+  cursor: if(BDTenable-button-pointers, pointer, null);
+  user-select: none;
+  border: var(--#{BDTprefix}btn-border-width) solid var(--#{BDTprefix}btn-border-color);
+  @include border-radius(var(--#{BDTprefix}btn-border-radius));
+  @include gradient-bg(var(--#{BDTprefix}btn-bg));
+  @include box-shadow(var(--#{BDTprefix}btn-box-shadow));
+  @include transition(BDTbtn-transition);
+
+  &:hover {
+    color: var(--#{BDTprefix}btn-hover-color);
+    text-decoration: if(BDTlink-hover-decoration == underline, none, null);
+    background-color: var(--#{BDTprefix}btn-hover-bg);
+    border-color: var(--#{BDTprefix}btn-hover-border-color);
+  }
+
+  .btn-check:focus + &,
+  &:focus {
+    color: var(--#{BDTprefix}btn-hover-color);
+    @include gradient-bg(var(--#{BDTprefix}btn-hover-bg));
+    border-color: var(--#{BDTprefix}btn-hover-border-color);
+    outline: 0;
+    // Avoid using mixin so we can pass custom focus shadow properly
+    @if BDTenable-shadows {
+      box-shadow: var(--#{BDTprefix}btn-box-shadow), var(--#{BDTprefix}btn-focus-box-shadow);
+    } @else {
+      box-shadow: var(--#{BDTprefix}btn-focus-box-shadow);
+    }
+  }
+
+  .btn-check:checked + &,
+  .btn-check:active + &,
+  &:active,
+  &.active,
+  &.show {
+    color: var(--#{BDTprefix}btn-active-color);
+    background-color: var(--#{BDTprefix}btn-active-bg);
+    // Remove CSS gradients if they're enabled
+    background-image: if(BDTenable-gradients, none, null);
+    border-color: var(--#{BDTprefix}btn-active-border-color);
+    @include box-shadow(var(--#{BDTprefix}btn-active-shadow));
+
+    &:focus {
+      // Avoid using mixin so we can pass custom focus shadow properly
+      @if BDTenable-shadows {
+        box-shadow: var(--#{BDTprefix}btn-active-shadow), var(--#{BDTprefix}btn-focus-box-shadow);
+      } @else {
+        box-shadow: var(--#{BDTprefix}btn-focus-box-shadow);
+      }
+    }
+  }
+
+  &:disabled,
+  &.disabled,
+  fieldset:disabled & {
+    color: var(--#{BDTprefix}btn-disabled-color);
+    pointer-events: none;
+    background-color: var(--#{BDTprefix}btn-disabled-bg);
+    background-image: if(BDTenable-gradients, none, null);
+    border-color: var(--#{BDTprefix}btn-disabled-border-color);
+    opacity: var(--#{BDTprefix}btn-disabled-opacity);
+    @include box-shadow(none);
+  }
+}
+
+
+//
+// Alternate buttons
+//
+
+// scss-docs-start btn-variant-loops
+@each BDTcolor, BDTvalue in BDTtheme-colors {
+  .btn-#{BDTcolor} {
+    @include button-variant(BDTvalue, BDTvalue);
+  }
+}
+
+@each BDTcolor, BDTvalue in BDTtheme-colors {
+  .btn-outline-#{BDTcolor} {
+    @include button-outline-variant(BDTvalue);
+  }
+}
+// scss-docs-end btn-variant-loops
+
+
+//
+// Link buttons
+//
+
+// Make a button look and behave like a link
+.btn-link {
+  --#{BDTprefix}btn-font-weight: #{BDTfont-weight-normal};
+  --#{BDTprefix}btn-color: #{BDTbtn-link-color};
+  --#{BDTprefix}btn-bg: transparent;
+  --#{BDTprefix}btn-border-color: transparent;
+  --#{BDTprefix}btn-hover-color: #{BDTbtn-link-hover-color};
+  --#{BDTprefix}btn-hover-border-color: transparent;
+  --#{BDTprefix}btn-active-border-color: transparent;
+  --#{BDTprefix}btn-disabled-color: #{BDTbtn-link-disabled-color};
+  --#{BDTprefix}btn-disabled-border-color: transparent;
+  --#{BDTprefix}btn-box-shadow: none;
+
+  text-decoration: BDTlink-decoration;
+
+  &:hover,
+  &:focus {
+    text-decoration: BDTlink-hover-decoration;
+  }
+
+  // No need for an active state here
+}
+
+
+//
+// Button Sizes
+//
+
+.btn-lg {
+  @include button-size(BDTbtn-padding-y-lg, BDTbtn-padding-x-lg, BDTbtn-font-size-lg, BDTbtn-border-radius-lg);
+}
+
+.btn-sm {
+  @include button-size(BDTbtn-padding-y-sm, BDTbtn-padding-x-sm, BDTbtn-font-size-sm, BDTbtn-border-radius-sm);
+}

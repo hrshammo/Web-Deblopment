@@ -1,0 +1,54 @@
+// Re-assigned maps
+//
+// Placed here so that others can override the default Sass maps and see automatic updates to utilities and more.
+
+// scss-docs-start theme-colors-rgb
+BDTtheme-colors-rgb: map-loop(BDTtheme-colors, to-rgb, "BDTvalue") !default;
+// scss-docs-end theme-colors-rgb
+
+// Utilities maps
+//
+// Extends the default `BDTtheme-colors` maps to help create our utilities.
+
+// Come v6, we'll de-dupe these variables. Until then, for backward compatibility, we keep them to reassign.
+// scss-docs-start utilities-colors
+BDTutilities-colors: BDTtheme-colors-rgb !default;
+// scss-docs-end utilities-colors
+
+// scss-docs-start utilities-text-colors
+BDTutilities-text: map-merge(
+  BDTutilities-colors,
+  (
+    "black": to-rgb(BDTblack),
+    "white": to-rgb(BDTwhite),
+    "body": to-rgb(BDTbody-color)
+  )
+) !default;
+BDTutilities-text-colors: map-loop(BDTutilities-text, rgba-css-var, "BDTkey", "text") !default;
+// scss-docs-end utilities-text-colors
+
+// scss-docs-start utilities-bg-colors
+BDTutilities-bg: map-merge(
+  BDTutilities-colors,
+  (
+    "black": to-rgb(BDTblack),
+    "white": to-rgb(BDTwhite),
+    "body": to-rgb(BDTbody-bg)
+  )
+) !default;
+BDTutilities-bg-colors: map-loop(BDTutilities-bg, rgba-css-var, "BDTkey", "bg") !default;
+// scss-docs-end utilities-bg-colors
+
+// scss-docs-start utilities-border-colors
+BDTutilities-border: map-merge(
+  BDTutilities-colors,
+  (
+    "white": to-rgb(BDTwhite)
+  )
+) !default;
+BDTutilities-border-colors: map-loop(BDTutilities-border, rgba-css-var, "BDTkey", "border") !default;
+// scss-docs-end utilities-border-colors
+
+BDTnegative-spacers: if(BDTenable-negative-margins, negativify-map(BDTspacers), null) !default;
+
+BDTgutters: BDTspacers !default;

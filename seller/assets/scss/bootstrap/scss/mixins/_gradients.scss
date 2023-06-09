@@ -1,0 +1,47 @@
+// Gradients
+
+// scss-docs-start gradient-bg-mixin
+@mixin gradient-bg(BDTcolor: null) {
+  background-color: BDTcolor;
+
+  @if BDTenable-gradients {
+    background-image: var(--#{BDTprefix}gradient);
+  }
+}
+// scss-docs-end gradient-bg-mixin
+
+// scss-docs-start gradient-mixins
+// Horizontal gradient, from left to right
+//
+// Creates two color stops, start and end, by specifying a color and position for each color stop.
+@mixin gradient-x(BDTstart-color: BDTgray-700, BDTend-color: BDTgray-800, BDTstart-percent: 0%, BDTend-percent: 100%) {
+  background-image: linear-gradient(to right, BDTstart-color BDTstart-percent, BDTend-color BDTend-percent);
+}
+
+// Vertical gradient, from top to bottom
+//
+// Creates two color stops, start and end, by specifying a color and position for each color stop.
+@mixin gradient-y(BDTstart-color: BDTgray-700, BDTend-color: BDTgray-800, BDTstart-percent: null, BDTend-percent: null) {
+  background-image: linear-gradient(to bottom, BDTstart-color BDTstart-percent, BDTend-color BDTend-percent);
+}
+
+@mixin gradient-directional(BDTstart-color: BDTgray-700, BDTend-color: BDTgray-800, BDTdeg: 45deg) {
+  background-image: linear-gradient(BDTdeg, BDTstart-color, BDTend-color);
+}
+
+@mixin gradient-x-three-colors(BDTstart-color: BDTblue, BDTmid-color: BDTpurple, BDTcolor-stop: 50%, BDTend-color: BDTred) {
+  background-image: linear-gradient(to right, BDTstart-color, BDTmid-color BDTcolor-stop, BDTend-color);
+}
+
+@mixin gradient-y-three-colors(BDTstart-color: BDTblue, BDTmid-color: BDTpurple, BDTcolor-stop: 50%, BDTend-color: BDTred) {
+  background-image: linear-gradient(BDTstart-color, BDTmid-color BDTcolor-stop, BDTend-color);
+}
+
+@mixin gradient-radial(BDTinner-color: BDTgray-700, BDTouter-color: BDTgray-800) {
+  background-image: radial-gradient(circle, BDTinner-color, BDTouter-color);
+}
+
+@mixin gradient-striped(BDTcolor: rgba(BDTwhite, .15), BDTangle: 45deg) {
+  background-image: linear-gradient(BDTangle, BDTcolor 25%, transparent 25%, transparent 50%, BDTcolor 50%, BDTcolor 75%, transparent 75%, transparent);
+}
+// scss-docs-end gradient-mixins

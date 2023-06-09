@@ -1,0 +1,71 @@
+//
+// Base styles
+//
+
+.alert {
+  // scss-docs-start alert-css-vars
+  --#{BDTprefix}alert-bg: transparent;
+  --#{BDTprefix}alert-padding-x: #{BDTalert-padding-x};
+  --#{BDTprefix}alert-padding-y: #{BDTalert-padding-y};
+  --#{BDTprefix}alert-margin-bottom: #{BDTalert-margin-bottom};
+  --#{BDTprefix}alert-color: inherit;
+  --#{BDTprefix}alert-border-color: transparent;
+  --#{BDTprefix}alert-border: #{BDTalert-border-width} solid var(--#{BDTprefix}alert-border-color);
+  --#{BDTprefix}alert-border-radius: #{BDTalert-border-radius};
+  // scss-docs-end alert-css-vars
+
+  position: relative;
+  padding: var(--#{BDTprefix}alert-padding-y) var(--#{BDTprefix}alert-padding-x);
+  margin-bottom: var(--#{BDTprefix}alert-margin-bottom);
+  color: var(--#{BDTprefix}alert-color);
+  background-color: var(--#{BDTprefix}alert-bg);
+  border: var(--#{BDTprefix}alert-border);
+  border-radius: var(--#{BDTprefix}alert-border-radius, 0); // stylelint-disable-line property-disallowed-list
+}
+
+// Headings for larger alerts
+.alert-heading {
+  // Specified to prevent conflicts of changing BDTheadings-color
+  color: inherit;
+}
+
+// Provide class for links that match alerts
+.alert-link {
+  font-weight: BDTalert-link-font-weight;
+}
+
+
+// Dismissible alerts
+//
+// Expand the right padding and account for the close button's positioning.
+
+.alert-dismissible {
+  padding-right: BDTalert-dismissible-padding-r;
+
+  // Adjust close link position
+  .btn-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: BDTstretched-link-z-index + 1;
+    padding: BDTalert-padding-y * 1.25 BDTalert-padding-x;
+  }
+}
+
+
+// scss-docs-start alert-modifiers
+// Generate contextual modifier classes for colorizing the alert.
+
+@each BDTstate, BDTvalue in BDTtheme-colors {
+  BDTalert-background: shift-color(BDTvalue, BDTalert-bg-scale);
+  BDTalert-border: shift-color(BDTvalue, BDTalert-border-scale);
+  BDTalert-color: shift-color(BDTvalue, BDTalert-color-scale);
+
+  @if (contrast-ratio(BDTalert-background, BDTalert-color) < BDTmin-contrast-ratio) {
+    BDTalert-color: mix(BDTvalue, color-contrast(BDTalert-background), abs(BDTalert-color-scale));
+  }
+  .alert-#{BDTstate} {
+    @include alert-variant(BDTalert-background, BDTalert-border, BDTalert-color);
+  }
+}
+// scss-docs-end alert-modifiers

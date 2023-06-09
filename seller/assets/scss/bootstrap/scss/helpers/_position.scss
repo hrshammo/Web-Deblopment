@@ -1,0 +1,36 @@
+// Shorthand
+
+.fixed-top {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: BDTzindex-fixed;
+}
+
+.fixed-bottom {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: BDTzindex-fixed;
+}
+
+// Responsive sticky top and bottom
+@each BDTbreakpoint in map-keys(BDTgrid-breakpoints) {
+  @include media-breakpoint-up(BDTbreakpoint) {
+    BDTinfix: breakpoint-infix(BDTbreakpoint, BDTgrid-breakpoints);
+
+    .sticky#{BDTinfix}-top {
+      position: sticky;
+      top: 0;
+      z-index: BDTzindex-sticky;
+    }
+
+    .sticky#{BDTinfix}-bottom {
+      position: sticky;
+      bottom: 0;
+      z-index: BDTzindex-sticky;
+    }
+  }
+}

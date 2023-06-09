@@ -1,0 +1,189 @@
+//
+// General form controls (plus a few specific high-level interventions)
+//
+
+.form-control {
+  display: block;
+  width: 100%;
+  padding: BDTinput-padding-y BDTinput-padding-x;
+  font-family: BDTinput-font-family;
+  @include font-size(BDTinput-font-size);
+  font-weight: BDTinput-font-weight;
+  line-height: BDTinput-line-height;
+  color: BDTinput-color;
+  background-color: BDTinput-bg;
+  background-clip: padding-box;
+  border: BDTinput-border-width solid BDTinput-border-color;
+  appearance: none; // Fix appearance for date inputs in Safari
+
+  // Note: This has no effect on <select>s in some browsers, due to the limited stylability of `<select>`s in CSS.
+  @include border-radius(BDTinput-border-radius, 0);
+
+  @include box-shadow(BDTinput-box-shadow);
+  @include transition(BDTinput-transition);
+
+  &[type="file"] {
+    overflow: hidden; // prevent pseudo element button overlap
+
+    &:not(:disabled):not([readonly]) {
+      cursor: pointer;
+    }
+  }
+
+  // Customize the `:focus` state to imitate native WebKit styles.
+  &:focus {
+    color: BDTinput-focus-color;
+    background-color: BDTinput-focus-bg;
+    border-color: BDTinput-focus-border-color;
+    outline: 0;
+    @if BDTenable-shadows {
+      @include box-shadow(BDTinput-box-shadow, BDTinput-focus-box-shadow);
+    } @else {
+      // Avoid using mixin so we can pass custom focus shadow properly
+      box-shadow: BDTinput-focus-box-shadow;
+    }
+  }
+
+  // Add some height to date inputs on iOS
+  // https://github.com/twbs/bootstrap/issues/23307
+  // TODO: we can remove this workaround once https://bugs.webkit.org/show_bug.cgi?id=198959 is resolved
+  &::-webkit-date-and-time-value {
+    // Multiply line-height by 1em if it has no unit
+    height: if(unit(BDTinput-line-height) == "", BDTinput-line-height * 1em, BDTinput-line-height);
+  }
+
+  // Placeholder
+  &::placeholder {
+    color: BDTinput-placeholder-color;
+    // Override Firefox's unusual default opacity; see https://github.com/twbs/bootstrap/pull/11526.
+    opacity: 1;
+  }
+
+  // Disabled and read-only inputs
+  //
+  // HTML5 says that controls under a fieldset > legend:first-child won't be
+  // disabled if the fieldset is disabled. Due to implementation difficulty, we
+  // don't honor that edge case; we style them as disabled anyway.
+  &:disabled,
+  &[readonly] {
+    color: BDTinput-disabled-color;
+    background-color: BDTinput-disabled-bg;
+    border-color: BDTinput-disabled-border-color;
+    // iOS fix for unreadable disabled content; see https://github.com/twbs/bootstrap/issues/11655.
+    opacity: 1;
+  }
+
+  // File input buttons theming
+  &::file-selector-button {
+    padding: BDTinput-padding-y BDTinput-padding-x;
+    margin: (-BDTinput-padding-y) (-BDTinput-padding-x);
+    margin-inline-end: BDTinput-padding-x;
+    color: BDTform-file-button-color;
+    @include gradient-bg(BDTform-file-button-bg);
+    pointer-events: none;
+    border-color: inherit;
+    border-style: solid;
+    border-width: 0;
+    border-inline-end-width: BDTinput-border-width;
+    border-radius: 0; // stylelint-disable-line property-disallowed-list
+    @include transition(BDTbtn-transition);
+  }
+
+  &:hover:not(:disabled):not([readonly])::file-selector-button {
+    background-color: BDTform-file-button-hover-bg;
+  }
+}
+
+// Readonly controls as plain text
+//
+// Apply class to a readonly input to make it appear like regular plain
+// text (without any border, background color, focus indicator)
+
+.form-control-plaintext {
+  display: block;
+  width: 100%;
+  padding: BDTinput-padding-y 0;
+  margin-bottom: 0; // match inputs if this class comes on inputs with default margins
+  line-height: BDTinput-line-height;
+  color: BDTinput-plaintext-color;
+  background-color: transparent;
+  border: solid transparent;
+  border-width: BDTinput-border-width 0;
+
+  &.form-control-sm,
+  &.form-control-lg {
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
+
+// Form control sizing
+//
+// Build on `.form-control` with modifier classes to decrease or increase the
+// height and font-size of form controls.
+//
+// Repeated in `_input_group.scss` to avoid Sass extend issues.
+
+.form-control-sm {
+  min-height: BDTinput-height-sm;
+  padding: BDTinput-padding-y-sm BDTinput-padding-x-sm;
+  @include font-size(BDTinput-font-size-sm);
+  @include border-radius(BDTinput-border-radius-sm);
+
+  &::file-selector-button {
+    padding: BDTinput-padding-y-sm BDTinput-padding-x-sm;
+    margin: (-BDTinput-padding-y-sm) (-BDTinput-padding-x-sm);
+    margin-inline-end: BDTinput-padding-x-sm;
+  }
+}
+
+.form-control-lg {
+  min-height: BDTinput-height-lg;
+  padding: BDTinput-padding-y-lg BDTinput-padding-x-lg;
+  @include font-size(BDTinput-font-size-lg);
+  @include border-radius(BDTinput-border-radius-lg);
+
+  &::file-selector-button {
+    padding: BDTinput-padding-y-lg BDTinput-padding-x-lg;
+    margin: (-BDTinput-padding-y-lg) (-BDTinput-padding-x-lg);
+    margin-inline-end: BDTinput-padding-x-lg;
+  }
+}
+
+// Make sure textareas don't shrink too much when resized
+// https://github.com/twbs/bootstrap/pull/29124
+// stylelint-disable selector-no-qualifying-type
+textarea {
+  &.form-control {
+    min-height: BDTinput-height;
+  }
+
+  &.form-control-sm {
+    min-height: BDTinput-height-sm;
+  }
+
+  &.form-control-lg {
+    min-height: BDTinput-height-lg;
+  }
+}
+// stylelint-enable selector-no-qualifying-type
+
+.form-control-color {
+  width: BDTform-color-width;
+  height: auto; // Override fixed browser height
+  padding: BDTinput-padding-y;
+
+  &:not(:disabled):not([readonly]) {
+    cursor: pointer;
+  }
+
+  &::-moz-color-swatch {
+    height: if(unit(BDTinput-line-height) == "", BDTinput-line-height * 1em, BDTinput-line-height);
+    @include border-radius(BDTinput-border-radius);
+  }
+
+  &::-webkit-color-swatch {
+    height: if(unit(BDTinput-line-height) == "", BDTinput-line-height * 1em, BDTinput-line-height);
+    @include border-radius(BDTinput-border-radius);
+  }
+}

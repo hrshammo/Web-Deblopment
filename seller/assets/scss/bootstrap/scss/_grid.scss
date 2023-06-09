@@ -1,0 +1,33 @@
+// Row
+//
+// Rows contain your columns.
+
+@if BDTenable-grid-classes {
+  .row {
+    @include make-row();
+
+    > * {
+      @include make-col-ready();
+    }
+  }
+}
+
+@if BDTenable-cssgrid {
+  .grid {
+    display: grid;
+    grid-template-rows: repeat(var(--#{BDTprefix}rows, 1), 1fr);
+    grid-template-columns: repeat(var(--#{BDTprefix}columns, #{BDTgrid-columns}), 1fr);
+    gap: var(--#{BDTprefix}gap, #{BDTgrid-gutter-width});
+
+    @include make-cssgrid();
+  }
+}
+
+
+// Columns
+//
+// Common styles for small and large grid columns
+
+@if BDTenable-grid-classes {
+  @include make-grid-columns();
+}

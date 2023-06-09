@@ -1,0 +1,71 @@
+// Select
+//
+// Replaces the browser default select with a custom one, mostly pulled from
+// https://primer.github.io/.
+
+.form-select {
+  display: block;
+  width: 100%;
+  padding: BDTform-select-padding-y BDTform-select-indicator-padding BDTform-select-padding-y BDTform-select-padding-x;
+  -moz-padding-start: subtract(BDTform-select-padding-x, 3px); // See https://github.com/twbs/bootstrap/issues/32636
+  font-family: BDTform-select-font-family;
+  @include font-size(BDTform-select-font-size);
+  font-weight: BDTform-select-font-weight;
+  line-height: BDTform-select-line-height;
+  color: BDTform-select-color;
+  background-color: BDTform-select-bg;
+  background-image: escape-svg(BDTform-select-indicator);
+  background-repeat: no-repeat;
+  background-position: BDTform-select-bg-position;
+  background-size: BDTform-select-bg-size;
+  border: BDTform-select-border-width solid BDTform-select-border-color;
+  @include border-radius(BDTform-select-border-radius, 0);
+  @include box-shadow(BDTform-select-box-shadow);
+  @include transition(BDTform-select-transition);
+  appearance: none;
+
+  &:focus {
+    border-color: BDTform-select-focus-border-color;
+    outline: 0;
+    @if BDTenable-shadows {
+      @include box-shadow(BDTform-select-box-shadow, BDTform-select-focus-box-shadow);
+    } @else {
+      // Avoid using mixin so we can pass custom focus shadow properly
+      box-shadow: BDTform-select-focus-box-shadow;
+    }
+  }
+
+  &[multiple],
+  &[size]:not([size="1"]) {
+    padding-right: BDTform-select-padding-x;
+    background-image: none;
+  }
+
+  &:disabled {
+    color: BDTform-select-disabled-color;
+    background-color: BDTform-select-disabled-bg;
+    border-color: BDTform-select-disabled-border-color;
+  }
+
+  // Remove outline from select box in FF
+  &:-moz-focusring {
+    color: transparent;
+    text-shadow: 0 0 0 BDTform-select-color;
+  }
+}
+
+.form-select-sm {
+  padding-top: BDTform-select-padding-y-sm;
+  padding-bottom: BDTform-select-padding-y-sm;
+  padding-left: BDTform-select-padding-x-sm;
+  @include font-size(BDTform-select-font-size-sm);
+  @include border-radius(BDTform-select-border-radius-sm);
+}
+
+.form-select-lg {
+  padding-top: BDTform-select-padding-y-lg;
+  padding-bottom: BDTform-select-padding-y-lg;
+  padding-left: BDTform-select-padding-x-lg;
+  @include font-size(BDTform-select-font-size-lg);
+  @include border-radius(BDTform-select-border-radius-lg);
+}

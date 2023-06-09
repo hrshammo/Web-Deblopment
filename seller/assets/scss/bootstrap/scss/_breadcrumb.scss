@@ -1,0 +1,42 @@
+// stylelint-disable custom-property-empty-line-before
+
+.breadcrumb {
+  // scss-docs-start breadcrumb-css-vars
+  --#{BDTprefix}breadcrumb-padding-x: #{BDTbreadcrumb-padding-x};
+  --#{BDTprefix}breadcrumb-padding-y: #{BDTbreadcrumb-padding-y};
+  --#{BDTprefix}breadcrumb-margin-bottom: #{BDTbreadcrumb-margin-bottom};
+  @include rfs(BDTbreadcrumb-font-size, --#{BDTprefix}breadcrumb-font-size);
+  --#{BDTprefix}breadcrumb-bg: #{BDTbreadcrumb-bg};
+  --#{BDTprefix}breadcrumb-border-radius: #{BDTbreadcrumb-border-radius};
+  --#{BDTprefix}breadcrumb-divider-color: #{BDTbreadcrumb-divider-color};
+  --#{BDTprefix}breadcrumb-item-padding-x: #{BDTbreadcrumb-item-padding-x};
+  --#{BDTprefix}breadcrumb-item-active-color: #{BDTbreadcrumb-active-color};
+  // scss-docs-end breadcrumb-css-vars
+
+  display: flex;
+  flex-wrap: wrap;
+  padding: var(--#{BDTprefix}breadcrumb-padding-y) var(--#{BDTprefix}breadcrumb-padding-x);
+  margin-bottom: var(--#{BDTprefix}breadcrumb-margin-bottom);
+  @include font-size(var(--#{BDTprefix}breadcrumb-font-size));
+  list-style: none;
+  background-color: var(--#{BDTprefix}breadcrumb-bg);
+  @include border-radius(var(--#{BDTprefix}breadcrumb-border-radius));
+}
+
+.breadcrumb-item {
+  // The separator between breadcrumbs (by default, a forward-slash: "/")
+  + .breadcrumb-item {
+    padding-left: var(--#{BDTprefix}breadcrumb-item-padding-x);
+
+    &::before {
+      float: left; // Suppress inline spacings and underlining of the separator
+      padding-right: var(--#{BDTprefix}breadcrumb-item-padding-x);
+      color: var(--#{BDTprefix}breadcrumb-divider-color);
+      content: var(--#{BDTprefix}breadcrumb-divider, escape-svg(BDTbreadcrumb-divider)) #{"/* rtl:"} var(--#{BDTprefix}breadcrumb-divider, escape-svg(BDTbreadcrumb-divider-flipped)) #{"*/"};
+    }
+  }
+
+  &.active {
+    color: var(--#{BDTprefix}breadcrumb-item-active-color);
+  }
+}

@@ -1,0 +1,164 @@
+//
+// Basic Bootstrap table
+//
+
+.table {
+  --#{BDTprefix}table-color: #{BDTtable-color};
+  --#{BDTprefix}table-bg: #{BDTtable-bg};
+  --#{BDTprefix}table-border-color: #{BDTtable-border-color};
+  --#{BDTprefix}table-accent-bg: #{BDTtable-accent-bg};
+  --#{BDTprefix}table-striped-color: #{BDTtable-striped-color};
+  --#{BDTprefix}table-striped-bg: #{BDTtable-striped-bg};
+  --#{BDTprefix}table-active-color: #{BDTtable-active-color};
+  --#{BDTprefix}table-active-bg: #{BDTtable-active-bg};
+  --#{BDTprefix}table-hover-color: #{BDTtable-hover-color};
+  --#{BDTprefix}table-hover-bg: #{BDTtable-hover-bg};
+
+  width: 100%;
+  margin-bottom: BDTspacer;
+  color: var(--#{BDTprefix}table-color);
+  vertical-align: BDTtable-cell-vertical-align;
+  border-color: var(--#{BDTprefix}table-border-color);
+
+  // Target th & td
+  // We need the child combinator to prevent styles leaking to nested tables which doesn't have a `.table` class.
+  // We use the universal selectors here to simplify the selector (else we would need 6 different selectors).
+  // Another advantage is that this generates less code and makes the selector less specific making it easier to override.
+  // stylelint-disable-next-line selector-max-universal
+  > :not(caption) > * > * {
+    padding: BDTtable-cell-padding-y BDTtable-cell-padding-x;
+    background-color: var(--#{BDTprefix}table-bg);
+    border-bottom-width: BDTtable-border-width;
+    box-shadow: inset 0 0 0 9999px var(--#{BDTprefix}table-accent-bg);
+  }
+
+  > tbody {
+    vertical-align: inherit;
+  }
+
+  > thead {
+    vertical-align: bottom;
+  }
+}
+
+.table-group-divider {
+  border-top: calc(2 * BDTtable-border-width) solid BDTtable-group-separator-color; // stylelint-disable-line function-disallowed-list
+}
+
+//
+// Change placement of captions with a class
+//
+
+.caption-top {
+  caption-side: top;
+}
+
+
+//
+// Condensed table w/ half padding
+//
+
+.table-sm {
+  // stylelint-disable-next-line selector-max-universal
+  > :not(caption) > * > * {
+    padding: BDTtable-cell-padding-y-sm BDTtable-cell-padding-x-sm;
+  }
+}
+
+
+// Border versions
+//
+// Add or remove borders all around the table and between all the columns.
+//
+// When borders are added on all sides of the cells, the corners can render odd when
+// these borders do not have the same color or if they are semi-transparent.
+// Therefor we add top and border bottoms to the `tr`s and left and right borders
+// to the `td`s or `th`s
+
+.table-bordered {
+  > :not(caption) > * {
+    border-width: BDTtable-border-width 0;
+
+    // stylelint-disable-next-line selector-max-universal
+    > * {
+      border-width: 0 BDTtable-border-width;
+    }
+  }
+}
+
+.table-borderless {
+  // stylelint-disable-next-line selector-max-universal
+  > :not(caption) > * > * {
+    border-bottom-width: 0;
+  }
+
+  > :not(:first-child) {
+    border-top-width: 0;
+  }
+}
+
+// Zebra-striping
+//
+// Default zebra-stripe styles (alternating gray and transparent backgrounds)
+
+// For rows
+.table-striped {
+  > tbody > tr:nth-of-type(#{BDTtable-striped-order}) > * {
+    --#{BDTprefix}table-accent-bg: var(--#{BDTprefix}table-striped-bg);
+    color: var(--#{BDTprefix}table-striped-color);
+  }
+}
+
+// For columns
+.table-striped-columns {
+  > :not(caption) > tr > :nth-child(#{BDTtable-striped-columns-order}) {
+    --#{BDTprefix}table-accent-bg: var(--#{BDTprefix}table-striped-bg);
+    color: var(--#{BDTprefix}table-striped-color);
+  }
+}
+
+// Active table
+//
+// The `.table-active` class can be added to highlight rows or cells
+
+.table-active {
+  --#{BDTprefix}table-accent-bg: var(--#{BDTprefix}table-active-bg);
+  color: var(--#{BDTprefix}table-active-color);
+}
+
+// Hover effect
+//
+// Placed here since it has to come after the potential zebra striping
+
+.table-hover {
+  > tbody > tr:hover > * {
+    --#{BDTprefix}table-accent-bg: var(--#{BDTprefix}table-hover-bg);
+    color: var(--#{BDTprefix}table-hover-color);
+  }
+}
+
+
+// Table variants
+//
+// Table variants set the table cell backgrounds, border colors
+// and the colors of the striped, hovered & active tables
+
+@each BDTcolor, BDTvalue in BDTtable-variants {
+  @include table-variant(BDTcolor, BDTvalue);
+}
+
+// Responsive tables
+//
+// Generate series of `.table-responsive-*` classes for configuring the screen
+// size of where your table will overflow.
+
+@each BDTbreakpoint in map-keys(BDTgrid-breakpoints) {
+  BDTinfix: breakpoint-infix(BDTbreakpoint, BDTgrid-breakpoints);
+
+  @include media-breakpoint-down(BDTbreakpoint) {
+    .table-responsive#{BDTinfix} {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+  }
+}
