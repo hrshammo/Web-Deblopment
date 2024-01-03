@@ -14,15 +14,21 @@
           alt="Cute animated illustration"
         />
       </div>
-      <a href="https://www.facebook.com/messages/t/hrshammo/%20"><button class="btn" id="yesButton" onclick="nextPage()"> Let's Fix a Date
-        
-      </button> </a>
+     <button class="btn" id="yesButton" onclick="openMessenger()">Let's Fix a Date</button>
 
-      <script>
-        function nextPage() {
-          window.location.href = "https://www.facebook.com/messages/t/hrshammo/%20";
-        }
-      </script>
+<script>
+  function openMessenger() {
+    // Check if the device is running on Android
+    if (/Android/i.test(navigator.userAgent)) {
+      // Use intent URI to open the Messenger app with the specific chat ID
+      window.location.href = "intent://chat/hrshammo/#Intent;scheme=fb-messenger;action=android.intent.action.VIEW;end";
+    } else {
+      // If it's not an Android device, redirect to the web version
+      window.location.href = "https://www.facebook.com/messages/t/hrshammo/";
+    }
+  }
+</script>
+
     </div>
   </body>
 </html>
