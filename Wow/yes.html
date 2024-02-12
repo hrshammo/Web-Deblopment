@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div>
+        <h1 class="header_text">Yeeyy ! Finally</h1>
+      </div>
+      <div class="gif_container">
+        <img
+          src="https://i.postimg.cc/wTDG30TB/yes.gif"
+          alt="Cute animated illustration"
+        />
+      </div>
+     <button class="btn" id="yesButton" onclick="nextPage()">Let's Fix a Date</button>
+
+<script>
+    function nextPage() {
+      var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+      
+      if (isMobile) {
+        // Redirect for mobile devices
+        window.location.href = "https://www.facebook.com/messages/hrshammo";
+      } else {
+        // Redirect for desktop devices
+        window.location.href = "https://www.facebook.com/messages/t/hrshammo";
+      }
+    }
+  </script>
+<audio autoplay loop>
+  <source src="music.MP3" type="audio/mp3">
+  Your browser does not support the audio element.
+</audio>
+<audio autoplay loop>
+  <source src="music.MP3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+    </div>
+  </body>
+</html>
